@@ -1,0 +1,80 @@
+# Miras ve Çok Biçimlilik
+
+den_aktar abc içe_aktar ABC, abstractmethod
+
+sınıf Şekil(ABC):
+    """Soyut şekil sınıfı"""
+
+    fonksiyon __init__(öz, renk: str = "siyah"):
+        öz.renk = renk
+
+    @abstractmethod
+    fonksiyon alan(öz) -> float: ...
+
+    @abstractmethod
+    fonksiyon çevre(öz) -> float: ...
+
+    fonksiyon tanım(öz) -> str:
+        döndür f"{tip(öz).__name__}: Alan={öz.alan():.2f}, Çevre={öz.çevre():.2f}"
+
+    fonksiyon __str__(öz) -> str:
+        döndür f"{tip(öz).__name__} ({öz.renk})"
+
+
+sınıf Daire(Şekil):
+    fonksiyon __init__(öz, yarıçap: float, renk: str = "kırmızı"):
+        süper().__init__(renk)
+        öz.yarıçap = yarıçap
+
+    fonksiyon alan(öz) -> float:
+        döndür 3.14159 * öz.yarıçap ** 2
+
+    fonksiyon çevre(öz) -> float:
+        döndür 2 * 3.14159 * öz.yarıçap
+
+
+sınıf Dikdörtgen(Şekil):
+    fonksiyon __init__(öz, en: float, boy: float, renk: str = "mavi"):
+        süper().__init__(renk)
+        öz.en = en
+        öz.boy = boy
+
+    fonksiyon alan(öz) -> float:
+        döndür öz.en * öz.boy
+
+    fonksiyon çevre(öz) -> float:
+        döndür 2 * (öz.en + öz.boy)
+
+
+sınıf Üçgen(Şekil):
+    fonksiyon __init__(öz, a: float, b: float, c: float, renk: str = "yeşil"):
+        süper().__init__(renk)
+        öz.a = a
+        öz.b = b
+        öz.c = c
+
+    fonksiyon alan(öz) -> float:
+        s = (öz.a + öz.b + öz.c) / 2
+        döndür (s * (s - öz.a) * (s - öz.b) * (s - öz.c)) ** 0.5
+
+    fonksiyon çevre(öz) -> float:
+        döndür öz.a + öz.b + öz.c
+
+
+# Çok biçimlilik
+şekiller = [
+    Daire(5),
+    Dikdörtgen(4, 6),
+    Üçgen(3, 4, 5),
+    Daire(3, "sarı"),
+    Dikdörtgen(2, 8, "yeşil"),
+]
+
+yaz("=== Şekiller ===")
+için şekil içinde şekiller:
+    yaz(f"  {şekil.tanım()}")
+
+yaz(f"\nToplam şekil sayısı: {uzunluk(şekiller)}")
+
+toplam_alan = sum(s.alan() için s içinde şekiller)
+yaz(f"Toplam alan: {toplam_alan:.2f}")

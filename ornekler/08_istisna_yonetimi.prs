@@ -1,0 +1,64 @@
+# İstisna Yönetimi
+
+# Temel dene-hariç
+dene:
+    sonuç = 10 / 0
+hariç SıfıraBölmeHatası:
+    yaz("Sıfıra bölme hatası yakalandı!")
+
+# Çoklu istisna
+dene:
+    değer = "abc" + 5
+hariç TürHatası olarak e:
+    yaz(f"Tür hatası: {e}")
+hariç DeğerHatası olarak e:
+    yaz(f"Değer hatası: {e}")
+
+# Genel istisna
+dene:
+    tanımsız_değişken
+hariç Hata olarak e:
+    yaz(f"Genel hata: {e}")
+
+# sonunda bloğu
+fonksiyon dosya_işle(dosya_adı: str):
+    dene:
+        f = açık(dosya_adı, 'r')
+        içerik = f.read()
+        döndür içerik
+    hariç DosyaBulunamadı:
+        yaz(f"Dosya bulunamadı: {dosya_adı}")
+        döndür yok
+    sonunda:
+        yaz("Dosya işlemi tamamlandı.")
+
+# Kendi istisnanı yükselt
+fonksiyon yaş_kontrol(yaş: int):
+    eğer yaş < 0:
+        yükselt DeğerHatası("Yaş negatif olamaz!")
+    eğer yaş > 150:
+        yükselt DeğerHatası("Yaş 150'den büyük olamaz!")
+    döndür doğru
+
+# İstisna zinciri
+dene:
+    yaş_kontrol(-5)
+hariç DeğerHatası olarak e:
+    yaz(f"Geçersiz yaş: {e}")
+
+# Özel istisna sınıfı
+sınıf PARS_Hatası(Hata):
+    fonksiyon __init__(öz, mesaj: str, kod: int = 0):
+        süper().__init__(mesaj)
+        öz.kod = kod
+
+    fonksiyon __str__(öz) -> str:
+        döndür f"[Hata {öz.kod}] {super().__str__()}"
+
+dene:
+    yükselt PARS_Hatası("Geçersiz sözdizimi", 100)
+hariç PARS_Hatası olarak e:
+    yaz(f"PARS hatası: {e}")
+    yaz(f"Hata kodu: {e.kod}")
+
+yaz("İstisna yönetimi tamamlandı!")

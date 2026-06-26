@@ -1,0 +1,53 @@
+# Dosya İşleme
+
+# Dosya yazma
+ile açık("test_dosyasi.txt", "w") olarak f:
+    f.write("Merhaba PARS!\n")
+    f.write("Bu bir test dosyasıdır.\n")
+    f.write("Türkçe karakterler: çğıöşü ÇĞİÖŞÜ\n")
+
+yaz("Dosya yazıldı: test_dosyasi.txt")
+
+# Dosya okuma
+ile açık("test_dosyasi.txt", "r") olarak f:
+    içerik = f.read()
+    y("Dosya içeriği:")
+    yaz(içerik)
+
+# Satır satır okuma
+ile açık("test_dosyasi.txt", "r") olarak f:
+    satırlar = f.readlines()
+    y(f"Satır sayısı: {uzunluk(satırlar)}")
+    için i, satır içinde numaralandır(satırlar):
+        yaz(f"  {i+1}: {satır.rstrip()}")
+
+# Dosyaya ekleme
+ile açık("test_dosyasi.txt", "a") olarak f:
+    f.write("Bu satır sonradan eklendi.\n")
+
+yaz("Satır eklendi.")
+
+# Binary dosya
+ile açık("test_binary.dat", "wb") as f:
+    veri = bayt([72, 101, 108, 108, 111])
+    f.write(veri)
+
+ile açık("test_binary.dat", "rb") as f:
+    veri = f.read()
+    y(f"Binary veri: {veri}")
+    y(f"Çözülmüş: {veri.decode('utf-8')}")
+
+# pathlib kullanımı
+den_aktar pathlib içe_aktar Path
+
+yol = Path(".")
+yaz(f"Çalışma dizini: {yol.resolve()}")
+yaz(f"Dosya listesi:")
+için dosya içinde yol.glob("*"):
+    tür = "D" dosya.is_dir() else "F"
+    y(f"  [{tür}] {dosya.name}")
+
+# Temizlik
+Path("test_dosyasi.txt").unlink(missing_ok=doğru)
+Path("test_binary.dat").unlink(missing_ok=doğru)
+yaz("Geçici dosyalar temizlendi.")

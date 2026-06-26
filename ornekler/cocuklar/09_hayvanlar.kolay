@@ -1,0 +1,18 @@
+# Hayvan Sesleri
+
+hayvanlar = listele kedi, kopek, inek, kus, balik
+
+sesler = {
+    "kedi": "Miyav",
+    "kopek": "Hav hav",
+    "inek": "Moo",
+    "kus": "Cik cik",
+    "balik": "..."
+}
+
+yaz: Hayvan Sesleri:
+yaz: ================
+
+her hayvan için hayvanlar
+    yaz f'{hayvan} der: {sesler[hayvan]}'
+son

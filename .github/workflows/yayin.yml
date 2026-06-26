@@ -1,0 +1,43 @@
+name: PARS PyPI Yayını
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Python kur
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Bağımlılıkları kur
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+
+    - name: Paketi derle
+      run: python -m build
+
+    - name: Paketi kontrol et
+      run: twine check dist/*
+
+    - name: PyPI'ye yükle
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      run: twine upload dist/*
+
+    - name: GitHub Release oluştur
+      uses: softprops/action-gh-release@v1
+      with:
+        body_path: dokuman/DEGISIKLIK_GUNLUGU.md
+        files: dist/*

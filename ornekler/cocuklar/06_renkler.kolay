@@ -1,0 +1,11 @@
+# Renk Oyunu
+
+renkler = listele kirmizi, mavi, yesil, sari, mor
+
+yaz: Renklerim:
+her renk için renkler
+    yaz renk
+son
+
+yaz: Toplam renk sayisi:
+yaz uzunluk(renkler)

@@ -1,0 +1,35 @@
+{
+  "name": "pars-dil",
+  "displayName": "PARS — Türkçe Programlama Dili",
+  "description": "PARS dili sözdizimi renklendirme ve dil desteği",
+  "version": "1.0.0",
+  "publisher": "pars-lang",
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "pars",
+        "aliases": [
+          "PARS",
+          "pars"
+        ],
+        "extensions": [
+          ".prs"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "pars",
+        "scopeName": "source.pars",
+        "path": "./syntaxes/pars.tmLanguage.json"
+      }
+    ]
+  }
+}

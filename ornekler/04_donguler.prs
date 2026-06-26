@@ -1,0 +1,60 @@
+# Döngüler
+
+# için döngüsü
+yaz("1'den 5'e kadar:")
+için i içinde aralık(1, 6):
+    yaz(f"  {i}")
+
+# iken döngüsü
+yaz("\nGeri sayım:")
+sayac = 5
+iken sayac > 0:
+    yaz(f"  {sayac}...")
+    sayac -= 1
+yaz("  Başla!")
+
+# Liste üzerinde döngü
+meyveler = ["elma", "armut", "muz", "çilek"]
+yaz("\nMeyveler:")
+için meyve içinde meyveler:
+    yaz(f"  - {meyve}")
+
+# numaralandır ile indeksli döngü
+yaz("\nİndeksli meyveler:")
+için indeks, meyve içinde numaralandır(meyveler):
+    yaz(f"  {indeks}: {meyve}")
+
+# Sözlük üzerinde döngü
+kişi = {"ad": "Ahmet", "yaş": 25, "şehir": "İstanbul"}
+yaz("\nKişi bilgileri:")
+için anahtar, değer içinde kişi.items():
+    yaz(f"  {anahtar}: {değer}")
+
+# aralık ile adımlı döngü
+yaz("\nÇift sayılar (0-10):")
+için i içinde aralık(0, 11, 2):
+    yaz(f"  {i}")
+
+# kes (break) ve devam (continue)
+yaz("\n3'e bölünenler (1-20):")
+için i içinde aralık(1, 21):
+    eğer i % 3 != 0:
+        devam
+    yaz(f"  {i}")
+    eğer i >= 12:
+        kes
+
+# İç içe döngü
+yaz("\nÇarpım tablosu (1-3):")
+için i içinde aralık(1, 4):
+    satır = ""
+    için j içinde aralık(1, 4):
+        satır += f"{i*j:4}"
+    yaz(satır)
+
+# Liste kavrayışı
+kareler = [x**2 için x içinde aralık(1, 6)]
+yaz(f"\nKareler: {kareler}")
+
+çiftler = [x için x içinde aralık(10) eğer x % 2 == 0]
+yaz(f"Çiftler: {çiftler}")

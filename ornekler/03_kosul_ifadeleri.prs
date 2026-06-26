@@ -1,0 +1,50 @@
+# Koşul İfadeleri
+
+# Basit if-else
+not_ = 75
+
+eğer not_ >= 90:
+    yaz("Pekiyi (A)")
+yoksa not_ >= 80:
+    yaz("İyi (B)")
+yoksa not_ >= 70:
+    yaz("Orta (C)")
+yoksa not_ >= 60:
+    yaz("Geçer (D)")
+değilse:
+    yaz("Kaldı (F)")
+
+# İç içe koşullar
+yaş = 20
+ehliyet_var = doğru
+
+eğer yaş >= 18:
+    eğer ehliyet_var:
+        yaz("Araba kullanabilirsin.")
+    değilse:
+        yaz("Ehliyet alman gerekiyor.")
+değilse:
+    yaz(f"Araba kullanmak için {18 - yaş} yıl beklemelisin.")
+
+# Mantıksal operatörler
+a = 10
+b = 20
+
+eğer a > 5 ve b > 15:
+    yaz("Her iki koşul da doğru")
+
+eğer a > 100 veya b > 15:
+    yaz("En az bir koşul doğru")
+
+eğer değil (a > 100):
+    yaz("a 100'den büyük değil")
+
+# Kısa koşul (ternary)
+sayı = 42
+sonuç = "çift" sayı % 2 == 0 else "tek"
+yaz(f"{sayı} bir {sonuç} sayıdır.")
+
+# İddia (assert)
+iddia 1 + 1 == 2
+iddia "merhaba".startswith("mer")
+yaz("Tüm iddialar doğru!")

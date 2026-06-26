@@ -1,0 +1,2 @@
+# PARS Çalışma Bağımlılıkları
+# Hiçbir harici bağımlılık gerekmez — Python 3.8+ yeterlidir.

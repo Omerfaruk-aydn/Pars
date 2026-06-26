@@ -1,0 +1,23 @@
+site_name: PARS — Türkçe Programlama Dili
+site_url: https://parsdil.com
+site_description: Pars gibi hızlı. Türkçe gibi güzel.
+repo_url: https://github.com/pars-lang/pars
+repo_name: pars-lang/pars
+
+theme:
+  name: material
+  language: tr
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - content.code.copy
+    - search.highlight
+
+nav:
+  - Ana Sayfa: index.md
+  - Başlangıç: baslangic.md
+  - Referans: referans.md

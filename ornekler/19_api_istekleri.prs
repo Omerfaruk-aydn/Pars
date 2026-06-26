@@ -1,0 +1,97 @@
+# API İstekleri
+
+içe_aktar urllib.request
+içe_aktar json
+
+# 1. Basit GET isteği
+y("=== Basit GET İsteği ===")
+dene:
+    url = "https://jsonplaceholder.typicode.com/posts/1"
+    yanit = urllib.request.urlopen(url, timeout=10)
+    veri = json.loads(yanit.read().decode('utf-8'))
+
+    y(f"Başlık: {veri['title']}")
+    y(f"Gövde: {veri['body'][:100]}...")
+hariç Hata olarak e:
+    y(f"İstek hatası: {e}")
+
+# 2. Birden fazla istek
+y("\n=== Çoklu İstekler ===")
+dene:
+    url = "https://jsonplaceholder.typicode.com/posts"
+    yanit = urllib.request.urlopen(url, timeout=10)
+    gönderiler = json.loads(yanit.read().decode('utf-8'))
+
+    y(f"Toplam gönderi sayısı: {uzunluk(gönderiler)}")
+    y("\nİlk 5 gönderi:")
+    için i, gönderi içinde enumerate(gönderiler[:5]):
+        y(f"  {i+1}. {gönderiler[i]['title'][:50]}")
+hariç Hata olarak e:
+    y(f"İstek hatası: {e}")
+
+# 3. Kullanıcı bilgileri
+y("\n=== Kullanıcılar ===")
+dene:
+    url = "https://jsonplaceholder.typicode.com/users"
+    yanit = urllib.request.urlopen(url, timeout=10)
+    kullanıcılar = json.loads(yanit.read().decode('utf-8'))
+
+    için kullanıcı içinde kullanıcılar[:3]:
+        y(f"\n  Ad: {kullanıcı['name']}")
+        y(f"  Email: {kullanıcı['email']}")
+        y(f"  Şehir: {kullanıcı['address']['city']}")
+        y(f"  Website: {kullanıcı['website']}")
+hariç Hata olarak e:
+    y(f"İstek hatası: {e}")
+
+# 4. POST isteği
+y("\n=== POST İsteği ===")
+dene:
+    url = "https://jsonplaceholder.typicode.com/posts"
+    veri = json.dumps({
+        "title": "PARS Test",
+        "body": "Bu bir PARS test gönderisidir",
+        "userId": 1
+    }).encode('utf-8')
+
+    istek = urllib.request.Request(url, data=veri, method='POST')
+    istek.add_header('Content-Type', 'application/json')
+
+    yanit = urllib.request.urlopen(istek, timeout=10)
+    sonuç = json.loads(yanit.read().decode('utf-8'))
+
+    y(f"Durum kodu: {yanit.status}")
+    y(f"Oluşturulan ID: {sonuç['id']}")
+    y(f"Başlık: {sonuç['title']}")
+hariç Hata olarak e:
+    y(f"İstek hatası: {e}")
+
+# 5. URL kodlama
+y("\n=== URL Kodlama ===")
+parametreler = {
+    "q": "Python programlama",
+    "lang": "tr",
+    "page": 1
+}
+kodlanmış = urllib.parse.urlencode(parametreler)
+y(f"Kodlanmış URL: {kodlenmiş}")
+
+# 6. Başlıklar ile istek
+y("\n=== Özel Başlıklar ===")
+dene:
+    url = "https://httpbin.org/headers"
+    istek = urllib.request.Request(url)
+    istek.add_header('User-Agent', 'PARS/1.0')
+    istek.add_header('Accept', 'application/json')
+    istek.add_header('X-Custom', 'PARS-Test')
+
+    yanit = urllib.request.urlopen(istek, timeout=10)
+    başlıklar = json.loads(yanit.read().decode('utf-8'))
+
+    y("Gönderilen başlıklar:")
+    için anahtar, değer içinde başlıklar['headers'].items():
+        y(f"  {anahtar}: {değer}")
+hariç Hata olarak e:
+    y(f"İstek hatası: {e}")
+
+y("\nAPI istekleri örnekleri tamamlandı!")

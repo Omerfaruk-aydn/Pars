@@ -1,0 +1,48 @@
+# Değişkenler ve Veri Tipleri
+
+# Tamsayı
+yaş = 25
+yaz(f"Yaş: {yaş}, Tip: {tip(yaş)}")
+
+# Ondalıklı
+boy = 1.75
+yaz(f"Boy: {boy}m, Tip: {tip(boy)}")
+
+# Metin
+ad = "Ahmet"
+soyad = 'Yılmaz'
+yaz(f"Ad: {ad} {soyad}, Tip: {tip(ad)}")
+
+# Boolean
+öğrenci_mi = doğru
+yaz(f"Öğrenci mi: {öğrenci_mi}, Tip: {tip(öğrenci_mi)}")
+
+# None (yok)
+sonuç = yok
+yaz(f"Sonuç: {sonuç}, Tip: {tip(sonuç)}")
+
+# Liste
+meyveler = ["elma", "armut", "muz"]
+yaz(f"Meyveler: {meyveler}, Tip: {tip(meyveler)}")
+
+# Sözlük
+kişi = {"ad": "Ayşe", "yaş": 30, "şehir": "İstanbul"}
+yaz(f"Kişi: {kişi}, Tip: {tip(kişi)}")
+
+# Demet
+koordinat = (10, 20)
+yaz(f"Koordinat: {koordinat}, Tip: {tip(koordinat)}")
+
+# Küme
+renkler = küme(["kırmızı", "mavi", "yeşil"])
+yaz(f"Renkler: {renkler}, Tip: {tip(renkler)}")
+
+# Tip dönüşümleri
+sayı = tam_sayı("42")
+ondalık = ondalıklı("3.14")
+metin = yazıya_çevir(100)
+yaz(f"Dönüşümler: {sayı}, {ondalık}, {metin}")
+
+# Çoklu atama
+x, y, z = 1, 2, 3
+yaz(f"x={x}, y={y}, z={z}")

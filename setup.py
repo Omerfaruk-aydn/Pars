@@ -1,0 +1,58 @@
+from setuptools import setup, find_packages
+
+setup(
+    name="pars-dil",
+    version="1.0.0",
+    description="PARS — Türkçe Programlama Dili. Pars gibi hızlı. Türkçe gibi güzel.",
+    long_description=open("README.md", encoding="utf-8").read(),
+    long_description_content_type="text/markdown",
+    author="PARS Topluluğu",
+    author_email="info@parsdil.com",
+    url="https://github.com/pars-lang/pars",
+    project_urls={
+        "Website": "https://parsdil.com",
+        "Documentation": "https://parsdil.com",
+        "Source": "https://github.com/pars-lang/pars",
+        "Issues": "https://github.com/pars-lang/pars/issues",
+    },
+    packages=find_packages(),
+    python_requires=">=3.8",
+    install_requires=[],
+    extras_require={
+        "dev": [
+            "pytest>=7.0",
+            "pytest-cov>=4.0",
+            "flake8>=6.0",
+            "mypy>=1.0",
+            "black>=23.0",
+            "isort>=5.0",
+            "mkdocs-material>=9.0",
+            "twine>=4.0",
+            "build>=0.10",
+        ],
+    },
+    entry_points={
+        "console_scripts": [
+            "pars=pars.cli.komutlar:main",
+        ],
+    },
+    classifiers=[
+        "Development Status :: 4 - Beta",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
+        "Intended Audience :: Education",
+        "License :: OSI Approved :: MIT License",
+        "Natural Language :: Turkish",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Topic :: Software Development :: Compilers",
+        "Topic :: Software Development :: Interpreters",
+    ],
+    keywords=["türkçe", "programlama", "dil", "pars", "turkish", "programming", "language"],
+    license="MIT",
+)

@@ -1,0 +1,159 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "PARS",
+  "scopeName": "source.pars",
+  "patterns": [
+    { "include": "#comments" },
+    { "include": "#strings" },
+    { "include": "#keywords" },
+    { "include": "#builtins" },
+    { "include": "#constants" },
+    { "include": "#numbers" },
+    { "include": "#operators" },
+    { "include": "#self" }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.number-sign.pars",
+          "match": "#.*$"
+        }
+      ]
+    },
+    "strings": {
+      "patterns": [
+        {
+          "name": "string.quoted.triple.double.pars",
+          "begin": "\"\"\"",
+          "end": "\"\"\"",
+          "patterns": [
+            { "include": "#escape" }
+          ]
+        },
+        {
+          "name": "string.quoted.triple.single.pars",
+          "begin": "'''",
+          "end": "'''",
+          "patterns": [
+            { "include": "#escape" }
+          ]
+        },
+        {
+          "name": "string.quoted.double.fstring.pars",
+          "begin": "f\"",
+          "end": "\"",
+          "patterns": [
+            { "include": "#escape" },
+            { "include": "#fstring-interp" }
+          ]
+        },
+        {
+          "name": "string.quoted.single.fstring.pars",
+          "begin": "f'",
+          "end": "'",
+          "patterns": [
+            { "include": "#escape" },
+            { "include": "#fstring-interp" }
+          ]
+        },
+        {
+          "name": "string.quoted.double.pars",
+          "begin": "\"",
+          "end": "\"",
+          "patterns": [
+            { "include": "#escape" }
+          ]
+        },
+        {
+          "name": "string.quoted.single.pars",
+          "begin": "'",
+          "end": "'",
+          "patterns": [
+            { "include": "#escape" }
+          ]
+        }
+      ]
+    },
+    "escape": {
+      "name": "constant.character.escape.pars",
+      "match": "\\\\(?:[nrtbf\\\"']|u[0-9a-fA-F]{4}|U[0-9a-fA-F]{8})"
+    },
+    "fstring-interp": {
+      "name": "meta.interpolation.pars",
+      "begin": "\\{",
+      "end": "\\}",
+      "patterns": [
+        { "include": "source.pars" }
+      ]
+    },
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.pars",
+          "match": "\\b(eğer|eger|değilse|degilse|yoksa|iken|için|icin|içinde|icinde|fonksiyon|döndür|dondur|sınıf|sinif|lambda|ver|içe_aktar|ice_aktar|den_aktar|olarak|dene|hariç|haric|sonunda|yükselt|yukselt|ile|geç|gec|kes|devam|sil|iddia|global|yerel_değil|yerel_degil|eşzamansız|esezamansiz|bekle)\\b"
+        },
+        {
+          "name": "keyword.operator.logical.pars",
+          "match": "\\b(ve|veya|değil|degil)\\b"
+        },
+        {
+          "name": "keyword.operator.identity.pars",
+          "match": "\\b(içindedir|dır|dir)\\b"
+        }
+      ]
+    },
+    "builtins": {
+      "patterns": [
+        {
+          "name": "support.function.builtin.pars",
+          "match": "\\b(yaz|girdial|açık|acik|tam_sayı|tam_sayi|ondalıklı|ondalikli|yazıya_çevir|yaziya_cevir|mantıksal|mantiksal|karmaşık|karmasik|bayt|bayt_dizisi|bellek_görünümü|liste|demet|küme|kume|dondurulmuş_küme|dondurulmus_kume|sözlük|sozluk|listeye_çevir|listeye_cevir|demete_çevir|demete_cevir|kümeye_çevir|kumeye_cevir|sözlüğe_çevir|sozluge_cevir|aralık|aralik|numaralandır|numaralandir|sıkıştır|sikistir|harita|filtre|sırala|sirala|tersine|tümü|tumu|herhangi|sonraki|iter_et|dilimle|mutlak|yuvarlak|toplam|maksimum|minimum|güç|guc|uzunluk|karakter|karakter_kodu|onaltılık|onaltili|sekizlik|ikili|biçimle|bicimle|yazdır|yazdir|tip|kimlik|dir|yardım|yardim|özellikler|ozellikler|nitelik_al|nitelik_ata|nitelik_sil|nitelik_var_mı|nitelik_var_mi|türünden_mi|turundan_mi|alt_sınıfı_mı|alt_sinifi_mi|çağrılabilir_mi|cagrılabilir_mi|nesne|süper|super|özellik|ozellik|statik_metot|sınıf_metot|sinif_metot|çıkış|cikis|değerlendir|degerlendir|çalıştır|calistir_kod|derle|modül_yükle|paket_yükle|paket_yukle|paket_listele|repr)\\b"
+        }
+      ]
+    },
+    "constants": {
+      "patterns": [
+        {
+          "name": "constant.language.pars",
+          "match": "\\b(doğru|dogru|yanlış|yanlis|yok)\\b"
+        }
+      ]
+    },
+    "numbers": {
+      "patterns": [
+        {
+          "name": "constant.numeric.float.pars",
+          "match": "\\b\\d+\\.\\d+\\b"
+        },
+        {
+          "name": "constant.numeric.integer.pars",
+          "match": "\\b\\d+\\b"
+        }
+      ]
+    },
+    "operators": {
+      "patterns": [
+        {
+          "name": "keyword.operator.arithmetic.pars",
+          "match": "\\+|\\-|\\*|\\*\\*|\\/|\\/\\/|%|@|~|\\^|&|\\||<<|>>"
+        },
+        {
+          "name": "keyword.operator.comparison.pars",
+          "match": "==|!=|<=|>=|<|>"
+        },
+        {
+          "name": "keyword.operator.assignment.pars",
+          "match": "\\+=|\\-=|\\*=|\\/=|%=|&=|\\|=|\\^=|<<=|>>=|\\*\\*="
+        }
+      ]
+    },
+    "self": {
+      "patterns": [
+        {
+          "name": "variable.language.self.pars",
+          "match": "\\böz\\b"
+        }
+      ]
+    }
+  }
+}

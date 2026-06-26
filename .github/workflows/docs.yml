@@ -1,0 +1,26 @@
+name: PARS Dokümantasyon
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Python kur
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: MkDocs kur
+      run: pip install mkdocs-material
+
+    - name: Siteyi derle
+      run: mkdocs build
+
+    - name: GitHub Pages'e yayımla
+      run: mkdocs gh-deploy --force

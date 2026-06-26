@@ -1,0 +1,10 @@
+# Carpim Tablosu
+
+yaz: Carpim Tablosu
+yaz: ==============
+
+5 kez tekrarla i
+    5 kez tekrarla j
+        yaz f'{i} x {j} = {i*j}'
+    son
+son

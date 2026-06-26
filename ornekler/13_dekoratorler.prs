@@ -1,0 +1,113 @@
+# Dekoratörler
+
+# 1. Basit dekoratör
+fonksiyon merhaba_dekoratörü(f):
+    fonksiyon sarmalayıcı(*args, **kwargs):
+        y(">>> Fonksiyon çağrılıyor...")
+        sonuç = f(*args, **kwargs)
+        y(">>> Fonksiyon tamamlandı.")
+        döndür sonuç
+    döndür sarmalayıcı
+
+@merhaba_dekoratörü
+fonksiyon selamla(isim: str):
+    y(f"Merhaba, {isim}!")
+    döndür isim
+
+selamla("Ahmet")
+
+# 2. Zamanlayıcı dekoratörü
+içe_aktar zaman
+
+fonksiyon zamanlayıcı(f):
+    fonksiyon sarmalayıcı(*args, **kwargs):
+        başlangıç = zaman.time()
+        sonuç = f(*args, **kwargs)
+        süre = zaman.time() - başlangıç
+        y(f"⏱  {f.__name__}: {süre:.6f} saniye")
+        döndür sonuç
+    döndür sarmalayıcı
+
+@zamanlayıcı
+fonksiyon yavaş_fonksiyon():
+    zaman.sleep(0.1)
+    döndür "bitti"
+
+sonuç = yavaş_fonksiyon()
+y(f"Sonuç: {sonuç}")
+
+# 3. Parametreli dekoratör
+fonksiyon tekrarla(kez: int):
+    """Fonksiyonu belirtilen sayıda tekrar çalıştırır."""
+    fonksiyon dekoratör(f):
+        fonksiyon sarmalayıcı(*args, **kwargs):
+            sonuc_listesi = []
+            için _ içinde aralık(kez):
+                sonuc_listesi.append(f(*args, **kwargs))
+            döndür sonuc_listesi
+        döndür sarmalayıcı
+    döndür dekoratör
+
+@tekrarla(3)
+fonksiyon rastgele_sayı():
+    içe_aktar random
+    döndür random.randint(1, 100)
+
+y(f"\n3 rastgele sayı: {rastgele_sayı()}")
+
+# 4. Önbellek dekoratörü
+fonksiyon önbellek(f):
+    """Fonksiyon sonuçlarını önbelleğe alır."""
+    _önbellek = {}
+    fonksiyon sarmalayıcı(*args):
+        eğer args içinde _önbellek:
+            döndür _önbellek[args]
+        sonuç = f(*args)
+        _önbellek[args] = sonuç
+        döndür sonuç
+    döndür sarmalayıcı
+
+@önbellek
+@zamanlayıcı
+fonksiyon faktöriyel(n: int) -> int:
+    eğer n <= 1:
+        döndür 1
+    döndür n * faktöriyel(n - 1)
+
+y(f"\n10! = {faktöriyel(10)}")
+y(f"10! (önbellekten) = {faktöriyel(10)}")
+
+# 5. Sınıf dekoratörü
+fonksiyon veri_sınıfı(sınıf):
+    """Basit veri sınıfı dekoratörü."""
+    sınıf.__repr__ = lambda öz: f"{tip(öz).__name__}({', '.join(f'{k}={v!r}' için k, v içinde öz.__dict__.items())})"
+    döndür sınıf
+
+@veri_sınıfı
+ sınıf Nokta:
+    fonksiyon __init__(öz, x: float, y: float):
+        öz.x = x
+        öz.y = y
+
+nokta = Nokta(3.5, 7.2)
+y(f"\nNokta: {nokta}")
+
+# 6. Zincirleme dekoratör
+fonksiyon büyük_harf(f):
+    fonksiyon sarmalayıcı(*args, **kwargs):
+        döndür f(*args, **kwargs).upper()
+    döndür sarmalayıcı
+
+fonksiyon ünlem_ekle(f):
+    fonksiyon sarmalayıcı(*args, **kwargs):
+        döndür f(*args, **kwargs) + "!"
+    döndür sarmalayıcı
+
+@ünlem_ekle
+@büyük_harf
+fonksiyon mesaj(metin: str) -> str:
+    döndür metin
+
+y(f"\nZincirlenmiş: {mesaj('merhaba dünya')}")
+
+y("\nDekoratör örnekleri tamamlandı!")

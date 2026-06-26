@@ -1,0 +1,18 @@
+# Matematik Oyunu
+
+yaz: Matematik Oyunu!
+yaz: ================
+
+toplam = 0
+
+10 kez tekrarla i
+    yeni_sayi = i * i
+    toplam = toplam + yeni_sayi
+    yaz f'{i} karesi = {yeni_sayi}'
+son
+
+yaz: 
+yaz f'1 den 10 a kadar karelerin toplami = {toplam}'
+
+yaz:
+yaz: TEBRIKLER! Oyun bitti!

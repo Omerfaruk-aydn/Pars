@@ -1,0 +1,45 @@
+# Modüller ve Paketler
+
+# Standart kütüphane modülleri
+içe_aktar os
+içe_aktar sys
+içe_aktar json
+içe_aktar datetime
+
+# os modülü
+yaz(f"Çalışma dizini: {os.getcwd()}")
+yaz(f"İşletim sistemi: {os.name}")
+
+# sys modülü
+yaz(f"Python sürümü: {sys.version}")
+yaz(f"Platform: {sys.platform}")
+
+# datetime modülü
+şimdi = datetime.datetime.now()
+yaz(f"Şu an: {şimdi.strftime('%d.%m.%Y %H:%M:%S')}")
+
+# math modülü
+içe_aktar math olarak m
+yaz(f"Pi: {m.pi}")
+yaz(f"e: {m.e}")
+yaz(f"Karekök(144) = {m.sqrt(144)}")
+
+# random modülü
+içe_aktar random olarak r
+yaz(f"Rastgele sayı (1-100): {r.randint(1, 100)}")
+yaz(f"Rastgele seçim: {r.choice(['elma', 'armut', 'muz'])}")
+
+# json kullanımı
+veri = {
+    "ad": "Ahmet",
+    "yaş": 25,
+    "şehirler": ["İstanbul", "Ankara", "İzmir"]
+}
+json_metin = json.dumps(veri, ensure_ascii=False, indent=2)
+yaz(f"JSON:\n{json_metin}")
+
+# Özel modül kullanımı (eğer varsa)
+# den_aktar benim_modulüm içe_aktar fonksiyon
+# fonksiyon()
+
+yaz("Modül örnekleri tamamlandı!")

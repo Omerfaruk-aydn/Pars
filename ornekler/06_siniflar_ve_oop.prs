@@ -1,0 +1,71 @@
+# Sınıflar ve Nesne Yönelimli Programlama
+# 'öz' kelimesi Python'daki 'self' yerine kullanılır
+
+sınıf Hayvan:
+    """Tüm hayvanlar için temel sınıf"""
+    toplam_hayvan = 0
+
+    fonksiyon __init__(öz, isim: str, yaş: int, ses: str):
+        öz.isim = isim
+        öz.yaş  = yaş
+        öz.ses  = ses
+        Hayvan.toplam_hayvan += 1
+
+    fonksiyon konuş(öz) -> str:
+        döndür f"{öz.isim}: {öz.ses}!"
+
+    fonksiyon bilgi(öz) -> str:
+        döndür f"{öz.isim} ({öz.yaş} yaş)"
+
+    @sınıf_metot
+    fonksiyon toplam(sınıf) -> int:
+        döndür sınıf.toplam_hayvan
+
+    @statik_metot
+    fonksiyon hayvan_mı(nesne) -> bool:
+        döndür türünden_mi(nesne, Hayvan)
+
+    fonksiyon __repr__(öz) -> str:
+        döndür f"Hayvan({öz.isim!r}, {öz.yaş})"
+
+    fonksiyon __str__(öz) -> str:
+        döndür öz.isim
+
+    fonksiyon __eq__(öz, diğer) -> bool:
+        döndür öz.isim == diğer.isim ve öz.yaş == diğer.yaş
+
+# Kalıtım
+sınıf Köpek(Hayvan):
+    fonksiyon __init__(öz, isim: str, yaş: int, cins: str):
+        süper().__init__(isim, yaş, "Hav hav")
+        öz.cins = cins
+
+    fonksiyon getir(öz, nesne: str) -> str:
+        döndür f"{öz.isim} {nesne}i getirdi!"
+
+sınıf Kedi(Hayvan):
+    fonksiyon __init__(öz, isim: str, yaş: int):
+        süper().__init__(isim, yaş, "Miyav")
+        öz._uyku_sayısı = 0
+
+    @özellik
+    fonksiyon uyku_sayısı(öz) -> int:
+        döndür öz._uyku_sayısı
+
+    fonksiyon uyu(öz) -> str:
+        öz._uyku_sayısı += 1
+        döndür f"{öz.isim} uyuyor... ({öz._uyku_sayısı}. uyku)"
+
+# Test
+köpek = Köpek("Karabaş", 3, "Labrador")
+kedi  = Kedi("Tekir", 5)
+
+yaz(köpek.konuş())
+yaz(kedi.uyu())
+yaz(köpek.getir("topu"))
+
+şekiller = [Daire(5), Dikdörtgen(4, 6), Daire(3)]
+için şekil içinde şekiller:
+    yaz(şekil.tanım())
+
+yaz(f"Toplam hayvan: {Hayvan.toplam()}")

@@ -1,0 +1,82 @@
+# SQLite Veritabanı İşlemleri
+
+içe_aktar sqlite3
+
+# Veritabanına bağlan (bellek tabanlı)
+baglanti = sqlite3.connect(':memory:')
+cursor = baglanti.cursor()
+
+# Tablo oluştur
+cursor.execute('''
+    CREATE TABLE ogrenciler (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ad TEXT NOT NULL,
+        soyad TEXT NOT NULL,
+        yas INTEGER,
+        bolum TEXT,
+        not_ort REAL
+    )
+*/)
+y("Tablo oluşturuldu: ogrenciler")
+
+# Veri ekle
+ogrenciler = [
+    ("Ahmet", "Yılmaz", 20, "Bilgisayar", 3.5),
+    ("Ayşe", "Demir", 21, "Matematik", 3.8),
+    ("Mehmet", "Kaya", 19, "Fizik", 3.2),
+    ("Fatma", "Çelik", 22, "Kimya", 3.9),
+    ("Ali", "Öztürk", 20, "Bilgisayar", 3.1),
+]
+
+cursor.executemany(
+    "INSERT INTO ogrenciler (ad, soyad, yas, bolum, not_ort) VALUES (?, ?, ?, ?, ?)",
+    ogrenciler
+)
+baglanti.commit()
+y(f"{uzunluk(ogrenciler)} öğrenci eklendi.")
+
+# Tüm öğrencileri listele
+y("\n=== Tüm Öğrenciler ===")
+cursor.execute("SELECT * FROM ogrenciler")
+için satır içinde cursor.fetchall():
+    y(f"  ID:{satır[0]} {satır[1]} {satır[2]} | Yaş:{satır[3]} | {satır[4]} | Ort:{satır[5]}")
+
+# Filtreleme
+y("\n=== Bilgisayar Bölümü ===")
+cursor.execute("SELECT ad, soyad, not_ort FROM ogrenciler WHERE bolum = ?", ("Bilgisayar",))
+için satır içinde cursor.fetchall():
+    y(f"  {satır[0]} {satır[1]} - Ortalama: {satır[2]}")
+
+# İstatistikler
+y("\n=== İstatistikler ===")
+cursor.execute("SELECT AVG(not_ort), MAX(not_ort), MIN(not_ort) FROM ogrenciler")
+sonuç = cursor.fetchone()
+y(f"  Ortalama: {sonuç[0]:.2f}")
+y(f"  En yüksek: {sonuç[1]}")
+y(f"  En düşük: {sonuç[2]}")
+
+# Bölümlere göre gruplama
+y("\n=== Bölümlere Göre Ortalama ===")
+cursor.execute("SELECT bolum, AVG(not_ort), COUNT(*) FROM ogrenciler GROUP BY bolum")
+için satır içinde cursor.fetchall():
+    y(f"  {satır[0]}: Ort={satır[1]:.2f}, Sayı={satır[2]}")
+
+# Güncelleme
+cursor.execute("UPDATE ogrenciler SET not_ort = 3.7 WHERE ad = 'Ahmet'")
+baglanti.commit()
+y("\nAhmet'in not ortalaması güncellendi.")
+
+# Silme
+cursor.execute("DELETE FROM ogrenciler WHERE yas < 20")
+baglanti.commit()
+y("20 yaşından küçük öğrenciler silindi.")
+
+# Son durum
+y("\n=== Güncel Liste ===")
+cursor.execute("SELECT ad, soyad, yas, not_ort FROM ogrenciler ORDER BY not_ort DESC")
+için satır içinde cursor.fetchall():
+    y(f"  {satır[0]} {satır[1]} (Yaş:{satır[2]}) - Ort:{satır[3]}")
+
+# Bağlantıyı kapat
+baglanti.close()
+y("\nVeritabanı bağlantısı kapatıldı.")

@@ -1,0 +1,76 @@
+# NumPy ve Pandas ile PARS
+# Gerekli: pars paket yükle numpy pandas
+
+dene:
+    içe_aktar numpy olarak np
+    içe_aktar pandas olarak pd
+
+    # NumPy Dizileri
+    y("=== NumPy ===")
+    a = np.array([1, 2, 3, 4, 5])
+    b = np.array([10, 20, 30, 40, 50])
+
+    y(f"Dizi A: {a}")
+    y(f"Dizi B: {b}")
+    y(f"Toplam: {a + b}")
+    y(f"Çarpım: {a * b}")
+    y(f"Ortalama: {np.mean(a)}")
+    y(f"Standart Sapma: {np.std(a):.2f}")
+
+    # Matris İşlemleri
+    matris = np.random.randint(1, 10, size=(3, 3))
+    y(f"\nMatris:\n{matris}")
+    y(f"Transpoz:\n{matris.T}")
+    y(f"Determinant: {round(np.linalg.det(matris), 2)}")
+
+    # İstatistik
+    veri = np.random.normal(100, 15, 1000)
+    y(f"\nİstatistik (1000 veri):")
+    y(f"  Ortalama: {np.mean(veri):.2f}")
+    y(f"  Medyan: {np.median(veri):.2f}")
+    y(f"  Std Sapma: {np.std(veri):.2f}")
+    y(f"  Min: {np.min(veri):.2f}")
+    y(f"  Max: {np.max(veri):.2f}")
+
+    # Pandas DataFrame
+    y("\n=== Pandas ===")
+    veriler = {
+        "isim":  ["Ahmet", "Ayşe", "Mehmet", "Fatma", "Ali"],
+        "yaş":   [25, 30, 22, 28, 35],
+        "şehir": ["İstanbul", "Ankara", "İzmir", "Bursa", "Antalya"],
+        "maaş":  [5000, 7000, 4500, 6000, 8000],
+    }
+    df = pd.DataFrame(veriler)
+
+    y("\nVeri Çerçevesi:")
+    y(df.to_string())
+
+    y(f"\nİstatistikler:")
+    y(f"  Ortalama maaş: {df['maaş'].mean():.0f} TL")
+    y(f"  En yüksek maaş: {df['maaş'].max()} TL")
+    y(f"  En yaşlı: {df.loc[df['yaş'].idxmax(), 'isim']}")
+
+    y("\nŞehirlere göre ortalama maaş:")
+    şehir_maaş = df.groupby('şehir')['maaş'].mean()
+    için şehir, maaş içinde şehir_maaş.items():
+        y(f"  {şehir}: {maaş:.0f} TL")
+
+    # Filtreleme
+    y("\nMaaşı 6000'den yüksek olanlar:")
+    yüksek_maaş = df[df['maaş'] > 6000]
+    için _, satır içinde yüksek_maaş.iterrows():
+        y(f"  {satır['isim']}: {satır['maaş']} TL")
+
+    # CSV'ye yazma
+    df.to_csv("maaslar.csv", index=yanlış)
+    y("\nVeriler 'maaslar.csv' dosyasına kaydedildi.")
+
+    # Temizlik
+    içe_aktar os
+    os.remove("maaslar.csv")
+
+hariç ImportError olarak e:
+    y(f"Modül eksik: {e}")
+    y("Şunu çalıştırın: pars paket yükle numpy pandas")
+hariç Hata olarak e:
+    y(f"Hata: {e}")

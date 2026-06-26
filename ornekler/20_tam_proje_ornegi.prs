@@ -1,0 +1,335 @@
+# Kütüphane Yönetim Sistemi — Tam Proje Örneği
+# PARS ile yazılmış uçtan uca bir uygulama
+
+içe_aktar sqlite3
+içe_aktar datetime
+içe_aktar os
+
+# ── SINIFLAR ──────────────────────────────────────────────────────────────
+
+ sınıf Kitap:
+    """Kitap sınıfı"""
+
+    fonksiyon __init__(öz, isbn: str, başlık: str, yazar: str,
+                       yıl: int, kategori: str = "Genel"):
+        öz.isbn = isbn
+        öz.başlık = başlık
+        öz.yazar = yazar
+        öz.yıl = yıl
+        öz.kategori = kategori
+        öz.mevcut = doğru
+
+    fonksiyon __str__(öz) -> str:
+        durum = "Mevcut" öz.mevcut else "Ödünçte"
+        döndür f"[{öz.isbn}] {öz.başlık} - {öz.yazar} ({öz.yıl}) [{durum}]"
+
+
+ sınıf Üye:
+    """Kütüphane üyesi sınıfı"""
+
+    fonksiyon __init__(öz, üye_no: str, ad: str, soyad: str, email: str = ""):
+        öz.üye_no = üye_no
+        öz.ad = ad
+        öz.soyad = soyad
+        öz.email = email
+        öz.kayıt_tarihi = datetime.datetime.now().strftime("%d.%m.%Y")
+
+    fonksiyon tam_ad(öz) -> str:
+        döndür f"{öz.ad} {öz.soyad}"
+
+    fonksiyon __str__(öz) -> str:
+        döndür f"[{öz.üye_no}] {öz.tam_ad()} ({öz.email})"
+
+
+ sınıf Kütüphane:
+    """Kütüphane yönetim sınıfı"""
+
+    fonksiyon __init__(öz, db_dosya: str = ":memory:"):
+        öz.db = sqlite3.connect(db_dosya)
+        öz.cursor = öz.db.cursor()
+        öz._tablo_oluştur()
+
+    fonksiyon _tablo_oluştur(öz):
+        """Veritabanı tablolarını oluştur."""
+        öz.cursor.executescript("""
+            CREATE TABLE IF NOT EXISTS kitaplar (
+                isbn TEXT PRIMARY KEY,
+                başlık TEXT NOT NULL,
+                yazar TEXT NOT NULL,
+                yıl INTEGER,
+                kategori TEXT DEFAULT 'Genel',
+                mevcut INTEGER DEFAULT 1
+            );
+
+            CREATE TABLE IF NOT EXISTS üyeler (
+                üye_no TEXT PRIMARY KEY,
+                ad TEXT NOT NULL,
+                soyad TEXT NOT NULL,
+                email TEXT,
+                kayıt_tarihi TEXT
+            );
+
+            CREATE TABLE IF NOT EXISTS ödünçler (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                isbn TEXT,
+                üye_no TEXT,
+                ödünç_tarihi TEXT,
+                iade_tarihi TEXT,
+                FOREIGN KEY (isbn) REFERENCES kitaplar(isbn),
+                FOREIGN KEY (üye_no) REFERENCES üyeler(üye_no)
+            );
+        """)
+        öz.db.commit()
+
+    # Kitap İşlemleri
+    fonksiyon kitap_ekle(öz, kitap: Kitap) -> bool:
+        """Yeni kitap ekle."""
+        dene:
+            öz.cursor.execute(
+                "INSERT INTO kitaplar VALUES (?, ?, ?, ?, ?, ?)",
+                (kitap.isbn, kitap.başlık, kitap.yazar,
+                 kitap.yıl, kitap.kategori, 1 if kitap.mevcut else 0)
+            )
+            öz.db.commit()
+            döndür doğru
+        hariç sqlite3.IntegrityError:
+            y(f"Hata: '{kitap.isbn}' ISBN numaralı kitap zaten var!")
+            döndür yanlış
+
+    fonksiyon kitap_ara(öz, arama: str) -> list:
+        """Kitap ara (başlık veya yazar)."""
+        öz.cursor.execute(
+            "SELECT * FROM kitaplar WHERE başlık LIKE ? OR yazar LIKE ?",
+            (f"%{arma}%", f"%{arma}%")
+        )
+        döndür öz.cursor.fetchall()
+
+    fonksiyon kitap_listele(öz) -> list:
+        """Tüm kitapları listele."""
+        öz.cursor.execute("SELECT * FROM kitaplar ORDER BY başlık")
+        döndür öz.cursor.fetchall()
+
+    fonksiyon mevcut_kitaplar(öz) -> list:
+        """Mevcut kitapları listele."""
+        öz.cursor.execute("SELECT * FROM kitaplar WHERE mevcut = 1")
+        döndür öz.cursor.fetchall()
+
+    # Üye İşlemleri
+    fonksiyon üye_ekle(öz, üye: Üye) -> bool:
+        """Yeni üye ekle."""
+        dene:
+            öz.cursor.execute(
+                "INSERT INTO üyeler VALUES (?, ?, ?, ?, ?)",
+                (üye.üye_no, üye.ad, üye.soyad,
+                 üye.email, üye.kayıt_tarihi)
+            )
+            öz.db.commit()
+            döndür doğru
+        hariç sqlite3.IntegrityError:
+            y(f"Hata: '{üye.üye_no}' numaralı üye zaten var!")
+            döndür yanlış
+
+    fonksiyon üye_listele(öz) -> list:
+        """Tüm üyeleri listele."""
+        öz.cursor.execute("SELECT * FROM üyeler ORDER BY ad")
+        döndür öz.cursor.fetchall()
+
+    # Ödünç İşlemleri
+    fonksiyon ödünç_ver(öz, isbn: str, üye_no: str) -> bool:
+        """Kitabı ödünç ver."""
+        # Kitap mevcut mu?
+        öz.cursor.execute("SELECT mevcut FROM kitaplar WHERE isbn = ?", (isbn,))
+        kitap = öz.cursor.fetchone()
+        eğer değil kitap:
+            y(f"Hata: '{isbn}' numaralı kitap bulunamadı!")
+            döndür yanlış
+        eğer değil kitap[0]:
+            y(f"Hata: Kitap zaten ödünçte!")
+            döndür yanlış
+
+        # Üye var mı?
+        öz.cursor.execute("SELECT * FROM üyeler WHERE üye_no = ?", (üye_no,))
+        eğer değil öz.cursor.fetchone():
+            y(f"Hata: '{üye_no}' numaralı üye bulunamadı!")
+            döndür yanlış
+
+        tarih = datetime.datetime.now().strftime("%d.%m.%Y")
+        öz.cursor.execute(
+            "INSERT INTO ödünçler (isbn, üye_no, ödünç_tarihi) VALUES (?, ?, ?)",
+            (isbn, üye_no, tarih)
+        )
+        öz.cursor.execute("UPDATE kitaplar SET mevcut = 0 WHERE isbn = ?", (isbn,))
+        öz.db.commit()
+        döndür doğru
+
+    fonksiyon iade_al(öz, isbn: str) -> bool:
+        """Kitabı iade al."""
+        tarih = datetime.datetime.now().strftime("%d.%m.%Y")
+        öz.cursor.execute(
+            "UPDATE ödünçler SET iade_tarihi = ? WHERE isbn = ? AND iade_tarihi IS NULL",
+            (tarih, isbn)
+        )
+        öz.cursor.execute("UPDATE kitaplar SET mevcut = 1 WHERE isbn = ?", (isbn,))
+        öz.db.commit()
+        döndür doğru
+
+    fonksiyon ödünç_listele(öz) -> list:
+        """Aktif ödünçleri listele."""
+        öz.cursor.execute("""
+            SELECT k.başlık, k.yazar, u.ad || ' ' || u.soyad, o.ödünç_tarihi
+            FROM ödünçler o
+            JOIN kitaplar k ON o.isbn = k.isbn
+            JOIN üyeler u ON o.üye_no = u.üye_no
+            WHERE o.iade_tarihi IS NULL
+        """)
+        döndür öz.cursor.fetchall()
+
+    # Raporlama
+    fonksiyon istatistikler(öz) -> dict:
+        """Kütüphane istatistikleri."""
+        öz.cursor.execute("SELECT COUNT(*) FROM kitaplar")
+        toplam_kitap = öz.cursor.fetchone()[0]
+
+        öz.cursor.execute("SELECT COUNT(*) FROM kitaplar WHERE mevcut = 1")
+        mevcut_kitap = öz.cursor.fetchone()[0]
+
+        öz.cursor.execute("SELECT COUNT(*) FROM üyeler")
+        toplam_üye = öz.cursor.fetchone()[0]
+
+        öz.cursor.execute("SELECT COUNT(*) FROM ödünçler WHERE iade_tarihi IS NULL")
+        aktif_ödünç = öz.cursor.fetchone()[0]
+
+        döndür {
+            "toplam_kitap": toplam_kitap,
+            "mevcut_kitap": mevcut_kitap,
+            "ödünçte": toplam_kitap - mevcut_kitap,
+            "toplam_üye": toplam_üye,
+            "aktif_ödünç": aktif_ödünç,
+        }
+
+    fonksiyon kapat(öz):
+        """Veritabanı bağlantısını kapat."""
+        öz.db.close()
+
+
+# ── MENÜ SİSTEMİ ─────────────────────────────────────────────────────────
+
+fonksiyon menü_göster():
+    """Ana menüyü göster."""
+    y("""
+╔══════════════════════════════════════════════════════════╗
+║           KÜTÜPHANE YÖNETİM SİSTEMİ v1.0                ║
+║           PARS ile geliştirildi                          ║
+╠══════════════════════════════════════════════════════════╣
+║  1. Kitap Ekle          5. Kitap Ödünç Ver              ║
+║  2. Kitap Listele       6. Kitap İade Al                ║
+║  3. Kitap Ara           7. Ödünç Listesi                ║
+║  4. Üye Ekle            8. İstatistikler                ║
+║  0. Çıkış                                               ║
+╚══════════════════════════════════════════════════════════╝
+""")
+
+
+fonksiyon ana():
+    """Ana program döngüsü."""
+    kütüphane = Kütüphane()
+
+    # Örnek veriler
+    kütüphane.kitap_ekle(Kitap("978-605-123-456-7", "Suç ve Ceza", "Dostoyevski", 1866, "Roman"))
+    kütüphane.kitap_ekle(Kitap("978-605-123-456-8", "Sefiller", "Victor Hugo", 1862, "Roman"))
+    kütüphane.kitap_ekle(Kitap("978-605-123-456-9", "İstanbul Hatırası", "Ahmet Ümit", 2010, "Polisiye"))
+    kütüphane.kitap_ekle(Kitap("978-605-123-457-0", "Tutunamayanlar", "Oğuz Atay", 1971, "Roman"))
+
+    kütüphane.üye_ekle(Üye("U001", "Ahmet", "Yılmaz", "ahmet@ornek.com"))
+    kütüphane.üye_ekle(Üye("U002", "Ayşe", "Demir", "ayse@ornek.com"))
+
+    y("Kütüphane Yönetim Sistemi'ne hoş geldiniz!")
+    y("Örnek veriler yüklendi.")
+
+    iken doğru:
+        menü_göster()
+        seçim = girdial("Seçiminiz (0-8): ").strip()
+
+        eğer seçim == "1":
+            y("\n--- Kitap Ekle ---")
+            isbn = girdial("ISBN: ")
+            başlık = girdial("Başlık: ")
+            yazar = girdial("Yazar: ")
+            yıl = tam_sayı(girdial("Yıl: "))
+            kategori = girdial("Kategori (varsayılan: Genel): ") veya "Genel"
+            eğer kütüphane.kitap_ekle(Kitap(isbn, başlık, yazar, yıl, kategori)):
+                y("Kitap eklendi!")
+
+        yoksa seçim == "2":
+            y("\n--- Kitap Listesi ---")
+            kitaplar = kütüphane.kitap_listele()
+            eğer kitaplar:
+                için kitap içinde kitaplar:
+                    durum = "Mevcut" kitap[5] else "Ödünçte"
+                    y(f"  [{kitap[0]}] {kitap[1]} - {kitap[2]} ({kitap[3]}) [{durum}]")
+            değilse:
+                y("Henüz kitap yok.")
+
+        yoksa seçim == "3":
+            y("\n--- Kitap Ara ---")
+            arama = girdial("Arama terimi: ")
+            sonuçlar = kütüphane.kitap_ara(arama)
+            eğer sonuçlar:
+                için kitap içinde sonuçlar:
+                    y(f"  [{kitap[0]}] {kitap[1]} - {kitap[2]}")
+            değilse:
+                y("Sonuç bulunamadı.")
+
+        yoksa seçim == "4":
+            y("\n--- Üye Ekle ---")
+            no = girdial("Üye No: ")
+            ad = girdial("Ad: ")
+            soyad = girdial("Soyad: ")
+            email = girdial("Email: ")
+            eğer kütüphane.üye_ekle(Üye(no, ad, soyad, email)):
+                y("Üye eklendi!")
+
+        yoksa seçim == "5":
+            y("\n--- Kitap Ödünç Ver ---")
+            isbn = girdial("Kitap ISBN: ")
+            üye_no = girdial("Üye No: ")
+            eğer kütüphane.ödünç_ver(isbn, üye_no):
+                y("Kitap ödünç verildi!")
+
+        yoksa seçim == "6":
+            y("\n--- Kitap İade Al ---")
+            isbn = girdial("Kitap ISBN: ")
+            eğer kütüphane.iade_al(isbn):
+                y("Kitap iade alındı!")
+
+        yoksa seçim == "7":
+            y("\n--- Aktif Ödünçler ---")
+            ödünçler = kütüphane.ödünç_listele()
+            eğer ödünçler:
+                için ödünç içinde ödünçler:
+                    y(f"  {ödünç[0]} ({ödünç[1]}) → {ödünç[2]} ({ödünç[3]})")
+            değilse:
+                y("Aktif ödünç yok.")
+
+        yoksa seçim == "8":
+            y("\n--- İstatistikler ---")
+            istatistik = kütüphane.istatistikler()
+            y(f"  Toplam Kitap: {istatistik['toplam_kitap']}")
+            y(f"  Mevcut Kitap: {istatistik['mevcut_kitap']}")
+            y(f"  Ödünçte: {istatistik['ödünçte']}")
+            y(f"  Toplam Üye: {istatistik['toplam_üye']}")
+            y(f"  Aktif Ödünç: {istatistik['aktif_ödünç']}")
+
+        yoksa seçim == "0":
+            y("\nGörüşürüz! 🐆")
+            kütüphane.kapat()
+            döndür
+
+        değilse:
+            y("Geçersiz seçim! Lütfen 0-8 arasında bir sayı girin.")
+
+        y("")  # Boş satır
+
+
+# Programı başlat
+ana()

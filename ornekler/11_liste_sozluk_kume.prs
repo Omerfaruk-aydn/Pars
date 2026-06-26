@@ -1,0 +1,90 @@
+# Liste, Sözlük, Küme İşlemleri
+
+# ── LİSTE ──────────────────────────────────────────────────────
+
+meyveler = ["elma", "armut", "muz", "çilek", "kiraz"]
+yaz(f"Meyveler: {meyveler}")
+
+# Erişim
+yaz(f"İlk meyve: {meyveler[0]}")
+yaz(f"Son meyve: {meyveler[-1]}")
+yaz(f"İlk üç: {meyveler[:3]}")
+
+# Metotlar
+meyveler.append("kavun")
+yaz(f"Ekleme: {meyveler}")
+
+meyveler.insert(1, "portakal")
+yaz(f"İnsert: {meyveler}")
+
+çıkarılan = meyveler.pop()
+yaz(f"Çıkarılan: {çıkarılan}")
+yaz(f"Kalan: {meyveler}")
+
+# Liste kavrayışı
+kareler = [x**2 için x içinde aralık(1, 11)]
+yaz(f"Kareler: {kareler}")
+
+çiftler = [x için x içinde aralık(20) eğer x % 2 == 0]
+yaz(f"Çiftler: {çiftler}")
+
+dönüştürülmüş = [x.upper() için x içinde meyveler eğer len(x) > 4]
+yaz(f"Uzun meyveler (büyük harf): {dönüştürülmüş}")
+
+# Sıralama
+sayılar = [5, 2, 8, 1, 9, 3, 7, 4, 6]
+yaz(f"Sırasız: {sayılar}")
+yaz(f"Sıralı: {sorted(sayılar)}")
+yaz(f"Ters: {sorted(sayılar, reverse=doğru)}")
+
+# ── SÖZLÜK ─────────────────────────────────────────────────────
+
+kişi = {
+    "ad": "Ayşe",
+    "yaş": 30,
+    "şehir": "İstanbul",
+    "meslek": "Mühendis"
+}
+yaz(f"\nKişi: {kişi}")
+
+# Erişim
+yaz(f"Ad: {kişi['ad']}")
+yaz(f"Yaş: {kişi.get('yaş', 'bilinmiyor')}")
+
+# Ekleme/Güncelleme
+kişi["email"] = "ayse@ornek.com"
+kişi["yaş"] = 31
+yaz(f"Güncel: {kişi}")
+
+# Döngü
+yaz("\nKişi bilgileri:")
+için anahtar, değer içinde kişi.items():
+    y(f"  {anahtar}: {değer}")
+
+# Sözlük kavrayışı
+kare_sözlüğü = {x: x**2 için x içinde aralık(1, 6)}
+yaz(f"\nKare sözlüğü: {kare_sözlüğü}")
+
+# ── KÜME ───────────────────────────────────────────────────────
+
+küme_a = küme([1, 2, 3, 4, 5])
+küme_b = küme([4, 5, 6, 7, 8])
+yaz(f"\nKüme A: {küme_a}")
+yaz(f"Küme B: {küme_b}")
+
+yaz(f"Birleşim: {küme_a | küme_b}")
+yaz(f"Kesişim: {küme_a & küme_b}")
+yaz(f"Fark (A-B): {küme_a - küme_b}")
+yaz(f"Simetrik fark: {küme_a ^ küme_b}")
+
+# ── DEMET ──────────────────────────────────────────────────────
+
+koordinat = (10, 20, 30)
+yaz(f"\nKoordinat: {koordinat}")
+yaz(f"X: {koordinat[0]}, Y: {koordinat[1]}, Z: {koordinat[2]}")
+
+# Demet açma
+x, y, z = koordinat
+yaz(f"Açılmış: x={x}, y={y}, z={z}")
+
+yaz("\nKoleksiyon işlemleri tamamlandı!")

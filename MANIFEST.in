@@ -1,0 +1,12 @@
+include LICENSE
+include README.md
+include requirements.txt
+include pyproject.toml
+
+recursive-include pars *.py
+recursive-include ornekler *.prs
+recursive-include testler *.py
+recursive-include dokuman *.md
+recursive-include vscode-uzantisi *.json
+recursive-include website *.yml *.md *.css
+recursive-include .github *.yml

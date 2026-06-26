@@ -1,0 +1,70 @@
+# Fonksiyonlar, lambda, *args, **kwargs, dekoratör
+
+fonksiyon selamla(isim: str, ünvan: str = "Sayın") -> str:
+    döndür f"{ünvan} {isim}, hoş geldiniz!"
+
+fonksiyon faktöriyel(n: int) -> int:
+    """Özyinelemeli faktöriyel"""
+    eğer n <= 1:
+        döndür 1
+    döndür n * faktöriyel(n - 1)
+
+fonksiyon fibonacci(n: int) -> liste:
+    """Fibonacci dizisi"""
+    eğer n <= 0:
+        döndür []
+    yoksa n == 1:
+        döndür [0]
+    dizi = [0, 1]
+    için _ içinde aralık(n - 2):
+        dizi.append(dizi[-1] + dizi[-2])
+    döndür dizi
+
+# *args ve **kwargs
+fonksiyon toplam(*sayılar):
+    sonuç = 0
+    için s içinde sayılar:
+        sonuç += s
+    döndür sonuç
+
+fonksiyon bilgi_göster(**bilgiler):
+    için anahtar, değer içinde bilgiler.items():
+        yaz(f"{anahtar}: {değer}")
+
+# Lambda
+kare  = lambda x: x ** 2
+küp   = lambda x: x ** 3
+çarp  = lambda x, y: x * y
+
+# Yüksek dereceli fonksiyonlar
+sayılar   = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+çiftler   = liste(filtre(lambda x: x % 2 == 0, sayılar))
+kareler   = liste(harita(lambda x: x ** 2, sayılar))
+
+# Dekoratör
+fonksiyon zamanlayıcı(f):
+    içe_aktar zaman
+    fonksiyon sarmalayıcı(*args, **kwargs):
+        başlangıç = zaman.time()
+        sonuç = f(*args, **kwargs)
+        yaz(f"  {f.__name__}: {zaman.time() - başlangıç:.6f}s")
+        döndür sonuç
+    döndür sarmalayıcı
+
+@zamanlayıcı
+fonksiyon yavaş_fonksiyon():
+    içe_aktar zaman
+    zaman.sleep(0.1)
+    döndür "bitti"
+
+# Testler
+yaz(selamla("Ahmet"))
+yaz(selamla("Ayşe", "Dr."))
+yaz(f"5! = {faktöriyel(5)}")
+yaz(f"Fibonacci(10): {fibonacci(10)}")
+yaz(f"Toplam: {toplam(1, 2, 3, 4, 5)}")
+bilgi_göster(ad="Ahmet", yaş=25, şehir="İstanbul")
+yaz(f"Kare(5) = {kare(5)}")
+yaz(f"Çiftler: {çiftler}")
+yaz(f"Kareler: {kareler}")
+yavaş_fonksiyon()

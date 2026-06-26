@@ -1,0 +1,15 @@
+# Yas Kontrolu
+
+yas = say oku Kac yasindasin?
+
+eğer yas 18 büyükse
+    yaz: Sen artik yetissin!
+son
+
+eğer yas 18 küçükse
+    yaz: Sen hala cocuksun!
+son
+
+eğer yas 18 eşitse
+    yaz: Tam 18 yasindasin!
+son

@@ -1,0 +1,18 @@
+# Sayi Tahmin Oyunu
+
+yaz: Sayi Tahmin Oyunu!
+yaz: 1 ile 10 arasinda bir sayi tuttum.
+
+dogru_sayi = 7
+
+tahmin = oku Tahmin et bakalim?
+
+eğer tahmin dogru_sayi eşitse
+    yaz: TEBRIKLER! Bildin!
+son
+
+eğer tahmin dogru_sayi eşit değilse
+    yaz: Bilemedin! Dogru cevap 7 idi.
+son
+
+yaz: Oyun bitti!

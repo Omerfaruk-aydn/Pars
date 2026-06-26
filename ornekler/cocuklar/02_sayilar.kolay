@@ -1,0 +1,9 @@
+# Sayilari Ogrencelim
+
+yaz: 1'den 5'e kadar sayalim!
+
+5 kez tekrarla i
+    yaz i
+son
+
+yaz: Bitti!

@@ -1,0 +1,15 @@
+# Merhaba Dünya — PARS'a hoş geldiniz!
+yaz("Merhaba, Dünya!")
+yaz("PARS — Pars gibi hızlı. Türkçe gibi güzel.")
+
+isim = girdial("Adın ne? ")
+yaş  = tam_sayı(girdial("Kaç yaşındasın? "))
+
+yaz(f"Hoş geldin, {isim}! {yaş} yaşındasın.")
+
+eğer yaş >= 18:
+    yaz("Yetişkinsin.")
+yoksa yaş >= 13:
+    yaz("Genç birisin.")
+değilse:
+    yaz("Çocuksun.")

@@ -1,0 +1,70 @@
+# Flask Web Uygulaması
+# Gerekli: pars paket yükle flask
+
+dene:
+    den_aktar flask içe_aktar Flask, jsonify, request, render_template_string
+
+    uygulama = Flask(__name__)
+
+    ANA_SAYFA = """
+    <!DOCTYPE html>
+    <html lang="tr">
+    <head>
+        <meta charset="UTF-8">
+        <title>PARS Web Uygulaması</title>
+        <style>
+            body { font-family: sans-serif; max-width: 800px; margin: 50px auto; }
+            .pars { color: #EF9F27; font-weight: bold; }
+            a { color: #9FE1CB; }
+        </style>
+    </head>
+    <body>
+        <h1>PARS ile Flask!</h1>
+        <p>Türkçe programlama dili ile web uygulaması.</p>
+        <ul>
+            <li><a href="/api/merhaba/Dünya">GET /api/merhaba/Dünya</a></li>
+            <li><a href="/api/hesapla?a=5&b=3">GET /api/hesapla?a=5&b=3</a></li>
+        </ul>
+    </body>
+    </html>
+    """
+
+    @uygulama.route('/')
+    fonksiyon ana_sayfa():
+        döndür render_template_string(ANA_SAYFA)
+
+    @uygulama.route('/api/merhaba/<isim>')
+    fonksiyon merhaba(isim):
+        döndür jsonify({
+            "mesaj":   f"Merhaba, {isim}!",
+            "dil":     "PARS",
+            "durum":   "başarılı",
+        })
+
+    @uygulama.route('/api/hesapla')
+    fonksiyon hesapla():
+        a = ondalıklı(request.args.get('a', 0))
+        b = ondalıklı(request.args.get('b', 0))
+        döndür jsonify({
+            "a":       a,
+            "b":       b,
+            "toplam":  a + b,
+            "çarpım":  a * b,
+            "fark":    a - b,
+            "bölüm":   a / b eğer b != 0 yoksa yok,
+        })
+
+    @uygulama.route('/api/kullanicilar', methods=['GET', 'POST'])
+    fonksiyon kullanicilar():
+        eğer request.method == 'GET':
+            döndür jsonify({"kullanicilar": []})
+        veri = request.get_json()
+        döndür jsonify({"oluşturulan": veri}), 201
+
+    eğer __name__ == '__main__':
+        y("Sunucu: http://localhost:5000")
+        uygulama.run(debug=doğru, port=5000)
+
+hariç ImportError:
+    y("Flask kurulu değil.")
+    y("Şunu çalıştırın: pars paket yükle flask")

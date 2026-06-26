@@ -1,0 +1,95 @@
+# Üreteçler ve İteratörler
+
+# Basit üreteç
+fonksiyon sayıcı(başlangıç: int, bitiş: int):
+    """Belirli aralıkta sayılar üretir."""
+    sayaç = başlangıç
+    iken sayaç <= bitiş:
+        ver sayaç
+        sayaç += 1
+
+# Üreteci kullanma
+yaz("Sayaç (1-5):")
+için sayı içinde sayıcı(1, 5):
+    y(f"  {sayı}")
+
+# Fibonacci üreteci
+fonksiyon fibonacci_üreteci(n: int):
+    """İlk n Fibonacci sayısını üretir."""
+    a, b = 0, 1
+    için _ içinde aralık(n):
+        ver a
+        a, b = b, a + b
+
+yaz("\nFibonacci (10):")
+fib_liste = liste(fibonacci_üreteci(10))
+yaz(f"  {fib_liste}")
+
+# Sınırsız üreteç
+fonksiyon sonsuz_sayılar(başlangıç: int = 0):
+    """Sonsuz sayı dizisi üretir."""
+    sayı = başlangıç
+    iken doğru:
+        ver sayı
+        sayı += 1
+
+# sonraki() ile kullanım
+üreteç = sonsuz_sayılar(10)
+yaz("\nSonsuz sayılar (ilk 5):")
+için _ içinde aralık(5):
+    y(f"  {sonraki(üreteç)}")
+
+# Dosya satır okuma üreteci
+fonksiyon satır_oku(dosya_adı: str):
+    """Dosyayı satır satır okur."""
+    ile açık(dosya_adı, 'r') as f:
+        için satır içinde f:
+            ver satır.strip()
+
+# itertools benzeri üreteçler
+fonksiyon zincirle(*iterables):
+    """Birden fazla iterable'ı birleştirir."""
+    için iterable içinde iterables:
+        için eleman içinde iterable:
+            ver eleman
+
+yaz("\nZincirleme:")
+sonuç = liste(zincirle([1, 2], [3, 4], [5, 6]))
+yaz(f"  {sonuç}")
+
+# Koşullu üreteç
+fonksiyon filtrele_üretec(iterable, koşul):
+    """Koşula uyan elemanları üretir."""
+    için eleman içinde iterable:
+        eğer koşul(eleman):
+            ver eleman
+
+yaz("\nFiltrelenmiş (çift sayılar):")
+çiftler = liste(filtrele_üretec(aralık(10), lambda x: x % 2 == 0))
+yaz(f"  {çiftler}")
+
+# send() ile iki yönlü iletişim
+fonksiyon toplayıcı():
+    """Toplama işlemi yapan üreteç."""
+    toplam = 0
+    iken doğru:
+        değer = bekle
+        eğer değer yok:
+            döndür toplam
+        toplam += değer
+
+# yield from (alt üreteç)
+fonksiyon düzleştir(liste):
+    """İç içe listeyi düzleştirir."""
+    için eleman içinde liste:
+        eğer türünden_mi(eleman, list):
+            ver from düzleştir(eleman)
+        değilse:
+            ver eleman
+
+yaz("\nDüzleştirme:")
+iç_içe = [1, [2, 3], [4, [5, 6]], 7]
+yaz(f"  Girdi: {iç_içe}")
+yaz(f"  Çıktı: {liste(düzleştir(iç_içe))}")
+
+yaz("\nÜreteç örnekleri tamamlandı!")

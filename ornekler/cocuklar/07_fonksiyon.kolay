@@ -1,0 +1,19 @@
+# Fonksiyon Ogrencelim
+
+ikiKatla n yap
+    döndür n * 2
+son
+
+ucKatla n yap
+    döndür n * 3
+son
+
+yaz: 5'in iki kati:
+yaz ikiKatla(5)
+
+yaz: 4'un uc kati:
+yaz ucKatla(4)
+
+10 kez tekrarla i
+    yaz f'{i} x 2 = {ikiKatla(i)}'
+son
