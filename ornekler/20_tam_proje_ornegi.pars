@@ -7,7 +7,7 @@ içe_aktar os
 
 # ── SINIFLAR ──────────────────────────────────────────────────────────────
 
- sınıf Kitap:
+sınıf Kitap:
     """Kitap sınıfı"""
 
     fonksiyon __init__(öz, isbn: str, başlık: str, yazar: str,
@@ -20,11 +20,11 @@ içe_aktar os
         öz.mevcut = doğru
 
     fonksiyon __str__(öz) -> str:
-        durum = "Mevcut" öz.mevcut else "Ödünçte"
+        durum = "Mevcut" eğer öz.mevcut değilse "Ödünçte"
         döndür f"[{öz.isbn}] {öz.başlık} - {öz.yazar} ({öz.yıl}) [{durum}]"
 
 
- sınıf Üye:
+sınıf Üye:
     """Kütüphane üyesi sınıfı"""
 
     fonksiyon __init__(öz, üye_no: str, ad: str, soyad: str, email: str = ""):
@@ -41,7 +41,7 @@ içe_aktar os
         döndür f"[{öz.üye_no}] {öz.tam_ad()} ({öz.email})"
 
 
- sınıf Kütüphane:
+sınıf Kütüphane:
     """Kütüphane yönetim sınıfı"""
 
     fonksiyon __init__(öz, db_dosya: str = ":memory:"):
@@ -88,19 +88,19 @@ içe_aktar os
             öz.cursor.execute(
                 "INSERT INTO kitaplar VALUES (?, ?, ?, ?, ?, ?)",
                 (kitap.isbn, kitap.başlık, kitap.yazar,
-                 kitap.yıl, kitap.kategori, 1 if kitap.mevcut else 0)
+                 kitap.yıl, kitap.kategori, 1 eğer kitap.mevcut değilse 0)
             )
             öz.db.commit()
             döndür doğru
         hariç sqlite3.IntegrityError:
-            y(f"Hata: '{kitap.isbn}' ISBN numaralı kitap zaten var!")
+            yaz(f"Hata: '{kitap.isbn}' ISBN numaralı kitap zaten var!")
             döndür yanlış
 
     fonksiyon kitap_ara(öz, arama: str) -> list:
         """Kitap ara (başlık veya yazar)."""
         öz.cursor.execute(
             "SELECT * FROM kitaplar WHERE başlık LIKE ? OR yazar LIKE ?",
-            (f"%{arma}%", f"%{arma}%")
+            (f"%{arama}%", f"%{arama}%")
         )
         döndür öz.cursor.fetchall()
 
@@ -126,7 +126,7 @@ içe_aktar os
             öz.db.commit()
             döndür doğru
         hariç sqlite3.IntegrityError:
-            y(f"Hata: '{üye.üye_no}' numaralı üye zaten var!")
+            yaz(f"Hata: '{üye.üye_no}' numaralı üye zaten var!")
             döndür yanlış
 
     fonksiyon üye_listele(öz) -> list:
@@ -141,16 +141,16 @@ içe_aktar os
         öz.cursor.execute("SELECT mevcut FROM kitaplar WHERE isbn = ?", (isbn,))
         kitap = öz.cursor.fetchone()
         eğer değil kitap:
-            y(f"Hata: '{isbn}' numaralı kitap bulunamadı!")
+            yaz(f"Hata: '{isbn}' numaralı kitap bulunamadı!")
             döndür yanlış
         eğer değil kitap[0]:
-            y(f"Hata: Kitap zaten ödünçte!")
+            yaz(f"Hata: Kitap zaten ödünçte!")
             döndür yanlış
 
         # Üye var mı?
         öz.cursor.execute("SELECT * FROM üyeler WHERE üye_no = ?", (üye_no,))
         eğer değil öz.cursor.fetchone():
-            y(f"Hata: '{üye_no}' numaralı üye bulunamadı!")
+            yaz(f"Hata: '{üye_no}' numaralı üye bulunamadı!")
             döndür yanlış
 
         tarih = datetime.datetime.now().strftime("%d.%m.%Y")
@@ -216,7 +216,7 @@ içe_aktar os
 
 fonksiyon menü_göster():
     """Ana menüyü göster."""
-    y("""
+    yaz("""
 ╔══════════════════════════════════════════════════════════╗
 ║           KÜTÜPHANE YÖNETİM SİSTEMİ v1.0                ║
 ║           PARS ile geliştirildi                          ║
@@ -243,92 +243,92 @@ fonksiyon ana():
     kütüphane.üye_ekle(Üye("U001", "Ahmet", "Yılmaz", "ahmet@ornek.com"))
     kütüphane.üye_ekle(Üye("U002", "Ayşe", "Demir", "ayse@ornek.com"))
 
-    y("Kütüphane Yönetim Sistemi'ne hoş geldiniz!")
-    y("Örnek veriler yüklendi.")
+    yaz("Kütüphane Yönetim Sistemi'ne hoş geldiniz!")
+    yaz("Örnek veriler yüklendi.")
 
     iken doğru:
         menü_göster()
         seçim = girdial("Seçiminiz (0-8): ").strip()
 
         eğer seçim == "1":
-            y("\n--- Kitap Ekle ---")
+            yaz("\n--- Kitap Ekle ---")
             isbn = girdial("ISBN: ")
             başlık = girdial("Başlık: ")
             yazar = girdial("Yazar: ")
             yıl = tam_sayı(girdial("Yıl: "))
             kategori = girdial("Kategori (varsayılan: Genel): ") veya "Genel"
             eğer kütüphane.kitap_ekle(Kitap(isbn, başlık, yazar, yıl, kategori)):
-                y("Kitap eklendi!")
+                yaz("Kitap eklendi!")
 
         yoksa seçim == "2":
-            y("\n--- Kitap Listesi ---")
+            yaz("\n--- Kitap Listesi ---")
             kitaplar = kütüphane.kitap_listele()
             eğer kitaplar:
                 için kitap içinde kitaplar:
-                    durum = "Mevcut" kitap[5] else "Ödünçte"
-                    y(f"  [{kitap[0]}] {kitap[1]} - {kitap[2]} ({kitap[3]}) [{durum}]")
+                    durum = "Mevcut" eğer kitap[5] değilse "Ödünçte"
+                    yaz(f"  [{kitap[0]}] {kitap[1]} - {kitap[2]} ({kitap[3]}) [{durum}]")
             değilse:
-                y("Henüz kitap yok.")
+                yaz("Henüz kitap yok.")
 
         yoksa seçim == "3":
-            y("\n--- Kitap Ara ---")
+            yaz("\n--- Kitap Ara ---")
             arama = girdial("Arama terimi: ")
             sonuçlar = kütüphane.kitap_ara(arama)
             eğer sonuçlar:
                 için kitap içinde sonuçlar:
-                    y(f"  [{kitap[0]}] {kitap[1]} - {kitap[2]}")
+                    yaz(f"  [{kitap[0]}] {kitap[1]} - {kitap[2]}")
             değilse:
-                y("Sonuç bulunamadı.")
+                yaz("Sonuç bulunamadı.")
 
         yoksa seçim == "4":
-            y("\n--- Üye Ekle ---")
+            yaz("\n--- Üye Ekle ---")
             no = girdial("Üye No: ")
             ad = girdial("Ad: ")
             soyad = girdial("Soyad: ")
             email = girdial("Email: ")
             eğer kütüphane.üye_ekle(Üye(no, ad, soyad, email)):
-                y("Üye eklendi!")
+                yaz("Üye eklendi!")
 
         yoksa seçim == "5":
-            y("\n--- Kitap Ödünç Ver ---")
+            yaz("\n--- Kitap Ödünç Ver ---")
             isbn = girdial("Kitap ISBN: ")
             üye_no = girdial("Üye No: ")
             eğer kütüphane.ödünç_ver(isbn, üye_no):
-                y("Kitap ödünç verildi!")
+                yaz("Kitap ödünç verildi!")
 
         yoksa seçim == "6":
-            y("\n--- Kitap İade Al ---")
+            yaz("\n--- Kitap İade Al ---")
             isbn = girdial("Kitap ISBN: ")
             eğer kütüphane.iade_al(isbn):
-                y("Kitap iade alındı!")
+                yaz("Kitap iade alındı!")
 
         yoksa seçim == "7":
-            y("\n--- Aktif Ödünçler ---")
+            yaz("\n--- Aktif Ödünçler ---")
             ödünçler = kütüphane.ödünç_listele()
             eğer ödünçler:
                 için ödünç içinde ödünçler:
-                    y(f"  {ödünç[0]} ({ödünç[1]}) → {ödünç[2]} ({ödünç[3]})")
+                    yaz(f"  {ödünç[0]} ({ödünç[1]}) → {ödünç[2]} ({ödünç[3]})")
             değilse:
-                y("Aktif ödünç yok.")
+                yaz("Aktif ödünç yok.")
 
         yoksa seçim == "8":
-            y("\n--- İstatistikler ---")
+            yaz("\n--- İstatistikler ---")
             istatistik = kütüphane.istatistikler()
-            y(f"  Toplam Kitap: {istatistik['toplam_kitap']}")
-            y(f"  Mevcut Kitap: {istatistik['mevcut_kitap']}")
-            y(f"  Ödünçte: {istatistik['ödünçte']}")
-            y(f"  Toplam Üye: {istatistik['toplam_üye']}")
-            y(f"  Aktif Ödünç: {istatistik['aktif_ödünç']}")
+            yaz(f"  Toplam Kitap: {istatistik['toplam_kitap']}")
+            yaz(f"  Mevcut Kitap: {istatistik['mevcut_kitap']}")
+            yaz(f"  Ödünçte: {istatistik['ödünçte']}")
+            yaz(f"  Toplam Üye: {istatistik['toplam_üye']}")
+            yaz(f"  Aktif Ödünç: {istatistik['aktif_ödünç']}")
 
         yoksa seçim == "0":
-            y("\nGörüşürüz! 🐆")
+            yaz("\nGörüşürüz! 🐆")
             kütüphane.kapat()
             döndür
 
         değilse:
-            y("Geçersiz seçim! Lütfen 0-8 arasında bir sayı girin.")
+            yaz("Geçersiz seçim! Lütfen 0-8 arasında bir sayı girin.")
 
-        y("")  # Boş satır
+        yaz("")  # Boş satır
 
 
 # Programı başlat

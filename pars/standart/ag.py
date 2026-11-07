@@ -5,7 +5,7 @@ PARS Ağ Modülü — urllib Türkçe sarmalayıcısı
 import urllib.request
 import urllib.parse
 import json
-from typing import Any, Dict, Optional
+from typing import Any
 
 __all__ = [
     'get', 'post', 'put', 'sil_istek',

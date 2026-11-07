@@ -11,13 +11,13 @@ yaz("Dosya yazıldı: test_dosyasi.txt")
 # Dosya okuma
 ile açık("test_dosyasi.txt", "r") olarak f:
     içerik = f.read()
-    y("Dosya içeriği:")
+    yaz("Dosya içeriği:")
     yaz(içerik)
 
 # Satır satır okuma
 ile açık("test_dosyasi.txt", "r") olarak f:
     satırlar = f.readlines()
-    y(f"Satır sayısı: {uzunluk(satırlar)}")
+    yaz(f"Satır sayısı: {uzunluk(satırlar)}")
     için i, satır içinde numaralandır(satırlar):
         yaz(f"  {i+1}: {satır.rstrip()}")
 
@@ -34,8 +34,8 @@ ile açık("test_binary.dat", "wb") as f:
 
 ile açık("test_binary.dat", "rb") as f:
     veri = f.read()
-    y(f"Binary veri: {veri}")
-    y(f"Çözülmüş: {veri.decode('utf-8')}")
+    yaz(f"Binary veri: {veri}")
+    yaz(f"Çözülmüş: {veri.decode('utf-8')}")
 
 # pathlib kullanımı
 den_aktar pathlib içe_aktar Path
@@ -44,8 +44,8 @@ yol = Path(".")
 yaz(f"Çalışma dizini: {yol.resolve()}")
 yaz(f"Dosya listesi:")
 için dosya içinde yol.glob("*"):
-    tür = "D" dosya.is_dir() else "F"
-    y(f"  [{tür}] {dosya.name}")
+    tür = "D" eğer dosya.is_dir() değilse "F"
+    yaz(f"  [{tür}] {dosya.name}")
 
 # Temizlik
 Path("test_dosyasi.txt").unlink(missing_ok=doğru)

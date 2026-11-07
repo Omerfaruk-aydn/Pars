@@ -1,0 +1,32 @@
+# Yinelenebilirler — itertools Türkçe sarmalayıcısı
+# Yeni standart kütüphane modülü: yinelenebilirler
+
+içe_aktar yinelenebilirler
+
+yaz("=== Kombinasyon ve Permütasyon ===")
+harfler = ["A", "B", "C"]
+yaz(f"2'li kombinasyonlar: {list(yinelenebilirler.kombinasyonlar(harfler, 2))}")
+yaz(f"2'li permütasyonlar: {list(yinelenebilirler.permutasyonlar(harfler, 2))}")
+yaz(f"Kartezyen çarpım: {list(yinelenebilirler.carpim([1, 2], ['a', 'b']))}")
+
+yaz("\n=== Zincirleme ve Dilimleme ===")
+yaz(f"Zincir: {list(yinelenebilirler.zincirle([1, 2], [3, 4], [5]))}")
+yaz(f"İlk 5 sayı: {yinelenebilirler.ilk_n(yinelenebilirler.say(10), 5)}")
+yaz(f"2'şer adım: {yinelenebilirler.dilimle(range(20), 0, 20, 2)}")
+
+yaz("\n=== Birikimli İşlemler ===")
+yaz(f"Toplamlar: {yinelenebilirler.birikimli([1, 2, 3, 4, 5])}")
+yaz(f"Çarpımlar: {yinelenebilirler.tara([1, 2, 3, 4], lambda a, b: a * b)}")
+
+yaz("\n=== Gruplama ===")
+kelimeler = ["elma", "armut", "ayva", "biber", "bezelye", "cilek"]
+gruplar = yinelenebilirler.grupla(sorted(kelimeler), lambda k: k[0])
+için harf, grup içinde gruplar:
+    yaz(f"  {harf}: {grup}")
+
+yaz("\n=== Tekrar ve Filtre ===")
+yaz(f"3 kez: {list(yinelenebilirler.tekrar('PARS', 3))}")
+yaz(f"Çiftler: {list(yinelenebilirler.filtrele_yanlis(lambda x: x % 2, range(10)))}")
+yaz(f"Uzun zip: {yinelenebilirler.sikistir_uzun([1, 2], ['a'], dolgu='-')}")
+
+yaz("\nYinelenebilirler örneği tamamlandı!")

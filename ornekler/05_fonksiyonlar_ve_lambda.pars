@@ -54,7 +54,7 @@ fonksiyon zamanlayıcı(f):
 @zamanlayıcı
 fonksiyon yavaş_fonksiyon():
     içe_aktar zaman
-    zaman.sleep(0.1)
+    zaman.bekle(0.1)
     döndür "bitti"
 
 # Testler

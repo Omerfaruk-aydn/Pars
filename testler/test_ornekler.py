@@ -1,35 +1,43 @@
 """
-Ornekler klasöründeki tüm .prs dosyalarını çalıştırır.
-Hata veren dosya testi başarısız sayar.
+Örnek dosyaların gerçekten çalıştığını doğrular.
+
+v1.0.1: Bu test önceden calistir() sonucunu kontrol etmiyordu ve
+bozuk örnekler bile "geçiyor" görünüyordu. Artık her örnek True dönmeli.
 """
 
 import pytest
 from pathlib import Path
-from pars.cekirdek.yurutucu import calistir
 from unittest.mock import patch
+
+from pars.cekirdek.yurutucu import calistir
 
 ORNEKLER_DIZIN = Path(__file__).parent.parent / 'ornekler'
 
 
 def ornek_dosyalari():
-    return list(ORNEKLER_DIZIN.glob('*.prs'))
+    return sorted(ORNEKLER_DIZIN.glob('*.pars'))
 
 
 @pytest.mark.parametrize('dosya', ornek_dosyalari(),
                          ids=lambda d: d.name)
 def test_ornek_calisir(dosya, monkeypatch, capsys):
-    """Örnek dosya çalıştırılabilir olmalı."""
-    # girdial çağrılarını mockla
-    monkeypatch.setattr('builtins.input', lambda *a, **k: 'test_girdisi')
+    """Her örnek dosya hatasız çalışmalı (çıktı yakalanır)."""
+    # Girdi bekleyen örnekler için güvenli sahte girdi
+    monkeypatch.setattr('builtins.input', lambda *a, **k: '0')
 
-    # Flask, asyncio gibi blocking çağrıları engelle
+    kod = dosya.read_text(encoding='utf-8')
+
+    # Ağ ve sunucu örnekleri ortam değişkeniyle atlanır
+    monkeypatch.delenv('PARS_ORNEK_AG', raising=False)
+    monkeypatch.delenv('PARS_ORNEK_FLASK', raising=False)
+
     with patch('time.sleep'):
-        kod = dosya.read_text(encoding='utf-8')
+        sonuc = calistir(kod, dosya_adi=str(dosya))
 
-        # Import hataları (numpy yok vb.) başarısız sayılmaz
-        # Gerçek PARS hataları başarısız sayılır
-        try:
-            sonuc = calistir(kod, dosya_adi=str(dosya))
-        except ImportError:
-            # Eksik kütüphane - test atlanır
-            pytest.skip(f"Eksik kütüphane: {dosya.name}")
+    assert sonuc is True, f'{dosya.name} çalıştırılamadı'
+    capsys.readouterr()
+
+
+def test_en_az_30_ornek_var():
+    """Standart kütüphane genişledikçe örnek sayısı da artmalı."""
+    assert len(ornek_dosyalari()) >= 30

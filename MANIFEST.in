@@ -4,7 +4,7 @@ include requirements.txt
 include pyproject.toml
 
 recursive-include pars *.py
-recursive-include ornekler *.prs
+recursive-include ornekler *.pars
 recursive-include testler *.py
 recursive-include dokuman *.md
 recursive-include vscode-uzantisi *.json

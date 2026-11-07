@@ -1,0 +1,45 @@
+# Sıkıştırma ve Arşivleme — gzip / zipfile / tarfile
+# Yeni standart kütüphane modülü: sikistirma
+
+içe_aktar sikistirma
+içe_aktar isletim
+içe_aktar yol
+
+calisma = isletim.gecici_dizin(onek="pars_arsiv_")
+yaz(f"Çalışma dizini: {calisma}")
+
+# ── Gzip / zlib ──────────────────────────────────────────────────────────
+veri = ("PARS Türkçe programlama dili. " * 20).encode("utf-8")
+sikismis = sikistirma.gzip_sikistir(veri)
+acilmis = sikistirma.gzip_ac(sikismis)
+yaz(f"\nGzip: {len(veri)} → {len(sikismis)} bayt")
+yaz(f"Doğru mu: {acilmis == veri}")
+
+z_sikismis = sikistirma.zlib_sikistir(veri, 9)
+yaz(f"Zlib: {len(veri)} → {len(z_sikismis)} bayt")
+yaz(f"Doğru mu: {sikistirma.zlib_ac(z_sikismis) == veri}")
+
+# ── ZIP arşivi ───────────────────────────────────────────────────────────
+dosya1 = yol.birlestir(calisma, "bir.txt")
+dosya2 = yol.birlestir(calisma, "iki.txt")
+yol.yaz(dosya1, "Birinci dosya içeriği\n")
+yol.yaz(dosya2, "İkinci dosya içeriği\n")
+
+zip_yolu = yol.birlestir(calisma, "arsiv.zip")
+sikistirma.zip_olustur(zip_yolu, [dosya1, dosya2])
+yaz(f"\nZIP içeriği: {sikistirma.zip_listele(zip_yolu)}")
+
+hedef = yol.birlestir(calisma, "zip_cikti")
+yol.olustur(hedef)
+sikistirma.zip_ac(zip_yolu, hedef)
+yaz(f"ZIP çıkarıldı: {yol.listele(hedef)}")
+
+# ── TAR arşivi ───────────────────────────────────────────────────────────
+tar_yolu = yol.birlestir(calisma, "arsiv.tar.gz")
+sikistirma.tar_olustur(tar_yolu, [dosya1, dosya2])
+yaz(f"TAR içeriği: {sikistirma.tar_listele(tar_yolu)}")
+
+# ── Temizlik ─────────────────────────────────────────────────────────────
+yol.sil(calisma, zorla=doğru)
+yaz("\nGeçici arşivler temizlendi.")
+yaz("Sıkıştırma örneği tamamlandı!")

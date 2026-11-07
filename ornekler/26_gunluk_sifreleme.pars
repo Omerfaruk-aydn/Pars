@@ -1,0 +1,44 @@
+# Günlük ve Şifreleme — logging / hashlib / base64
+# Yeni standart kütüphane modülleri: gunluk, sifreleme
+
+içe_aktar gunluk
+içe_aktar sifreleme
+
+# ── Günlük ───────────────────────────────────────────────────────────────
+gunluk.temel_yapilandir(
+    seviye="bilgi",
+    bicim_metni="%(levelname)s | %(message)s",
+)
+
+gunluk.bilgi("PARS günlük sistemi başladı")
+gunluk.uyari("Bu bir uyarı mesajıdır")
+gunluk.hata("Bu bir hata mesajıdır")
+gunluk.ayikla("Bu mesaj bilgi seviyesinde görünmez")
+gunluk.seviye_ata("hata_ayikla")
+gunluk.ayikla("Şimdi hata ayıklama görünür")
+
+# ── Hash ─────────────────────────────────────────────────────────────────
+metin = "PARS Türkçe Programlama Dili"
+yaz("\n=== Hash Değerleri ===")
+yaz(f"MD5:    {sifreleme.md5(metin)}")
+yaz(f"SHA1:   {sifreleme.sha1(metin)}")
+yaz(f"SHA256: {sifreleme.sha256(metin)}")
+yaz(f"SHA512: {sifreleme.sha512(metin)[:32]}...")
+
+# ── HMAC ─────────────────────────────────────────────────────────────────
+imza = sifreleme.hmac_hesapla("gizli-anahtar", metin)
+yaz(f"\nHMAC: {imza[:32]}...")
+yaz(f"Doğrulama: {sifreleme.sabit_karsilastir(imza, sifreleme.hmac_hesapla('gizli-anahtar', metin))}")
+
+# ── Base64 ───────────────────────────────────────────────────────────────
+kodlanmis = sifreleme.base64_kodla(metin)
+cozulmus = sifreleme.base64_coz(kodlanmis).decode("utf-8")
+yaz(f"\nBase64: {kodlanmis[:40]}...")
+yaz(f"Çözülen: {cozulmus}")
+
+# ── Rastgele güvenli değerler ────────────────────────────────────────────
+yaz(f"\nRastgele metin: {sifreleme.rastgele_metin(12)}")
+yaz(f"Rastgele sayı: {sifreleme.rastgele_sayi(1, 100)}")
+yaz(f"UUID: {sifreleme.uuid4()}")
+
+yaz("\nGünlük ve şifreleme örneği tamamlandı!")

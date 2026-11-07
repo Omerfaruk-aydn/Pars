@@ -49,3 +49,6 @@ site/
 # Temporary files
 *.tmp
 *.temp
+
+# VS Code extension packaging
+*.vsix

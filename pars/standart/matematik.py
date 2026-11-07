@@ -3,7 +3,6 @@ PARS Matematik Modülü — math kütüphanesi Türkçe sarmalayıcısı
 """
 
 import math
-import cmath
 import statistics
 from typing import Union, Sequence
 
@@ -18,12 +17,14 @@ NAN = math.nan
 __all__ = [
     'PI', 'E', 'TAU', 'SONSUZ', 'NAN',
     'kare_kok', 'us', 'mutlak', 'yuvarlak', 'tavan', 'taban_al', 'mod',
+    'kare', 'kup', 'isaret', 'olcek', 'sinirla', 'yaklasik_esit',
+    'asal_mi', 'tam_bolenler', 'kare_kok_tam', 'olcek_log',
     'sinus', 'kosinus', 'tanjant', 'ark_sinus', 'ark_kosinus', 'ark_tanjant',
     'ark_tanjant2', 'derece_radyan', 'radyan_derece', 'hipotenus',
-    'logaritma', 'log10', 'log2', 'exp',
+    'logaritma', 'log10', 'log2', 'log1p', 'exp', 'expm1',
     'faktoriyel', 'kombinasyon', 'permutasyon', 'obeb', 'okek',
     'ortalama', 'medyan', 'mod_istatistik', 'standart_sapma', 'varyans',
-    'kovaryans',
+    'kovaryans', 'toplam', 'carpanlar', 'en_yakin', 'dizi_toplami',
 ]
 
 
@@ -195,3 +196,112 @@ def varyans(sayilar: Sequence[Sayi]) -> float:
 def kovaryans(x: Sequence[Sayi], y: Sequence[Sayi]) -> float:
     """İki veri seti arasındaki kovaryans."""
     return statistics.covariance(x, y)
+
+# ── GENİŞLETİLMİŞ YARDIMCILAR (v1.0.1) ──────────────────────────────────
+
+def kare(x: Sayi) -> Sayi:
+    """Karesini al."""
+    return x * x
+
+
+def kup(x: Sayi) -> Sayi:
+    """Küpünü al."""
+    return x * x * x
+
+
+def isaret(x: Sayi) -> int:
+    """İşaret: -1, 0 veya 1."""
+    return (x > 0) - (x < 0)
+
+
+def olcek(x: Sayi, alt: Sayi, ust: Sayi,
+          yeni_alt: Sayi = 0, yeni_ust: Sayi = 1) -> float:
+    """Bir aralıktaki değeri başka aralığa ölçekle."""
+    if ust == alt:
+        return yeni_alt
+    return yeni_alt + (x - alt) * (yeni_ust - yeni_alt) / (ust - alt)
+
+
+def sinirla(x: Sayi, alt: Sayi, ust: Sayi) -> Sayi:
+    """Değeri [alt, ust] aralığına sıkıştır."""
+    return max(alt, min(ust, x))
+
+
+def yaklasik_esit(a: Sayi, b: Sayi, tolerans: float = 1e-9) -> bool:
+    """İki sayı tolerans içinde eşit mi?"""
+    return abs(a - b) <= tolerans
+
+
+def asal_mi(n: int) -> bool:
+    """Asal sayı mı?"""
+    if n < 2:
+        return False
+    if n in (2, 3):
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+        i += 6
+    return True
+
+
+def tam_bolenler(n: int) -> list:
+    """Pozitif tam bölenler."""
+    if n == 0:
+        return []
+    n = abs(n)
+    kucuk = [i for i in range(1, int(math.isqrt(n)) + 1) if n % i == 0]
+    buyuk = [n // i for i in kucuk if i != n // i]
+    return sorted(kucuk + buyuk)
+
+
+def kare_kok_tam(n: int) -> int:
+    """Tamsayı karekök (aşağı yuvarlanmış)."""
+    return math.isqrt(n)
+
+
+def olcek_log(x: Sayi, taban: Sayi = 10) -> float:
+    """Logaritmik ölçek."""
+    return math.log(x, taban)
+
+
+def log1p(x: Sayi) -> float:
+    """log(1 + x), küçük x için hassas."""
+    return math.log1p(x)
+
+
+def expm1(x: Sayi) -> float:
+    """e^x - 1, küçük x için hassas."""
+    return math.expm1(x)
+
+
+def toplam(sayilar: Sequence[Sayi]) -> Sayi:
+    return sum(sayilar)
+
+
+def carpanlar(n: int) -> list:
+    """Asal çarpanlar."""
+    n = abs(n)
+    sonuc = []
+    i = 2
+    while i * i <= n:
+        while n % i == 0:
+            sonuc.append(i)
+            n //= i
+        i += 1 if i == 2 else 2
+    if n > 1:
+        sonuc.append(n)
+    return sonuc
+
+
+def en_yakin(deger: Sayi, secenekler: Sequence[Sayi]) -> Sayi:
+    """Değere en yakın seçeneği döndür."""
+    return min(secenekler, key=lambda s: abs(s - deger))
+
+
+def dizi_toplami(sayilar: Sequence[Sayi]) -> float:
+    """Hassas (Kahan) toplam."""
+    return math.fsum(sayilar)

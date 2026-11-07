@@ -8,7 +8,7 @@ import csv
 import shutil
 import tempfile
 from pathlib import Path
-from typing import List, Optional, Any
+from typing import Any
 
 __all__ = [
     'oku', 'yaz', 'ekle', 'satirlari_oku', 'satirlari_yaz',

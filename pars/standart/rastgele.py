@@ -5,7 +5,7 @@ PARS Rastgele Modülü — random/secrets Türkçe sarmalayıcısı
 import random
 import secrets
 import uuid
-from typing import Any, List, Optional, Sequence
+from typing import Any, Sequence
 
 __all__ = [
     'rastgele_sayi', 'rastgele_ondalikli', 'rastgele_sec',

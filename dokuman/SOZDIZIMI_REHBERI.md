@@ -3,16 +3,13 @@
 ## Değişkenler
 
 ```pars
-# Basit atama
 isim = "Ahmet"
 yaş = 25
 boy = 1.75
 öğrenci_mi = doğru
 
-# Türkçe değişken isimleri
 şehir = "İstanbul"
 öğrenci_adı = "Ayşe"
-dosya_yolu = "/tmp/test.txt"
 ```
 
 ## Koşullar
@@ -31,31 +28,37 @@ eğer şehir == "İstanbul" ve yaş >= 18:
     yaz("İstanbul'da yetişkin")
 ```
 
+## Üçlü (ternary) koşul
+
+```pars
+durum = "çift" eğer sayı % 2 == 0 değilse "tek"
+etiket = "pozitif" eğer x > 0 değilse "negatif"
+```
+
 ## Döngüler
 
 ```pars
-# for döngüsü
 için i içinde aralık(10):
     yaz(i)
 
-# while döngüsü
 iken x > 0:
     yaz(x)
     x -= 1
 
-# Liste üzerinde
 için meyve içinde ["elma", "armut", "muz"]:
     yaz(meyve)
+
+# Liste kavrayışı
+kareler = [x ** 2 için x içinde aralık(1, 6)]
+çiftler = [x için x içinde aralık(20) eğer x % 2 == 0]
 ```
 
 ## Fonksiyonlar
 
 ```pars
-# Basit fonksiyon
 fonksiyon selamla(isim: str) -> str:
     döndür f"Merhaba, {isim}!"
 
-# Varsayılan parametre
 fonksiyon topla(a: int, b: int = 0) -> int:
     döndür a + b
 
@@ -70,8 +73,7 @@ fonksiyon hepsini_yaz(*args, **kwargs):
 ## Sınıflar
 
 ```pars
-# Basit sınıf
- sınıf Araba:
+sınıf Araba:
     fonksiyon __init__(öz, marka: str, yıl: int):
         öz.marka = marka
         öz.yıl = yıl
@@ -79,17 +81,18 @@ fonksiyon hepsini_yaz(*args, **kwargs):
     fonksiyon bilgi(öz) -> str:
         döndür f"{öz.marka} ({öz.yıl})"
 
-# Kalıtım
- sınıf ElektrikliAraba(Araba):
+# Kalıtım — süper() doğrudan super()'a çevrilir
+sınıf ElektrikliAraba(Araba):
     fonksiyon __init__(öz, marka: str, yıl: int, batarya: int):
         süper().__init__(marka, yıl)
         öz.batarya = batarya
 ```
 
+`öz` Python'daki `self` yerine kullanılır; sıradan bir parametre adıdır.
+
 ## İstisna Yönetimi
 
 ```pars
-# try-except-finally
 dene:
     sonuç = 10 / 0
 hariç SıfıraBölmeHatası:
@@ -97,26 +100,24 @@ hariç SıfıraBölmeHatası:
 sonunda:
     yaz("İşlem tamamlandı")
 
-# Özel istisna
- sınıf GeçersizHata(Hata):
-    pass
-
-yükselt GeçersizHata("Geçersiz değer")
+dene:
+    dosya.oku("yok.txt")
+hariç DosyaBulunamadı olarak e:
+    yaz(f"Dosya yok: {e}")
 ```
 
 ## Modüller
 
 ```pars
-# Standart kütüphane
 içe_aktar os
 içe_aktar json
 
-# Üçüncü parti
 içe_aktar numpy olarak np
 den_aktar flask içe_aktar Flask
 
-# PARS modülleri
+# PARS standart kütüphanesi
 içe_aktar matematik
+içe_aktar koleksiyonlar
 yaz(matematik.PI)
 ```
 
@@ -139,8 +140,27 @@ asyncio.run(ana())
 ## Context Manager
 
 ```pars
-ile açık("dosya.txt", "w") as f:
+ile açık("dosya.txt", "w") olarak f:
     f.write("Merhaba PARS!")
+
+# Async context manager
+eşzamansız ile Kaynak() olarak k:
+    bekle k.kullan()
+```
+
+## Üreteçler
+
+```pars
+fonksiyon sayıcı(n):
+    için i içinde aralık(n):
+        ver i
+
+fonksiyon düzleştir(liste):
+    için eleman içinde liste:
+        eğer türünden_mi(eleman, list):
+            ver from düzleştir(eleman)
+        değilse:
+            ver eleman
 ```
 
 ## Lambda
@@ -149,7 +169,29 @@ ile açık("dosya.txt", "w") as f:
 kare = lambda x: x ** 2
 toplam = lambda x, y: x + y
 
-# Yüksek dereceli fonksiyonlar
 sayılar = [1, 2, 3, 4, 5]
-kareler = liste(harita(lambda x: x**2, sayılar))
+kareler = liste(harita(lambda x: x ** 2, sayılar))
 ```
+
+## Ayrılmış sözcükler
+
+Aşağıdaki sözcükler anahtar kelimedir; değişken, parametre veya sınıf üyesi
+adı olarak kullanılamaz:
+
+`eğer`, `değilse`, `yoksa`, `iken`, `için`, `içinde`, `fonksiyon`,
+`döndür`, `sınıf`, `ver`, `içe_aktar`, `den_aktar`, `olarak`, `dene`,
+`hariç`, `sonunda`, `yükselt`, `ile`, `geç`, `kes`, `devam`, `sil`,
+`iddia`, `global`, `yerel_değil`, `eşzamansız`, `bekle`, `ve`, `veya`,
+`değil`, `doğru`, `yanlış`, `yok`, `süper`.
+
+Noktadan sonra gelen adlar çevrilmez: `dosya.sil` güvenlidir.
+ASCII alternatifleri de geçerlidir (`eger`, `degilse`, `icin`, ...).
+
+## Hata mesajları
+
+```pars
+yaz(tanımsız)   # Ad Hatası + ipucu
+```
+
+PARS, Python hatalarını Türkçe adlarıyla, hatalı satırı ve akıllı ipucunu
+gösterir.

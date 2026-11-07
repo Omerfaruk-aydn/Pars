@@ -14,9 +14,9 @@
 |---|---|
 | Dil adı | **PARS** |
 | Slogan | **"Pars gibi hızlı. Türkçe gibi güzel."** |
-| Dosya uzantısı | `.prs` |
+| Dosya uzantısı | `.pars` |
 | Komut | `pars` |
-| pip paketi | `pars-dil` |
+| pip paketi | `pars-turkce-dil` |
 | GitHub org | `pars-lang` |
 | GitHub repo | `pars-lang/pars` |
 | Website | `parsdil.com` |
@@ -34,7 +34,7 @@
 
 ### Akış
 ```
-Kullanıcı Kodu (.prs)
+Kullanıcı Kodu (.pars)
         │
    [Tokenizer]          → string/yorum içeriğini koru
         │
@@ -98,27 +98,27 @@ pars/
 │       ├── __init__.py
 │       └── komutlar.py                # Argparse tabanlı CLI giriş noktası
 │
-├── ornekler/                          # 20 adet tam çalışan .prs programı
-│   ├── 01_merhaba_dunya.prs
-│   ├── 02_degiskenler_ve_tipler.prs
-│   ├── 03_kosul_ifadeleri.prs
-│   ├── 04_donguler.prs
-│   ├── 05_fonksiyonlar_ve_lambda.prs
-│   ├── 06_siniflar_ve_oop.prs
-│   ├── 07_miras_ve_cok_bicimllik.prs
-│   ├── 08_istisna_yonetimi.prs
-│   ├── 09_dosya_isleme.prs
-│   ├── 10_modüller_ve_paketler.prs
-│   ├── 11_liste_sozluk_kume.prs
-│   ├── 12_uretecler_ve_iteratorler.prs
-│   ├── 13_dekoratorler.prs
-│   ├── 14_context_manager.prs
-│   ├── 15_async_await.prs
-│   ├── 16_numpy_ve_pandas.prs
-│   ├── 17_flask_web_uygulamasi.prs
-│   ├── 18_sqlite_veritabani.prs
-│   ├── 19_api_istekleri.prs
-│   └── 20_tam_proje_ornegi.prs
+├── ornekler/                          # 20 adet tam çalışan .pars programı
+│   ├── 01_merhaba_dunya.pars
+│   ├── 02_degiskenler_ve_tipler.pars
+│   ├── 03_kosul_ifadeleri.pars
+│   ├── 04_donguler.pars
+│   ├── 05_fonksiyonlar_ve_lambda.pars
+│   ├── 06_siniflar_ve_oop.pars
+│   ├── 07_miras_ve_cok_bicimllik.pars
+│   ├── 08_istisna_yonetimi.pars
+│   ├── 09_dosya_isleme.pars
+│   ├── 10_modüller_ve_paketler.pars
+│   ├── 11_liste_sozluk_kume.pars
+│   ├── 12_uretecler_ve_iteratorler.pars
+│   ├── 13_dekoratorler.pars
+│   ├── 14_context_manager.pars
+│   ├── 15_async_await.pars
+│   ├── 16_numpy_ve_pandas.pars
+│   ├── 17_flask_web_uygulamasi.pars
+│   ├── 18_sqlite_veritabani.pars
+│   ├── 19_api_istekleri.pars
+│   └── 20_tam_proje_ornegi.pars
 │
 ├── testler/
 │   ├── __init__.py
@@ -133,7 +133,7 @@ pars/
 │   ├── test_standart_dosya.py
 │   ├── test_standart_zaman.py
 │   ├── test_repl.py
-│   └── test_ornekler.py               # Tüm .prs örnekleri çalıştırma testi
+│   └── test_ornekler.py               # Tüm .pars örnekleri çalıştırma testi
 │
 ├── vscode-uzantisi/                   # VS Code sözdizimi renklendirme
 │   ├── package.json
@@ -1014,11 +1014,11 @@ YARDIM = """
 
 ```
 KULLANIM:
-  pars <dosya.prs>                     → .prs dosyası çalıştır
+  pars <dosya.pars>                     → .pars dosyası çalıştır
   pars -g                              → Etkileşimli mod (REPL)
-  pars -cevir <dosya.prs>              → Python karşılığını göster
-  pars -p <dosya.prs>                  → Çalıştır + Python kodunu göster
-  pars -kontrol <dosya.prs>            → Sözdizimi kontrolü (çalıştırma)
+  pars -cevir <dosya.pars>              → Python karşılığını göster
+  pars -p <dosya.pars>                  → Çalıştır + Python kodunu göster
+  pars -kontrol <dosya.pars>            → Sözdizimi kontrolü (çalıştırma)
   pars -s / --surum                    → Versiyon bilgisi
   pars paket yükle <paket>             → pip install <paket>
   pars paket kaldır <paket>            → pip uninstall <paket>
@@ -1033,10 +1033,10 @@ KULLANIM:
 
 ```
 proje_adi/
-├── ana.prs          # Giriş noktası
-├── kutuphane.prs    # Ortak fonksiyonlar
+├── ana.pars          # Giriş noktası
+├── kutuphane.pars    # Ortak fonksiyonlar
 ├── testler/
-│   └── test_ana.prs
+│   └── test_ana.pars
 ├── README.md
 ├── .gitignore
 └── gereksinimler.txt
@@ -1349,11 +1349,11 @@ sınıf Veritabani:
 
 ---
 
-## 13. ÖRNEK .prs DOSYALARI (TAM İÇERİK)
+## 13. ÖRNEK .pars DOSYALARI (TAM İÇERİK)
 
 Aşağıdaki 20 örnek dosyanın tamamını eksiksiz yaz.
 
-### ornekler/01_merhaba_dunya.prs
+### ornekler/01_merhaba_dunya.pars
 ```python
 # Merhaba Dünya — PARS'a hoş geldiniz!
 yaz("Merhaba, Dünya! 🐆")
@@ -1372,7 +1372,7 @@ değilse:
     yaz("Çocuksun.")
 ```
 
-### ornekler/05_fonksiyonlar_ve_lambda.prs
+### ornekler/05_fonksiyonlar_ve_lambda.pars
 ```python
 # Fonksiyonlar, lambda, *args, **kwargs, dekoratör
 
@@ -1433,7 +1433,7 @@ fonksiyon yavaş_fonksiyon():
 yavaş_fonksiyon()
 ```
 
-### ornekler/06_siniflar_ve_oop.prs
+### ornekler/06_siniflar_ve_oop.pars
 ```python
 # Sınıflar ve Nesne Yönelimli Programlama
 # 'öz' kelimesi Python'daki 'self' yerine kullanılır
@@ -1543,7 +1543,7 @@ için şekil içinde şekiller:
 yaz(f"Toplam hayvan: {Hayvan.toplam()}")
 ```
 
-### ornekler/12_async_await.prs
+### ornekler/12_async_await.pars
 ```python
 # Async / Await — Eşzamansız programlama
 içe_aktar asyncio
@@ -1572,7 +1572,7 @@ eşzamansız fonksiyon ana():
 asyncio.run(ana())
 ```
 
-### ornekler/16_numpy_ve_pandas.prs
+### ornekler/16_numpy_ve_pandas.pars
 ```python
 # NumPy ve Pandas ile PARS
 # Önce: pars paket yükle numpy pandas
@@ -1615,7 +1615,7 @@ hariç ImportError olarak e:
     yaz("Şunu çalıştırın: pars paket yükle numpy pandas")
 ```
 
-### ornekler/17_flask_web_uygulamasi.prs
+### ornekler/17_flask_web_uygulamasi.pars
 ```python
 # Flask Web Uygulaması
 # Önce: pars paket yükle flask
@@ -1686,7 +1686,7 @@ hariç ImportError:
     yaz("Şunu çalıştırın: pars paket yükle flask")
 ```
 
-### ornekler/20_tam_proje_ornegi.prs
+### ornekler/20_tam_proje_ornegi.pars
 
 Kütüphane yönetim sistemi — tam uçtan uca uygulama:
 - `Kitap`, `Üye`, `Kütüphane` sınıfları
@@ -1899,11 +1899,11 @@ assert araba.marka == "Toyota"
         assert calistir("içe_aktar numpy olarak np\nassert np.__version__") is True
 ```
 
-### testler/test_ornekler.py — Tüm .prs örneklerini çalıştır
+### testler/test_ornekler.py — Tüm .pars örneklerini çalıştır
 
 ```python
 """
-Ornekler klasöründeki tüm .prs dosyalarını çalıştırır.
+Ornekler klasöründeki tüm .pars dosyalarını çalıştırır.
 Hata veren dosya testi başarısız sayar.
 """
 import pytest
@@ -1914,7 +1914,7 @@ from unittest.mock import patch
 ORNEKLER_DIZIN = Path(__file__).parent.parent / 'ornekler'
 
 def ornek_dosyalari():
-    return list(ORNEKLER_DIZIN.glob('*.prs'))
+    return list(ORNEKLER_DIZIN.glob('*.pars'))
 
 @pytest.mark.parametrize('dosya', ornek_dosyalari(),
                          ids=lambda d: d.name)
@@ -1938,7 +1938,7 @@ def test_ornek_calisir(dosya, monkeypatch, capsys):
 
 ### vscode-uzantisi/syntaxes/pars.tmLanguage.json
 
-`.prs` dosyaları için TextMate dil grameri tanımı.
+`.pars` dosyaları için TextMate dil grameri tanımı.
 Renklendirme kapsamı:
 
 - **Anahtar kelimeler:** `eğer`, `değilse`, `yoksa`, `iken`, `için`, `içinde`, `fonksiyon`, `döndür`, `sınıf`, `dene`, `hariç`, `sonunda`, `yükselt`, `ile`, `olarak`, `geç`, `kes`, `devam`, `sil`, `ver`, `bekle`, `eşzamansız`, `içe_aktar`, `den_aktar`, `global`, `yerel_değil`, `iddia`, `lambda`
@@ -1973,7 +1973,7 @@ Renklendirme kapsamı:
     "languages": [{
       "id": "pars",
       "aliases": ["PARS", "pars"],
-      "extensions": [".prs"],
+      "extensions": [".pars"],
       "configuration": "./language-configuration.json"
     }],
     "grammars": [{
@@ -2024,7 +2024,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.backends.legacy:build"
 
 [project]
-name = "pars-dil"
+name = "pars-turkce-dil"
 version = "1.0.0"
 description = "PARS — Türkçe Programlama Dili. Pars gibi hızlı. Türkçe gibi güzel."
 readme = "README.md"
@@ -2095,8 +2095,8 @@ target-version = ["py38"]
 
 *"Pars gibi hızlı. Türkçe gibi güzel."*
 
-[![PyPI](https://img.shields.io/pypi/v/pars-dil.svg)](https://pypi.org/project/pars-dil/)
-[![Python](https://img.shields.io/pypi/pyversions/pars-dil.svg)](https://pypi.org/project/pars-dil/)
+[![PyPI](https://img.shields.io/pypi/v/pars-turkce-dil.svg)](https://pypi.org/project/pars-turkce-dil/)
+[![Python](https://img.shields.io/pypi/pyversions/pars-turkce-dil.svg)](https://pypi.org/project/pars-turkce-dil/)
 [![Lisans](https://img.shields.io/badge/lisans-MIT-blue.svg)](LICENSE)
 [![Testler](https://github.com/pars-lang/pars/actions/workflows/test.yml/badge.svg)](...)
 
@@ -2110,13 +2110,13 @@ Python'un tüm gücünü Türkçe ile yazabilirsiniz.
 ## Kurulum
 
 ```bash
-pip install pars-dil
+pip install pars-turkce-dil
 ```
 
 ## İlk Program
 
 ```pars
-# merhaba.prs
+# merhaba.pars
 yaz("Merhaba, Dünya! 🐆")
 
 isim = girdial("Adın ne? ")
@@ -2124,7 +2124,7 @@ yaz(f"Hoş geldin, {isim}!")
 ```
 
 ```bash
-pars merhaba.prs
+pars merhaba.pars
 ```
 
 ## Sözdizimi Karşılaştırması
@@ -2168,10 +2168,10 @@ pars paket kaldır eski-paket
 ## CLI
 
 ```bash
-pars dosya.prs          # Çalıştır
+pars dosya.pars          # Çalıştır
 pars -g                  # Etkileşimli mod
-pars -cevir dosya.prs   # Python karşılığını göster
-pars -kontrol dosya.prs # Sözdizimi kontrolü
+pars -cevir dosya.pars   # Python karşılığını göster
+pars -kontrol dosya.pars # Sözdizimi kontrolü
 pars yeni projem         # Yeni proje oluştur
 ```
 
@@ -2266,7 +2266,7 @@ nav:
 - Çevirici: her anahtar kelime için en az 2 test (Türkçe + ASCII)
 - String koruma: 10+ test senaryosu
 - Hata yönetimi: her hata tipi için test
-- Tüm örnek `.prs` dosyaları çalıştırma testi
+- Tüm örnek `.pars` dosyaları çalıştırma testi
 
 ### Güvenlik
 - `exec()` namespace'i izole — dışarıya sızma yok
@@ -2277,7 +2277,7 @@ nav:
 ### Performans
 - Tokenizer regex'i modül yüklenirken bir kez `compile()` edilir
 - `KELIME_ESLEME` dict araması O(1)
-- Büyük `.prs` dosyaları için satır satır okuma (chunk)
+- Büyük `.pars` dosyaları için satır satır okuma (chunk)
 - REPL her girişte tokenizer'ı yeniden derlemiyor
 
 ### Hata Mesajları
@@ -2295,10 +2295,10 @@ Projeyi teslim etmeden önce her madde tıklanmalı:
 
 ### Temel İşlevsellik
 - [ ] `pip install -e .` hatasız çalışıyor
-- [ ] `pars ornekler/01_merhaba_dunya.prs` çalışıyor
+- [ ] `pars ornekler/01_merhaba_dunya.pars` çalışıyor
 - [ ] `pars -g` REPL açılıyor ve `.yardım` komutu çalışıyor
-- [ ] `pars -cevir dosya.prs` Python kodunu gösteriyor
-- [ ] `pars -kontrol dosya.prs` sözdizimi hatası varsa buluyor
+- [ ] `pars -cevir dosya.pars` Python kodunu gösteriyor
+- [ ] `pars -kontrol dosya.pars` sözdizimi hatası varsa buluyor
 - [ ] `pars paket yükle requests` çalışıyor
 - [ ] `pars yeni benim_projem` iskelet oluşturuyor
 
@@ -2344,7 +2344,7 @@ Projeyi teslim etmeden önce her madde tıklanmalı:
 - [ ] `twine check dist/*` uyarı sıfır
 - [ ] `pyproject.toml` eksiksiz
 - [ ] `MANIFEST.in` doğru dosyaları dahil ediyor
-- [ ] VS Code eklentisi `.prs` dosyalarını renklendirir
+- [ ] VS Code eklentisi `.pars` dosyalarını renklendirir
 
 ---
 

@@ -1,102 +1,131 @@
 # Yerleşik Fonksiyonlar
 
 PARS, Python'un yerleşik fonksiyonlarını Türkçe karşılıklarıyla sunar.
+ASCII yazımlar da geçerlidir (örn. `tam_sayi`).
 
 ## Giriş / Çıkış
 
 | PARS | Python | Açıklama |
 |---|---|---|
 | `yaz(...)` | `print(...)` | Ekrana yazdır |
-| `girdial(...)` | `input()` | Kullanıcıdan giriş al |
+| `girdial(...)` / `oku(...)` | `input()` | Kullanıcıdan giriş al |
 | `açık(...)` | `open()` | Dosya aç |
+
+`yaz` Türkçe değer gösterir: `doğru`, `yanlış`, `yok`.
+`yaz("a", "b", ayraç="-")` Türkçe parametre kabul eder.
 
 ## Tip Dönüşümü
 
-| PARS | Python | Açıklama |
-|---|---|---|
-| `tam_sayı(x)` | `int(x)` | Tamsayıya çevir |
-| `ondalıklı(x)` | `float(x)` | Ondalıklıya çevir |
-| `yazıya_çevir(x)` | `str(x)` | Yazıya çevir |
-| `mantıksal(x)` | `bool(x)` | Boolean'a çevir |
-| `karmaşık(x)` | `complex(x)` | Karmaşık sayıya çevir |
+| PARS | Python |
+|---|---|
+| `tam_sayı(x)` | `int(x)` |
+| `ondalıklı(x)` | `float(x)` |
+| `yazıya_çevir(x)` | `str(x)` |
+| `mantıksal(x)` | `bool(x)` |
+| `karmaşık(x)` | `complex(x)` |
+| `bayt(x)` | `bytes(x)` |
+| `bayt_dizisi(x)` | `bytearray(x)` |
 
 ## Veri Yapıları
 
-| PARS | Python | Açıklama |
-|---|---|---|
-| `liste()` | `list()` | Liste oluştur |
-| `demet()` | `tuple()` | Demet oluştur |
-| `küme()` | `set()` | Küme oluştur |
-| `sözlük()` | `dict()` | Sözlük oluştur |
+| PARS | Python |
+|---|---|
+| `liste()` | `list()` |
+| `demet()` | `tuple()` |
+| `küme()` | `set()` |
+| `sözlük()` | `dict()` |
+| `dondurulmuş_küme()` | `frozenset()` |
 
 ## İterasyon
 
-| PARS | Python | Açıklama |
-|---|---|---|
-| `aralık(n)` | `range(n)` | Sayı aralığı |
-| `numaralandır(l)` | `enumerate(l)` | İndeksli iterasyon |
-| `sıkıştır(a, b)` | `zip(a, b)` | Paralel iterasyon |
-| `harita(f, l)` | `map(f, l)` | Fonksiyon uygula |
-| `filtre(f, l)` | `filter(f, l)` | Eleman filtrele |
-| `sırala(l)` | `sorted(l)` | Sıralı kopya |
-| `tersine(l)` | `reversed(l)` | Ters çevrilmiş |
+| PARS | Python |
+|---|---|
+| `aralık(n)` | `range(n)` |
+| `numaralandır(l)` | `enumerate(l)` |
+| `sıkıştır(a, b)` | `zip(a, b)` |
+| `harita(f, l)` | `map(f, l)` |
+| `filtre(f, l)` | `filter(f, l)` |
+| `sırala(l)` | `sorted(l)` |
+| `tersine(l)` | `reversed(l)` |
+| `tümü(l)` | `all(l)` |
+| `herhangi(l)` | `any(l)` |
+| `sonraki(it)` | `next(it)` |
+| `iter_et(x)` | `iter(x)` |
+| `dilimle(...)` | `slice(...)` |
 
 ## Matematik
 
-| PARS | Python | Açıklama |
-|---|---|---|
-| `mutlak(x)` | `abs(x)` | Mutlak değer |
-| `yuvarlak(x)` | `round(x)` | Yuvarla |
-| `toplam(l)` | `sum(l)` | Toplam |
-| `maksimum(l)` | `max(l)` | En büyük |
-| `minimum(l)` | `min(l)` | En küçük |
-| `güç(a, b)` | `pow(a, b)` | Üs alma |
+| PARS | Python |
+|---|---|
+| `mutlak(x)` | `abs(x)` |
+| `yuvarlak(x)` | `round(x)` |
+| `toplam(l)` | `sum(l)` |
+| `maksimum(l)` | `max(l)` |
+| `minimum(l)` | `min(l)` |
+| `güç(a, b)` | `pow(a, b)` |
 
 ## Metin / Dizi
 
-| PARS | Python | Açıklama |
-|---|---|---|
-| `uzunluk(x)` | `len(x)` | Uzunluk |
-| `karakter(n)` | `chr(n)` | Karakter |
-| `karakter_kodu(c)` | `ord(c)` | Karakter kodu |
-| `onaltılık(n)` | `hex(n)` | Onaltılık |
-| `sekizlik(n)` | `oct(n)` | Sekizlik |
-| `ikili(n)` | `bin(n)` | İkili |
+| PARS | Python |
+|---|---|
+| `uzunluk(x)` | `len(x)` |
+| `karakter(n)` | `chr(n)` |
+| `karakter_kodu(c)` | `ord(c)` |
+| `onaltılık(n)` | `hex(n)` |
+| `sekizlik(n)` | `oct(n)` |
+| `ikili(n)` | `bin(n)` |
+| `biçimle(...)` | `format(...)` |
+| `yazdır(x)` | `repr(x)` |
 
 ## İnceleyiciler
 
-| PARS | Python | Açıklama |
-|---|---|---|
-| `tip(x)` | `type(x)` | Veri tipi |
-| `kimlik(x)` | `id(x)` | Kimlik |
-| `dir(x)` | `dir(x)` | Özellikler |
-| `yardım(x)` | `help(x)` | Yardım |
-| `özellikler(x)` | `vars(x)` | Özellikler |
-| `türünden_mi(x, t)` | `isinstance(x, t)` | Tür kontrolü |
-| `çağrılabilir_mi(f)` | `callable(f)` | Çağrılabilir mi? |
+| PARS | Python |
+|---|---|
+| `tip(x)` | `type(x)` |
+| `kimlik(x)` | `id(x)` |
+| `dir(x)` | `dir(x)` |
+| `yardım(x)` | `help(x)` |
+| `özellikler(x)` | `vars(x)` |
+| `nitelik_al(...)` | `getattr(...)` |
+| `nitelik_ata(...)` | `setattr(...)` |
+| `nitelik_sil(...)` | `delattr(...)` |
+| `nitelik_var_mı(...)` | `hasattr(...)` |
+| `türünden_mi(x, t)` | `isinstance(x, t)` |
+| `alt_sınıfı_mı(...)` | `issubclass(...)` |
+| `çağrılabilir_mi(f)` | `callable(f)` |
+
+> Not: v1.0.1 öncesinde `dir` yanlışlıkla `is` anahtar kelimesine
+> çevriliyordu. Artık `dir(x)` beklendiği gibi çalışır.
 
 ## Nesne Yönelimli
 
-| PARS | Python | Açıklama |
-|---|---|---|
-| `nesne()` | `object()` | Temel nesne |
-| `süper()` | `super()` | Üst sınıf |
-| `özellik()` | `property()` | Özellik |
-| `statik_metot()` | `staticmethod()` | Statik metot |
-| `sınıf_metot()` | `classmethod()` | Sınıf metot |
+| PARS | Python |
+|---|---|
+| `nesne()` | `object()` |
+| `süper()` | `super()` |
+| `özellik()` | `property()` |
+| `statik_metot()` | `staticmethod()` |
+| `sınıf_metot()` | `classmethod()` |
+
+`süper()` doğrudan `super()`'a çevrilir; sıfır argümanlı kullanım
+(`süper().__init__()`) kalıtımda doğru çalışır.
 
 ## Sistem
 
-| PARS | Python | Açıklama |
-|---|---|---|
-| `çıkış()` | `exit()` | Çıkış |
-| `değerlendir(x)` | `eval(x)` | Değerlendir |
-| `çalıştır(x)` | `exec(x)` | Çalıştır |
-| `derle(x)` | `compile(x)` | Derle |
+| PARS | Python |
+|---|---|
+| `çıkış()` | `exit()` |
+| `değerlendir(x)` | `eval(x)` |
+| `çalıştır_kod(x)` | `exec(x)` |
+| `derle(...)` | `compile(...)` |
+| `modül_yükle(...)` | `__import__(...)` |
+| `modül_al(ad)` | `importlib.import_module(ad)` |
 
 ## Paket Yönetimi
 
 | PARS | Açıklama |
 |---|---|
-| `paket_yükle(...)` | pip install |
-| `paket_listele()` | pip list |
+| `paket_yükle("numpy")` | `parskur yükle numpy` |
+| `paket_listele()` | `parskur listele` |
+
+Komut satırında `pip` yerine `parskur`, `python` yerine `parspy` kullanın.

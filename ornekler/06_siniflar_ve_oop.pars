@@ -18,8 +18,8 @@ sınıf Hayvan:
         döndür f"{öz.isim} ({öz.yaş} yaş)"
 
     @sınıf_metot
-    fonksiyon toplam(sınıf) -> int:
-        döndür sınıf.toplam_hayvan
+    fonksiyon toplam(tür) -> int:
+        döndür tür.toplam_hayvan
 
     @statik_metot
     fonksiyon hayvan_mı(nesne) -> bool:
@@ -63,9 +63,5 @@ kedi  = Kedi("Tekir", 5)
 yaz(köpek.konuş())
 yaz(kedi.uyu())
 yaz(köpek.getir("topu"))
-
-şekiller = [Daire(5), Dikdörtgen(4, 6), Daire(3)]
-için şekil içinde şekiller:
-    yaz(şekil.tanım())
 
 yaz(f"Toplam hayvan: {Hayvan.toplam()}")

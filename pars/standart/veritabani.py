@@ -3,7 +3,7 @@ PARS Veritabanı Modülü — sqlite3 Türkçe sarmalayıcısı
 """
 
 import sqlite3
-from typing import Any, List, Optional, Tuple
+from typing import Optional
 
 __all__ = ['Veritabani']
 

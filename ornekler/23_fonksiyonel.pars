@@ -1,0 +1,46 @@
+# Fonksiyonel Programlama — functools Türkçe sarmalayıcısı
+# Yeni standart kütüphane modülü: fonksiyonel
+
+içe_aktar fonksiyonel
+
+# ── Kısmi uygulama (partial) ─────────────────────────────────────────────
+fonksiyon us(taban, ust):
+    döndür taban ** ust
+
+kare = fonksiyonel.kismi(us, ust=2)
+kup = fonksiyonel.kismi(us, ust=3)
+yaz(f"kare(5) = {kare(5)}")
+yaz(f"kup(3) = {kup(3)}")
+
+# ── Azaltma (reduce) ─────────────────────────────────────────────────────
+sayilar = [1, 2, 3, 4, 5]
+yaz(f"Toplam (reduce): {fonksiyonel.azalt(lambda a, b: a + b, sayilar)}")
+yaz(f"Çarpım: {fonksiyonel.toplam_azalt([1, 2, 3, 4])}")
+
+# ── Önbellek (lru_cache) ─────────────────────────────────────────────────
+@fonksiyonel.onbellek(azami=128)
+fonksiyon fibonacci(n):
+    eğer n < 2:
+        döndür n
+    döndür fibonacci(n - 1) + fibonacci(n - 2)
+
+yaz(f"\nFibonacci(30) = {fibonacci(30)}")
+yaz(f"Önbellek bilgisi: {fibonacci.cache_info()}")
+
+# ── Boru (pipe) ──────────────────────────────────────────────────────────
+temizle = fonksiyonel.boru(
+    lambda s: s.strip(),
+    lambda s: s.lower(),
+    lambda s: s.replace(" ", "-"),
+)
+yaz(f"Boru: {temizle('  PARS Türkçe Dil  ')}")
+
+# ── Karşılaştırıcı ───────────────────────────────────────────────────────
+fonksiyon uzunluga_gore(a, b):
+    döndür len(a) - len(b)
+
+kelimeler = ["programlama", "dil", "PARS", "Türkçe"]
+sirali = sorted(kelimeler, key=fonksiyonel.karsilastirici(uzunluga_gore))
+yaz(f"Uzunluğa göre: {sirali}")
+
+yaz("\nFonksiyonel örneği tamamlandı!")

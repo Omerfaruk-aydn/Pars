@@ -1,0 +1,39 @@
+# İşletim Sistemi ve Süreç Yönetimi
+# Yeni standart kütüphane modülleri: isletim, surec
+
+içe_aktar isletim
+içe_aktar surec
+içe_aktar yol
+
+yaz("=== Sistem Bilgisi ===")
+yaz(f"Çalışma dizini: {isletim.calisma_dizini()}")
+yaz(f"İşletim sistemi: {isletim.isletim_sistemi()}")
+yaz(f"CPU sayısı: {isletim.cpu_sayisi()}")
+yaz(f"Kullanıcı: {isletim.kullanici()}")
+yaz(f"Ev dizini: {isletim.ev_dizini()}")
+
+yaz("\n=== Geçici Dosya ===")
+gecici = isletim.gecici_dosya(onek="pars_", sonek=".txt")
+yol.yaz(gecici, "Merhaba PARS!\nİkinci satır.\n")
+yaz(f"Dosya: {gecici}")
+yaz(f"Boyut: {yol.boyut(gecici)} bayt")
+yaz(f"İçerik: {yol.oku(gecici).strip()}")
+yol.sil(gecici)
+yaz("Geçici dosya silindi.")
+
+yaz("\n=== Ortam Değişkeni ===")
+isletim.ortam_ata("PARS_ORNEK", "aktif")
+yaz(f"PARS_ORNEK = {isletim.ortam('PARS_ORNEK')}")
+isletim.ortam_sil("PARS_ORNEK")
+
+yaz("\n=== Süreç Çalıştırma ===")
+sonuc = surec.python_calistir("print('PARS alt süreçten selamlar')")
+yaz(f"Çıktı: {sonuc['cikti'].strip()}")
+yaz(f"Durum kodu: {sonuc['kod']}")
+
+yaz("\n=== Dizin Listeleme ===")
+dosyalar = yol.listele(".", "*.md")
+için dosya içinde dosyalar[:5]:
+    yaz(f"  {yol.ad(dosya)}")
+
+yaz("\nİşletim sistemi örneği tamamlandı!")

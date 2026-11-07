@@ -7,13 +7,13 @@ PARS, Python altyapısını kullanan, tamamen Türkçe sözdizimli bir programla
 ## Kurulum
 
 ```bash
-pip install pars-dil
+pip install pars-turkce-dil
 ```
 
 ## İlk Program
 
 ```pars
-# merhaba.prs
+# merhaba.pars
 yaz("Merhaba, Dünya!")
 
 isim = girdial("Adın ne? ")
@@ -21,7 +21,7 @@ yaz(f"Hoş geldin, {isim}!")
 ```
 
 ```bash
-pars merhaba.prs
+pars merhaba.pars
 ```
 
 ## Sözdizimi
@@ -44,11 +44,11 @@ pars merhaba.prs
 ## CLI Komutları
 
 ```bash
-pars dosya.prs          # Çalıştır
+pars dosya.pars          # Çalıştır
 pars -g                  # Etkileşimli mod (REPL)
-pars -cevir dosya.prs   # Python karşılığını göster
-pars -p dosya.prs       # Çalıştır + Python kodunu göster
-pars -kontrol dosya.prs # Sözdizimi kontrolü
+pars -cevir dosya.pars   # Python karşılığını göster
+pars -p dosya.pars       # Çalıştır + Python kodunu göster
+pars -kontrol dosya.pars # Sözdizimi kontrolü
 pars -s                  # Versiyon bilgisi
 pars paket yükle <paket> # pip install
 pars yeni <proje_adı>   # Yeni proje oluştur
@@ -85,10 +85,10 @@ yaz(np.mean(a))
 ## Örnekler
 
 ```bash
-pars ornekler/01_merhaba_dunya.prs
-pars ornekler/06_siniflar_ve_oop.prs
-pars ornekler/15_async_await.prs
-pars ornekler/20_tam_proje_ornegi.prs
+pars ornekler/01_merhaba_dunya.pars
+pars ornekler/06_siniflar_ve_oop.pars
+pars ornekler/15_async_await.pars
+pars ornekler/20_tam_proje_ornegi.pars
 ```
 
 ## Geliştirme

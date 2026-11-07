@@ -11,7 +11,6 @@ PARS Türkçe Hata Yönetimi
 
 import sys
 import traceback
-from typing import Optional
 
 HATA_TURLERI = {
     'SyntaxError':          'Sözdizimi Hatası',
@@ -41,6 +40,13 @@ HATA_TURLERI = {
     'KeyboardInterrupt':    'Kullanıcı Durdurdu',
     'SystemExit':           'Program Sonlandı',
     'Exception':            'Genel Hata',
+    'BrokenPipeError':      'Kırık Boru Hatası',
+    'FileExistsError':      'Dosya Zaten Var',
+    'IsADirectoryError':    'Bu Bir Klasör',
+    'NotADirectoryError':   'Klasör Değil',
+    'UnicodeError':         'Unicode Hatası',
+    'FloatingPointError':   'Kayan Nokta Hatası',
+    'EOFError':             'Girdi Bitti',
 }
 
 HATA_IPUCLARI = {

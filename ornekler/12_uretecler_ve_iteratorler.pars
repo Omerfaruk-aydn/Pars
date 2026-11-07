@@ -11,7 +11,7 @@ fonksiyon sayıcı(başlangıç: int, bitiş: int):
 # Üreteci kullanma
 yaz("Sayaç (1-5):")
 için sayı içinde sayıcı(1, 5):
-    y(f"  {sayı}")
+    yaz(f"  {sayı}")
 
 # Fibonacci üreteci
 fonksiyon fibonacci_üreteci(n: int):
@@ -37,7 +37,7 @@ fonksiyon sonsuz_sayılar(başlangıç: int = 0):
 üreteç = sonsuz_sayılar(10)
 yaz("\nSonsuz sayılar (ilk 5):")
 için _ içinde aralık(5):
-    y(f"  {sonraki(üreteç)}")
+    yaz(f"  {sonraki(üreteç)}")
 
 # Dosya satır okuma üreteci
 fonksiyon satır_oku(dosya_adı: str):
@@ -73,8 +73,8 @@ fonksiyon toplayıcı():
     """Toplama işlemi yapan üreteç."""
     toplam = 0
     iken doğru:
-        değer = bekle
-        eğer değer yok:
+        değer = ver
+        eğer değer == yok:
             döndür toplam
         toplam += değer
 

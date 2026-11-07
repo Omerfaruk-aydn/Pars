@@ -6,6 +6,7 @@ Hem Türkçe karakterli hem ASCII versiyonlar desteklenir.
 """
 
 from typing import Any, Dict
+import asyncio
 
 # ── ANAHTAR KELİME EŞLEMESİ ─────────────────────────────────────────────
 
@@ -77,8 +78,18 @@ KELIME_ESLEME: Dict[str, str] = {
 
     # ── KİMLİK / ÜYELİK ───────────────────────────────────────────────────
     'içindedir':        'in',
+    'icindedir':        'in',
+    # NOT: 'dir' bilerek eşlenmez; dir() yerleşik fonksiyonu ile çakışıyordu.
     'dır':              'is',
-    'dir':              'is',
+    'özdeş':            'is',
+    'ozdes':            'is',
+
+    # ── ÜST SINIF ─────────────────────────────────────────────────────────
+    # ÖNEMLİ: süper mutlaka 'super'e çevrilmeli. Aksi halde sıfır argümanlı
+    # super() çağrısı için derleyici __class__ hücresi oluşturmaz ve
+    # "super(): __class__ cell not found" hatası alınır.
+    'süper':            'super',
+    'super':            'super',
 
     # ── DEĞERLER ──────────────────────────────────────────────────────────
     'doğru':            'True',
@@ -92,7 +103,8 @@ KELIME_ESLEME: Dict[str, str] = {
 # ── YERLEŞİK FONKSİYONLAR ────────────────────────────────────────────────
 
 def _yaz(*args: Any, sep: str = ' ', son: str = '\n',
-         dosya: Any = None, temizle: bool = False) -> None:
+         dosya: Any = None, temizle: bool = False,
+         ayraç: Any = None, **kwargs: Any) -> None:
     """
     Türkçe print.
 
@@ -100,8 +112,14 @@ def _yaz(*args: Any, sep: str = ' ', son: str = '\n',
     False → yanlış
     None  → yok
     Liste → [eleman1, eleman2, ...]
+
+    Türkçe parametre adları da kabul edilir:
+        yaz("a", "b", ayraç="-")
     """
     import sys
+
+    if ayraç is not None:
+        sep = ayraç
 
     def _goster(v: Any) -> str:
         if v is True:
@@ -128,27 +146,38 @@ def _yaz(*args: Any, sep: str = ' ', son: str = '\n',
           flush=temizle)
 
 
-def _paket_yukle(*paketler: str) -> None:
-    """pip install wrapper"""
-    import subprocess
-    import sys
-    for paket in paketler:
-        print(f'▶  pip install {paket}')
-        subprocess.run([sys.executable, '-m', 'pip', 'install', paket])
+def _girdial(istem: str = '') -> str:
+    """Türkçe input. builtins.input'ı dinamik çağırır (test/mock uyumlu)."""
+    return input(istem)
+
+
+def _paket_yukle(*paketler: str) -> bool:
+    """PARS paket yöneticisi ile paket yükle (pip yerine parskur)."""
+    from pars.cli.paket import paket_yukle
+    return paket_yukle(*paketler)
 
 
 def _paket_listele() -> None:
-    """pip list wrapper"""
-    import subprocess
-    import sys
-    subprocess.run([sys.executable, '-m', 'pip', 'list'])
+    """PARS paket yöneticisi ile yüklü paketleri listele."""
+    from pars.cli.paket import paket_listele
+    paket_listele()
+
+
+def _modul_al(ad: str, takma: str = None) -> Any:
+    """Herhangi bir Python modülünü Türkçe kod içinden içe aktar."""
+    import importlib
+    modul = importlib.import_module(ad)
+    if takma:
+        return {takma: modul}
+    return modul
 
 
 PARS_BUILTINS: Dict[str, Any] = {
 
     # ── GİRİŞ / ÇIKIŞ ─────────────────────────────────────────────────────
     'yaz':                  _yaz,
-    'girdial':              input,
+    'girdial':              _girdial,
+    'oku':                  _girdial,
     'açık':                 open,
     'acik':                 open,
 
@@ -266,6 +295,9 @@ PARS_BUILTINS: Dict[str, Any] = {
     'calistir_kod':         exec,
     'derle':                compile,
     'modül_yükle':          __import__,
+    'modul_yukle':          __import__,
+    'modül_al':             _modul_al,
+    'modul_al':             _modul_al,
 
     # ── PAKET YÖNETİMİ ────────────────────────────────────────────────────
     'paket_yükle':          _paket_yukle,
@@ -334,6 +366,22 @@ PARS_ISTISNALAR: Dict[str, type] = {
     'SistemHatasi':             OSError,
     'UygulanmadiHatasi':        NotImplementedError,
     'UygulanmadıHatası':        NotImplementedError,
+    'İddiaHatası':              AssertionError,
+    'IddiaHatasi':              AssertionError,
+    'BağlantıHatası':           ConnectionError,
+    'BaglantiHatasi':           ConnectionError,
+    'ZamanAşımıHatası':         TimeoutError,
+    'ZamanAsimiHatasi':         TimeoutError,
+    'YenidenBaşlatma':          StopAsyncIteration,
+    'YenidenBaslatma':          StopAsyncIteration,
+    'İptalHatası':              asyncio.CancelledError,
+    'IptalHatasi':              asyncio.CancelledError,
+    'EşzamanlamaHatası':        RuntimeError,
+    'EszamanlamaHatasi':        RuntimeError,
+    'UnicodeÇözümlemeHatası':   UnicodeDecodeError,
+    'UnicodeCozumlemeHatasi':   UnicodeDecodeError,
+    'UnicodeKodlamaHatası':     UnicodeEncodeError,
+    'UnicodeKodlamaHatasi':     UnicodeEncodeError,
 }
 
 __all__ = [

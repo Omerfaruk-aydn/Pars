@@ -1,0 +1,58 @@
+# İplikler ve Havuz — threading / concurrent.futures
+# Yeni standart kütüphane modülü: iplik
+
+içe_aktar iplik
+
+# ── Basit iplik ──────────────────────────────────────────────────────────
+sonuclar = []
+kilit = iplik.Kilit()
+
+fonksiyon isci(isim):
+    içe_aktar zaman
+    zaman.bekle(0.02)
+    ile kilit:
+        sonuclar.append(f"{isim} tamamlandı")
+
+iplikler = []
+için i içinde aralık(5):
+    t = iplik.Iplik(isci, f"İşçi-{i}")
+    t.baslat()
+    iplikler.append(t)
+
+için t içinde iplikler:
+    t.katil()
+
+yaz("=== İplik Sonuçları ===")
+için s içinde sorted(sonuclar):
+    yaz(f"  {s}")
+
+# ── Kuyruk ───────────────────────────────────────────────────────────────
+kuyruk = iplik.Kuyruk()
+için i içinde aralık(5):
+    kuyruk.put(i * i)
+
+yaz("\n=== Kuyruk ===")
+için _ içinde aralık(5):
+    yaz(f"  {kuyruk.get()}")
+
+# ── ThreadPoolExecutor (Havuz) ───────────────────────────────────────────
+fonksiyon kare(x):
+    döndür x * x
+
+ile iplik.Havuz(isci_sayisi=4) as havuz:
+    sonuc = list(havuz.haritala(kare, range(1, 11)))
+
+yaz(f"\nHavuz kareler: {sonuc}")
+yaz(f"Paralel: {iplik.paralel_calistir(kare, range(1, 6))}")
+
+# ── Olay (Event) ─────────────────────────────────────────────────────────
+olay = iplik.Olay()
+fonksiyon bekleyen():
+    olay.wait()
+    yaz("  Olay gerçekleşti!")
+
+t = iplik.Iplik(bekleyen).baslat()
+olay.set()
+t.katil()
+
+yaz("\nİplik örneği tamamlandı!")

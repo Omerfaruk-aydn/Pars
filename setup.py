@@ -1,14 +1,14 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="pars-dil",
-    version="1.0.0",
+    name="pars-turkce-dil",
+    version="1.0.1",
     description="PARS — Türkçe Programlama Dili. Pars gibi hızlı. Türkçe gibi güzel.",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     author="PARS Topluluğu",
     author_email="info@parsdil.com",
-    url="https://github.com/pars-lang/pars",
+    url="https://github.com/mrcbrbn5361/Pars",
     project_urls={
         "Website": "https://parsdil.com",
         "Documentation": "https://parsdil.com",
@@ -34,6 +34,10 @@ setup(
     entry_points={
         "console_scripts": [
             "pars=pars.cli.komutlar:main",
+            "parskur=pars.cli.paket:main",
+            "parspip=pars.cli.paket:main",
+            "parspy=pars.cli.python_modu:main",
+            "parskopru=pars.cli.kopru:main",
         ],
     },
     classifiers=[

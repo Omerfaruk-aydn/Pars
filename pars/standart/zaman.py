@@ -2,17 +2,19 @@
 PARS Zaman Modülü — datetime Türkçe sarmalayıcısı
 """
 
-from datetime import datetime, date, time, timedelta
-from typing import Optional, Union
+from datetime import datetime, date, time as _saat_tipi, timedelta
+from typing import Union
 import time as _time
 
 __all__ = [
     'TURKCE_GUNLER', 'TURKCE_AYLAR',
-    'simdi', 'bugun', 'zaman_damgasi', 'bekle',
-    'tarih', 'saat_olustur', 'fark', 'biçimle', 'cozmle',
+    'simdi', 'simdi_utc', 'bugun', 'zaman_damgasi', 'bekle', 'uyu',
+    'sure_olc', 'monotonik',
+    'tarih', 'saat_olustur', 'fark', 'bicimle', 'biçimle', 'cozmle',
+    'çözümle', 'iso_metin', 'turkce_tarih', 'hafta_numarasi',
     'gun_adi', 'ay_adi', 'yil', 'ay', 'gun', 'saat', 'dakika', 'saniye',
     'is_gunu_mu', 'hafta_sonu_mu', 'gun_ekle', 'ay_ekle',
-    'gec_ti_mi', 'kalan_sure',
+    'gecti_mi', 'gec_ti_mi', 'kalan_sure',
 ]
 
 TURKCE_GUNLER = [
@@ -45,15 +47,64 @@ def bekle(saniye: float) -> None:
     _time.sleep(saniye)
 
 
+def uyu(saniye: float) -> None:
+    """bekle() takma adı."""
+    _time.sleep(saniye)
+
+
+# Python uyumluluğu: zaman.sleep(...), zaman.time(...), zaman.perf_counter()
+sleep = bekle
+time = _time.time
+perf_counter = _time.perf_counter
+monotonic = _time.monotonic
+
+
+def simdi_utc() -> datetime:
+    """UTC tarih ve saat."""
+    from datetime import timezone
+    return datetime.now(timezone.utc)
+
+
+def sure_olc() -> float:
+    """Yüksek çözünürlüklü sayaç (performans ölçümü)."""
+    return _time.perf_counter()
+
+
+def monotonik() -> float:
+    """Tek yönlü artan saat."""
+    return _time.monotonic()
+
+
+def iso_metin(tarih_nesne: Union[datetime, date]) -> str:
+    """ISO 8601 metni."""
+    return tarih_nesne.isoformat()
+
+
+def turkce_tarih(tarih_nesne: Union[datetime, date]) -> str:
+    """Türkçe uzun tarih: 6 Kasım 2026 Cuma."""
+    return (f'{tarih_nesne.day} {ay_adi(tarih_nesne)} '
+            f'{tarih_nesne.year} {gun_adi(tarih_nesne)}')
+
+
+def hafta_numarasi(tarih_nesne: Union[datetime, date]) -> int:
+    """ISO hafta numarası."""
+    return tarih_nesne.isocalendar()[1]
+
+
+def gecti_mi(tarih_nesne: Union[datetime, date]) -> bool:
+    """Tarih geçmişte mi? (doğru yazım)"""
+    return gec_ti_mi(tarih_nesne)
+
+
 def tarih(yil: int, ay: int, gun: int) -> date:
     """Tarih nesnesi oluştur."""
     return date(yil, ay, gun)
 
 
 def saat_olustur(saat: int, dakika: int = 0,
-                 saniye: int = 0) -> time:
+                 saniye: int = 0) -> _saat_tipi:
     """Saat nesnesi oluştur."""
-    return time(saat, dakika, saniye)
+    return _saat_tipi(saat, dakika, saniye)
 
 
 def fark(baslangic: Union[datetime, date],
@@ -71,6 +122,11 @@ def bicimle(tarih_nesne: Union[datetime, date],
 def cozmle(metin: str, sablon: str = '%d.%m.%Y') -> datetime:
     """Metni tarih nesnesine çevir."""
     return datetime.strptime(metin, sablon)
+
+
+# Türkçe karakterli takma adlar
+biçimle = bicimle
+çözümle = cozmle
 
 
 def gun_adi(tarih_nesne: Union[datetime, date]) -> str:

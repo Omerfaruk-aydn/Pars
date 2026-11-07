@@ -7,7 +7,7 @@ import sys
 import platform
 import subprocess
 import getpass
-from typing import List, Optional
+from typing import Optional
 
 __all__ = [
     'ortam_degiskeni', 'ortam_degiskeni_ata', 'calisma_dizini',

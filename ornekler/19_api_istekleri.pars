@@ -2,50 +2,56 @@
 
 içe_aktar urllib.request
 içe_aktar json
+içe_aktar os
+
+# Ağ erişimi olmayan ortamlarda örnek atlanır
+eğer os.environ.get("PARS_ORNEK_AG") != "1":
+    yaz("Ağ örnekleri atlandı. Çalıştırmak için: PARS_ORNEK_AG=1")
+    cikis()
 
 # 1. Basit GET isteği
-y("=== Basit GET İsteği ===")
+yaz("=== Basit GET İsteği ===")
 dene:
     url = "https://jsonplaceholder.typicode.com/posts/1"
     yanit = urllib.request.urlopen(url, timeout=10)
     veri = json.loads(yanit.read().decode('utf-8'))
 
-    y(f"Başlık: {veri['title']}")
-    y(f"Gövde: {veri['body'][:100]}...")
+    yaz(f"Başlık: {veri['title']}")
+    yaz(f"Gövde: {veri['body'][:100]}...")
 hariç Hata olarak e:
-    y(f"İstek hatası: {e}")
+    yaz(f"İstek hatası: {e}")
 
 # 2. Birden fazla istek
-y("\n=== Çoklu İstekler ===")
+yaz("\n=== Çoklu İstekler ===")
 dene:
     url = "https://jsonplaceholder.typicode.com/posts"
     yanit = urllib.request.urlopen(url, timeout=10)
     gönderiler = json.loads(yanit.read().decode('utf-8'))
 
-    y(f"Toplam gönderi sayısı: {uzunluk(gönderiler)}")
-    y("\nİlk 5 gönderi:")
+    yaz(f"Toplam gönderi sayısı: {uzunluk(gönderiler)}")
+    yaz("\nİlk 5 gönderi:")
     için i, gönderi içinde enumerate(gönderiler[:5]):
-        y(f"  {i+1}. {gönderiler[i]['title'][:50]}")
+        yaz(f"  {i+1}. {gönderiler[i]['title'][:50]}")
 hariç Hata olarak e:
-    y(f"İstek hatası: {e}")
+    yaz(f"İstek hatası: {e}")
 
 # 3. Kullanıcı bilgileri
-y("\n=== Kullanıcılar ===")
+yaz("\n=== Kullanıcılar ===")
 dene:
     url = "https://jsonplaceholder.typicode.com/users"
     yanit = urllib.request.urlopen(url, timeout=10)
     kullanıcılar = json.loads(yanit.read().decode('utf-8'))
 
     için kullanıcı içinde kullanıcılar[:3]:
-        y(f"\n  Ad: {kullanıcı['name']}")
-        y(f"  Email: {kullanıcı['email']}")
-        y(f"  Şehir: {kullanıcı['address']['city']}")
-        y(f"  Website: {kullanıcı['website']}")
+        yaz(f"\n  Ad: {kullanıcı['name']}")
+        yaz(f"  Email: {kullanıcı['email']}")
+        yaz(f"  Şehir: {kullanıcı['address']['city']}")
+        yaz(f"  Website: {kullanıcı['website']}")
 hariç Hata olarak e:
-    y(f"İstek hatası: {e}")
+    yaz(f"İstek hatası: {e}")
 
 # 4. POST isteği
-y("\n=== POST İsteği ===")
+yaz("\n=== POST İsteği ===")
 dene:
     url = "https://jsonplaceholder.typicode.com/posts"
     veri = json.dumps({
@@ -60,24 +66,24 @@ dene:
     yanit = urllib.request.urlopen(istek, timeout=10)
     sonuç = json.loads(yanit.read().decode('utf-8'))
 
-    y(f"Durum kodu: {yanit.status}")
-    y(f"Oluşturulan ID: {sonuç['id']}")
-    y(f"Başlık: {sonuç['title']}")
+    yaz(f"Durum kodu: {yanit.status}")
+    yaz(f"Oluşturulan ID: {sonuç['id']}")
+    yaz(f"Başlık: {sonuç['title']}")
 hariç Hata olarak e:
-    y(f"İstek hatası: {e}")
+    yaz(f"İstek hatası: {e}")
 
 # 5. URL kodlama
-y("\n=== URL Kodlama ===")
+yaz("\n=== URL Kodlama ===")
 parametreler = {
     "q": "Python programlama",
     "lang": "tr",
     "page": 1
 }
 kodlanmış = urllib.parse.urlencode(parametreler)
-y(f"Kodlanmış URL: {kodlenmiş}")
+yaz(f"Kodlanmış URL: {kodlenmiş}")
 
 # 6. Başlıklar ile istek
-y("\n=== Özel Başlıklar ===")
+yaz("\n=== Özel Başlıklar ===")
 dene:
     url = "https://httpbin.org/headers"
     istek = urllib.request.Request(url)
@@ -88,10 +94,10 @@ dene:
     yanit = urllib.request.urlopen(istek, timeout=10)
     başlıklar = json.loads(yanit.read().decode('utf-8'))
 
-    y("Gönderilen başlıklar:")
+    yaz("Gönderilen başlıklar:")
     için anahtar, değer içinde başlıklar['headers'].items():
-        y(f"  {anahtar}: {değer}")
+        yaz(f"  {anahtar}: {değer}")
 hariç Hata olarak e:
-    y(f"İstek hatası: {e}")
+    yaz(f"İstek hatası: {e}")
 
-y("\nAPI istekleri örnekleri tamamlandı!")
+yaz("\nAPI istekleri örnekleri tamamlandı!")

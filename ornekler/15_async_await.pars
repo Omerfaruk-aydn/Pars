@@ -6,15 +6,15 @@ içe_aktar zaman
 # 1. Basit async fonksiyon
 eşzamansız fonksiyon merhaba(isim: str, gecikme: float):
     """Belirtilen süre kadar bekler ve selam verir."""
-    y(f"  {isim} başlıyor...")
+    yaz(f"  {isim} başlıyor...")
     bekle asyncio.sleep(gecikme)
-    y(f"  {isim} tamamlandı ({gecikme}s)")
+    yaz(f"  {isim} tamamlandı ({gecikme}s)")
     döndür f"Merhaba, {isim}!"
 
 # 2. Eşzamansız çalıştırma
 eşzamansız fonksiyon seri_çalıştırma():
     """Görevleri sırayla çalıştırır."""
-    y("\n=== Seri Çalıştırma ===")
+    yaz("\n=== Seri Çalıştırma ===")
     başlangıç = zaman.time()
 
     sonuç1 = bekle merhaba("Ali", 0.1)
@@ -22,13 +22,13 @@ eşzamansız fonksiyon seri_çalıştırma():
     sonuç3 = bekle merhaba("Ayşe", 0.1)
 
     süre = zaman.time() - başlangıç
-    y(f"  Toplam süre: {süre:.2f}s (beklenen ~0.3s)")
+    yaz(f"  Toplam süre: {süre:.2f}s (beklenen ~0.3s)")
     döndür [sonuç1, sonuç2, sonuç3]
 
 # 3. Paralel çalıştırma
 eşzamansız fonksiyon paralel_çalıştırma():
     """Görevleri eşzamanlı çalıştırır."""
-    y("\n=== Paralel Çalıştırma ===")
+    yaz("\n=== Paralel Çalıştırma ===")
     başlangıç = zaman.time()
 
     görevler = [
@@ -39,7 +39,7 @@ eşzamansız fonksiyon paralel_çalıştırma():
     sonuçlar = bekle asyncio.gather(*görevler)
 
     süre = zaman.time() - başlangıç
-    y(f"  Toplam süre: {süre:.2f}s (beklenen ~0.1s)")
+    yaz(f"  Toplam süre: {süre:.2f}s (beklenen ~0.1s)")
     döndür sonuçlar
 
 # 4. Async iterasyon
@@ -50,45 +50,45 @@ eşzamansız fonksiyon sayı_üreteci(n: int):
         ver i
 
 eşzamansız fonksiyon async_iterasyon():
-    y("\n=== Async İterasyon ===")
+    yaz("\n=== Async İterasyon ===")
     async için sayı içinde sayı_üreteci(5):
-        y(f"  Sayı: {sayı}")
+        yaz(f"  Sayı: {sayı}")
 
 # 5. Async bağlam yöneticisi
- sınıf AsyncZamanlayıcı:
+sınıf AsyncZamanlayıcı:
     fonksiyon __init__(öz, isim: str):
         öz.isim = isim
 
     eşzamansız fonksiyon __aenter__(öz):
-        y(f"  {öz.isim} başladı")
+        yaz(f"  {öz.isim} başladı")
         öz.başlangıç = zaman.time()
         döndür öz
 
     eşzamansız fonksiyon __aexit__(öz, *args):
         süre = zaman.time() - öz.başlangıç
-        y(f"  {öz.isim} tamamlandı: {süre:.3f}s")
+        yaz(f"  {öz.isim} tamamlandı: {süre:.3f}s")
         döndür yanlış
 
 eşzamansız fonksiyon async_baglam():
-    y("\n=== Async Bağlam Yöneticisi ===")
-    ile AsyncZamanlayıcı("İşlem") as z:
+    yaz("\n=== Async Bağlam Yöneticisi ===")
+    eşzamansız ile AsyncZamanlayıcı("İşlem") as z:
         bekle asyncio.sleep(0.05)
 
 # 6. Görev iptali
 eşzamansız fonksiyon uzun_işlem():
     iken doğru:
         bekle asyncio.sleep(0.1)
-        y("  Çalışıyor...")
+        yaz("  Çalışıyor...")
 
 eşzamansız fonksiyon iptal_testi():
-    y("\n=== Görev İptali ===")
+    yaz("\n=== Görev İptali ===")
     görev = asyncio.create_task(uzun_işlem())
     bekle asyncio.sleep(0.35)
     görev.cancel()
     dene:
         bekle görev
     hariç asyncio.CancelledError:
-        y("  Görev iptal edildi!")
+        yaz("  Görev iptal edildi!")
 
 # 7. Timeout
 eşzamansız fonksiyon yavaş_işlem():
@@ -96,15 +96,15 @@ eşzamansız fonksiyon yavaş_işlem():
     döndür "tamam"
 
 eşzamansız fonksiyon timeout_testi():
-    y("\n=== Zaman Aşımı ===")
+    yaz("\n=== Zaman Aşımı ===")
     dene:
         sonuç = bekle asyncio.wait_for(yavaş_işlem(), timeout=0.5)
     hariç asyncio.TimeoutError:
-        y("  Zaman aşımı! İşlem çok uzun sürdü.")
+        yaz("  Zaman aşımı! İşlem çok uzun sürdü.")
 
 # Ana fonksiyon
 eşzamansız fonksiyon ana():
-    y("=== PARS Async/Await Örnekleri ===")
+    yaz("=== PARS Async/Await Örnekleri ===")
 
     bekle seri_çalıştırma()
     bekle paralel_çalıştırma()
@@ -113,7 +113,7 @@ eşzamansız fonksiyon ana():
     bekle iptal_testi()
     bekle timeout_testi()
 
-    y("\n=== Tüm async örnekler tamamlandı! ===")
+    yaz("\n=== Tüm async örnekler tamamlandı! ===")
 
 # Çalıştır
 asyncio.run(ana())
