@@ -3,11 +3,12 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pars-dil"
+name = "pars-turkce-dil"
 version = "1.0.1"
 description = "PARS — Türkçe Programlama Dili. Pars gibi hızlı. Türkçe gibi güzel."
 readme = "README.md"
 license = {text = "MIT"}
+authors = [{name = "PARS Topluluğu"}]
 requires-python = ">=3.8"
 keywords = ["türkçe", "programlama", "dil", "pars", "turkish", "programming", "language"]
 classifiers = [
@@ -27,6 +28,11 @@ classifiers = [
     "Topic :: Software Development :: Compilers",
     "Topic :: Software Development :: Interpreters",
 ]
+
+[project.urls]
+Homepage = "https://github.com/mrcbrbn5361/Pars"
+Repository = "https://github.com/mrcbrbn5361/Pars"
+Issues = "https://github.com/mrcbrbn5361/Pars/issues"
 
 [project.scripts]
 pars = "pars.cli.komutlar:main"

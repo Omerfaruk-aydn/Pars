@@ -7,7 +7,7 @@ PARS, Python altyapısını kullanan, tamamen Türkçe sözdizimli bir programla
 ## Hızlı Başlangıç
 
 ```bash
-pip install pars-dil
+pip install pars-turkce-dil
 ```
 
 ```pars

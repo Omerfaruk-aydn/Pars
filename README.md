@@ -6,8 +6,8 @@
 
 *"Pars gibi hızlı. Türkçe gibi güzel."*
 
-[![PyPI](https://img.shields.io/pypi/v/pars-dil.svg)](https://pypi.org/project/pars-dil/)
-[![Python](https://img.shields.io/pypi/pyversions/pars-dil.svg)](https://pypi.org/project/pars-dil/)
+[![PyPI](https://img.shields.io/pypi/v/pars-turkce-dil.svg)](https://pypi.org/project/pars-turkce-dil/)
+[![Python](https://img.shields.io/pypi/pyversions/pars-turkce-dil.svg)](https://pypi.org/project/pars-turkce-dil/)
 [![Lisans](https://img.shields.io/badge/lisans-MIT-blue.svg)](LICENSE)
 
 </div>
@@ -26,7 +26,7 @@ Türkçe sözdizimine uyarlayan bir **köprü** sistemi de eklendi.
 ## Kurulum
 
 ```bash
-pip install pars-dil
+pip install pars-turkce-dil
 ```
 
 ## İlk Program

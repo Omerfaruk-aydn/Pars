@@ -3,7 +3,7 @@
 ## Kurulum
 
 ```bash
-pip install pars-dil
+pip install pars-turkce-dil
 ```
 
 ## İlk Program

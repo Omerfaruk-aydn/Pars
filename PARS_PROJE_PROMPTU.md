@@ -16,7 +16,7 @@
 | Slogan | **"Pars gibi hızlı. Türkçe gibi güzel."** |
 | Dosya uzantısı | `.pars` |
 | Komut | `pars` |
-| pip paketi | `pars-dil` |
+| pip paketi | `pars-turkce-dil` |
 | GitHub org | `pars-lang` |
 | GitHub repo | `pars-lang/pars` |
 | Website | `parsdil.com` |
@@ -2024,7 +2024,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.backends.legacy:build"
 
 [project]
-name = "pars-dil"
+name = "pars-turkce-dil"
 version = "1.0.0"
 description = "PARS — Türkçe Programlama Dili. Pars gibi hızlı. Türkçe gibi güzel."
 readme = "README.md"
@@ -2095,8 +2095,8 @@ target-version = ["py38"]
 
 *"Pars gibi hızlı. Türkçe gibi güzel."*
 
-[![PyPI](https://img.shields.io/pypi/v/pars-dil.svg)](https://pypi.org/project/pars-dil/)
-[![Python](https://img.shields.io/pypi/pyversions/pars-dil.svg)](https://pypi.org/project/pars-dil/)
+[![PyPI](https://img.shields.io/pypi/v/pars-turkce-dil.svg)](https://pypi.org/project/pars-turkce-dil/)
+[![Python](https://img.shields.io/pypi/pyversions/pars-turkce-dil.svg)](https://pypi.org/project/pars-turkce-dil/)
 [![Lisans](https://img.shields.io/badge/lisans-MIT-blue.svg)](LICENSE)
 [![Testler](https://github.com/pars-lang/pars/actions/workflows/test.yml/badge.svg)](...)
 
@@ -2110,7 +2110,7 @@ Python'un tüm gücünü Türkçe ile yazabilirsiniz.
 ## Kurulum
 
 ```bash
-pip install pars-dil
+pip install pars-turkce-dil
 ```
 
 ## İlk Program

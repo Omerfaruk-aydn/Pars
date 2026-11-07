@@ -58,7 +58,7 @@ pars derle dosya.pars        # dosya.py üretir
 ## PARS'ı nasıl kurarım?
 
 ```bash
-pip install pars-dil
+pip install pars-turkce-dil
 ```
 
 ## Hangi Python sürümlerini destekler?
