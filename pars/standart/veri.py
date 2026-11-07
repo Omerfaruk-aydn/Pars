@@ -7,7 +7,7 @@ import csv
 import pickle
 import base64
 import hashlib
-from typing import Any, List, Optional
+from typing import Any
 
 __all__ = [
     'json_metin', 'json_cozumle', 'json_oku', 'json_yaz',

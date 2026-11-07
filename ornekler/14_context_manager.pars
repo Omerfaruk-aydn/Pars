@@ -12,7 +12,7 @@ ile açık("test_cm.txt", "r") as f:
 yaz(f"Okunan: {içerik.strip()}")
 
 # 2. Sınıf tabanlı bağlam yöneticisi
- sınıf Zamanlayıcı:
+sınıf Zamanlayıcı:
     """Fonksiyon çalışma süresini ölçen bağlam yöneticisi."""
 
     fonksiyon __init__(öz, isim: str = "İşlem"):
@@ -23,24 +23,24 @@ yaz(f"Okunan: {içerik.strip()}")
     fonksiyon __enter__(öz):
         içe_aktar zaman
         öz.başlangıç = zaman.time()
-        y(f"⏱  {öz.isim} başladı...")
+        yaz(f"⏱  {öz.isim} başladı...")
         döndür öz
 
     fonksiyon __exit__(öz, exc_type, exc_val, exc_tb):
         içe_aktar zaman
         öz.süre = zaman.time() - öz.başlangıç
-        y(f"⏱  {öz.isim} tamamlandı: {öz.süre:.6f} saniye")
+        yaz(f"⏱  {öz.isim} tamamlandı: {öz.süre:.6f} saniye")
         eğer exc_type:
-            y(f"   Hata: {exc_val}")
+            yaz(f"   Hata: {exc_val}")
         döndür yanlış  # İstisnayı yükselt
 
 yaz("\n=== Zamanlayıcı ===")
 ile Zamanlayıcı("Test İşlemi") as z:
     içe_aktar zaman
     zaman.sleep(0.05)
-    y("   İşlem yapılıyor...")
+    yaz("   İşlem yapılıyor...")
 
-y(f"   Süre: {z.süre:.6f} saniye")
+yaz(f"   Süre: {z.süre:.6f} saniye")
 
 # 3. contextlib ile bağlam yöneticisi
 den_aktar contextlib içe_aktar contextmanager
@@ -51,38 +51,38 @@ fonksiyon geçici_dizin():
     içe_aktar tempfile
     içe_aktar shutil
     dizin = tempfile.mkdtemp()
-    y(f"Geçici dizin: {dizin}")
+    yaz(f"Geçici dizin: {dizin}")
     dene:
         ver dizin
     sonunda:
         shutil.rmtree(dizin)
-        y(f"Dizin temizlendi: {dizin}")
+        yaz(f"Dizin temizlendi: {dizin}")
 
 yaz("\n=== Geçici Dizin ===")
 ile geçici_dizin() as dizin:
-    y(f"Dizin kullanılıyor: {dizin}")
+    yaz(f"Dizin kullanılıyor: {dizin}")
     # Dizinde dosya oluşturabilirsiniz
 
 # 4. Çoklu bağlam yöneticisi
- sınıf VeritabanıBağlantısı:
+sınıf VeritabanıBağlantısı:
     fonksiyon __init__(öz, ad: str):
         öz.ad = ad
         öz.açık = yanlış
 
     fonksiyon __enter__(öz):
         öz.açık = doğru
-        y(f"Bağlantı açıldı: {öz.ad}")
+        yaz(f"Bağlantı açıldı: {öz.ad}")
         döndür öz
 
     fonksiyon __exit__(öz, *args):
         öz.açık = yanlış
-        y(f"Bağlantı kapatıldı: {öz.ad}")
+        yaz(f"Bağlantı kapatıldı: {öz.ad}")
         döndür yanlış
 
     fonksiyon sorgu(öz, sql: str):
         eğer değil öz.açık:
             yükselt RuntimeError("Bağlantı kapalı!")
-        y(f"  Sorgu: {sql}")
+        yaz(f"  Sorgu: {sql}")
 
 yaz("\n=== Veritabanı ===")
 ile VeritabanıBağlantısı("test_db") as db:
@@ -91,21 +91,21 @@ ile VeritabanıBağlantısı("test_db") as db:
 
 # 5. Hatalı bağlamlar
 yaz("\n=== Hata Yönetimi ===")
- sınıf Güvenliİşlem:
+sınıf Güvenliİşlem:
     fonksiyon __enter__(öz):
-        y("Güvenli işlem başladı")
+        yaz("Güvenli işlem başladı")
         döndür öz
 
     fonksiyon __exit__(öz, exc_type, exc_val, exc_tb):
         eğer exc_type:
-            y(f"Hata yakalandı: {exc_val}")
-            y("İşlem geri alındı")
+            yaz(f"Hata yakalandı: {exc_val}")
+            yaz("İşlem geri alındı")
             döndür doğru  # Hatayı bastır
-        y("İşlem başarıyla tamamlandı")
+        yaz("İşlem başarıyla tamamlandı")
         döndür yanlış
 
 ile Güvenliİşlem():
-    y("İşlem yapılıyor...")
+    yaz("İşlem yapılıyor...")
     # Hata oluşursa bile __exit__ çalışır
 
 yaz("\nBağlam yöneticisi örnekleri tamamlandı!")

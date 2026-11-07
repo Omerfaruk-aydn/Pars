@@ -54,7 +54,7 @@
 | PARS | Python |
 |---|---|
 | `yaz()` | `print()` |
-| `girdial()` | `input()` |
+| `girdial()` / `oku()` | `input()` |
 | `uzunluk()` | `len()` |
 | `tip()` | `type()` |
 | `aralık()` / `aralik()` | `range()` |
@@ -98,5 +98,22 @@
 | `sınıf_metot()` / `sinif_metot()` | `classmethod()` |
 | `çıkış()` / `cikis()` | `exit()` |
 | `değerlendir()` / `degerlendir()` | `eval()` |
-| `çalıştır()` / `calistir_kod()` | `exec()` |
+| `çalıştır_kod()` / `calistir_kod()` | `exec()` |
 | `derle()` | `compile()` |
+| `modül_al()` | `importlib.import_module()` |
+
+## Üçlü Koşul
+
+```pars
+durum = "çift" eğer sayı % 2 == 0 değilse "tek"
+```
+
+## Standart Kütüphane (28 modül)
+
+`matematik`, `istatistik`, `metin`, `liste`, `koleksiyonlar`,
+`yinelenebilirler`, `fonksiyonel`, `dosya`, `yol`, `zaman`, `takvim`,
+`sistem`, `isletim`, `surec`, `iplik`, `gunluk`, `rastgele`, `sifreleme`,
+`sikistirma`, `sayi`, `kopya`, `veri`, `veri_siniflari`, `ag`, `veritabani`,
+`arguman`, `deneme`, `kopru`.
+
+Ayrıntılı liste için depodaki `dokuman/STANDART_KUTUPHANE.md` dosyasına bakın.

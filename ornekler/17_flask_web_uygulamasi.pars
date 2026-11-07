@@ -1,8 +1,9 @@
 # Flask Web Uygulaması
-# Gerekli: pars paket yükle flask
+# Gerekli: parskur yükle flask
 
 dene:
     den_aktar flask içe_aktar Flask, jsonify, request, render_template_string
+    içe_aktar os
 
     uygulama = Flask(__name__)
 
@@ -51,7 +52,7 @@ dene:
             "toplam":  a + b,
             "çarpım":  a * b,
             "fark":    a - b,
-            "bölüm":   a / b eğer b != 0 yoksa yok,
+            "bölüm":   a / b eğer b != 0 değilse yok,
         })
 
     @uygulama.route('/api/kullanicilar', methods=['GET', 'POST'])
@@ -61,10 +62,13 @@ dene:
         veri = request.get_json()
         döndür jsonify({"oluşturulan": veri}), 201
 
-    eğer __name__ == '__main__':
-        y("Sunucu: http://localhost:5000")
+    eğer os.environ.get("PARS_ORNEK_FLASK") == "1":
+        yaz("Sunucu: http://localhost:5000")
         uygulama.run(debug=doğru, port=5000)
+    değilse:
+        yaz("Flask uygulaması hazır (sunucu test modunda başlatılmadı).")
+        yaz("Gerçek sunucu için: PARS_ORNEK_FLASK=1 pars ornekler/17_flask_web_uygulamasi.pars")
 
 hariç ImportError:
-    y("Flask kurulu değil.")
-    y("Şunu çalıştırın: pars paket yükle flask")
+    yaz("Flask kurulu değil.")
+    yaz("Şunu çalıştırın: parskur yükle flask")

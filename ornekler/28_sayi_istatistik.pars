@@ -1,0 +1,39 @@
+# Sayılar ve İstatistik — decimal / fractions / statistics
+# Yeni standart kütüphane modülleri: sayi, istatistik
+
+içe_aktar sayi
+içe_aktar istatistik
+
+# ── Kesin ondalık hesap ──────────────────────────────────────────────────
+yaz("=== Kesin Ondalık ===")
+yaz(f"0.1 + 0.2 (float) = {0.1 + 0.2}")
+yaz(f"0.1 + 0.2 (kesin) = {sayi.kesin_topla('0.1', '0.2')}")
+yaz(f"Yuvarlanmış: {sayi.ondalik_yuvarla('3.14159', 2)}")
+yaz(f"Yüzde 20: {sayi.yuzde(250, 20)}")
+yaz(f"Kesir: {sayi.kesir(3, 4)}")
+yaz(f"Kesir toplamı: {sayi.kesir(1, 3) + sayi.kesir(1, 6)}")
+yaz(f"Sınırla(15, 0, 10): {sayi.sinirla(15, 0, 10)}")
+
+# ── İstatistik ───────────────────────────────────────────────────────────
+notlar = [85, 92, 78, 95, 88, 70, 100, 92, 85, 90]
+
+yaz("\n=== Not İstatistikleri ===")
+yaz(f"Ortalama: {istatistik.ortalama(notlar):.2f}")
+yaz(f"Medyan: {istatistik.medyan(notlar)}")
+yaz(f"Mod: {istatistik.mod(notlar)}")
+yaz(f"Standart sapma: {istatistik.standart_sapma(notlar):.2f}")
+yaz(f"Varyans: {istatistik.varyans(notlar):.2f}")
+yaz(f"En yüksek: {istatistik.buyuk(notlar)}")
+yaz(f"En düşük: {istatistik.kucuk(notlar)}")
+yaz(f"Aralık: {istatistik.aralik(notlar)}")
+yaz(f"Çeyrekler: {istatistik.ceyrekler(notlar)}")
+
+yaz(f"\nSıklık: {istatistik.siklik(notlar)}")
+
+# ── Korelasyon ───────────────────────────────────────────────────────────
+x = [1, 2, 3, 4, 5]
+y = [2, 4, 6, 8, 10]
+yaz(f"\nKorelasyon: {istatistik.korelasyon(x, y)}")
+yaz(f"Doğrusal regresyon: {istatistik.dogrusal_regresyon(x, y)}")
+
+yaz("\nSayı ve istatistik örneği tamamlandı!")

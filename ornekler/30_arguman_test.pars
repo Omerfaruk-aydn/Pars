@@ -1,0 +1,65 @@
+# Argüman Ayrıştırma ve Test — argparse / unittest / dataclasses
+# Yeni standart kütüphane modülleri: arguman, deneme, veri_siniflari
+
+içe_aktar arguman
+içe_aktar deneme
+içe_aktar veri_siniflari
+
+# ── Argüman ayrıştırıcı ──────────────────────────────────────────────────
+ay = arguman.ArgumanAyristirici("PARS örnek uygulaması", surum="1.0.1")
+ay.konumlu("dosya", yardim="Girdi dosyası")
+ay.secenek("--mod", varsayilan="hizli", yardim="Çalışma modu")
+ay.bayrak("--ayrintili", yardim="Ayrıntılı çıktı")
+ay.dizi("--etiketler", yardim="Etiketler")
+
+secenekler = ay.ayristir(["girdi.pars", "--mod", "tam", "--ayrintili",
+                          "--etiketler", "test", "ornek"])
+yaz("=== Argümanlar ===")
+yaz(f"Dosya: {secenekler.dosya}")
+yaz(f"Mod: {secenekler.mod}")
+yaz(f"Ayrıntılı: {secenekler.ayrintili}")
+yaz(f"Etiketler: {secenekler.etiketler}")
+
+# ── Veri sınıfı ──────────────────────────────────────────────────────────
+@veri_siniflari.veri_sinifi
+sınıf Kisi:
+    ad: str
+    yas: int = 0
+    sehir: str = "Bilinmiyor"
+
+kisi = Kisi("Ayşe", 30, "İstanbul")
+yaz(f"\nKişi: {kisi}")
+yaz(f"Sözlük: {veri_siniflari.sozluge_cevir(kisi)}")
+yaz(f"Yaşlı: {veri_siniflari.degistir(kisi, yas=31)}")
+
+@veri_siniflari.degismez
+sınıf Nokta:
+    x: float
+    y: float
+
+nokta = Nokta(3.0, 4.0)
+yaz(f"\nNokta: {nokta}")
+
+# ── Basit testler ────────────────────────────────────────────────────────
+fonksiyon topla(a, b):
+    döndür a + b
+
+sınıf ToplaTestleri(deneme.Deneme):
+    fonksiyon test_pozitif(öz):
+        öz.iddia_esit(topla(2, 3), 5)
+
+    fonksiyon test_negatif(öz):
+        öz.iddia_esit(topla(-2, -3), -5)
+
+    fonksiyon test_sifir(öz):
+        öz.iddia_esit(topla(0, 0), 0)
+
+    fonksiyon test_hata(öz):
+        öz.iddia_hata(TypeError, topla, "a", 1)
+
+yaz("\n=== Testler ===")
+sonuc = deneme.calistir(ToplaTestleri, ayrinti=2)
+yaz(f"Çalışan: {sonuc.testsRun}, hata: {uzunluk(sonuc.errors)}, "
+    f"başarısız: {uzunluk(sonuc.failures)}")
+
+yaz("\nArgüman ve test örneği tamamlandı!")

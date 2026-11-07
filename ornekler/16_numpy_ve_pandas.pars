@@ -1,0 +1,76 @@
+# NumPy ve Pandas ile PARS
+# Gerekli: parskur yükle numpy pandas
+
+dene:
+    içe_aktar numpy olarak np
+    içe_aktar pandas olarak pd
+
+    # NumPy Dizileri
+    yaz("=== NumPy ===")
+    a = np.array([1, 2, 3, 4, 5])
+    b = np.array([10, 20, 30, 40, 50])
+
+    yaz(f"Dizi A: {a}")
+    yaz(f"Dizi B: {b}")
+    yaz(f"Toplam: {a + b}")
+    yaz(f"Çarpım: {a * b}")
+    yaz(f"Ortalama: {np.mean(a)}")
+    yaz(f"Standart Sapma: {np.std(a):.2f}")
+
+    # Matris İşlemleri
+    matris = np.random.randint(1, 10, size=(3, 3))
+    yaz(f"\nMatris:\n{matris}")
+    yaz(f"Transpoz:\n{matris.T}")
+    yaz(f"Determinant: {round(np.linalg.det(matris), 2)}")
+
+    # İstatistik
+    veri = np.random.normal(100, 15, 1000)
+    yaz(f"\nİstatistik (1000 veri):")
+    yaz(f"  Ortalama: {np.mean(veri):.2f}")
+    yaz(f"  Medyan: {np.median(veri):.2f}")
+    yaz(f"  Std Sapma: {np.std(veri):.2f}")
+    yaz(f"  Min: {np.min(veri):.2f}")
+    yaz(f"  Max: {np.max(veri):.2f}")
+
+    # Pandas DataFrame
+    yaz("\n=== Pandas ===")
+    veriler = {
+        "isim":  ["Ahmet", "Ayşe", "Mehmet", "Fatma", "Ali"],
+        "yaş":   [25, 30, 22, 28, 35],
+        "şehir": ["İstanbul", "Ankara", "İzmir", "Bursa", "Antalya"],
+        "maaş":  [5000, 7000, 4500, 6000, 8000],
+    }
+    df = pd.DataFrame(veriler)
+
+    yaz("\nVeri Çerçevesi:")
+    yaz(df.to_string())
+
+    yaz(f"\nİstatistikler:")
+    yaz(f"  Ortalama maaş: {df['maaş'].mean():.0f} TL")
+    yaz(f"  En yüksek maaş: {df['maaş'].max()} TL")
+    yaz(f"  En yaşlı: {df.loc[df['yaş'].idxmax(), 'isim']}")
+
+    yaz("\nŞehirlere göre ortalama maaş:")
+    şehir_maaş = df.groupby('şehir')['maaş'].mean()
+    için şehir, maaş içinde şehir_maaş.items():
+        yaz(f"  {şehir}: {maaş:.0f} TL")
+
+    # Filtreleme
+    yaz("\nMaaşı 6000'den yüksek olanlar:")
+    yüksek_maaş = df[df['maaş'] > 6000]
+    için _, satır içinde yüksek_maaş.iterrows():
+        yaz(f"  {satır['isim']}: {satır['maaş']} TL")
+
+    # CSV'ye yazma
+    df.to_csv("maaslar.csv", index=yanlış)
+    yaz("\nVeriler 'maaslar.csv' dosyasına kaydedildi.")
+
+    # Temizlik
+    içe_aktar os
+    os.remove("maaslar.csv")
+
+hariç ImportError olarak e:
+    yaz(f"Modül eksik: {e}")
+    yaz("Şunu çalıştırın: parskur yükle numpy pandas")
+hariç Hata olarak e:
+    yaz(f"Hata: {e}")

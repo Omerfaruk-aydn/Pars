@@ -41,7 +41,7 @@ eğer değil (a > 100):
 
 # Kısa koşul (ternary)
 sayı = 42
-sonuç = "çift" sayı % 2 == 0 else "tek"
+sonuç = "çift" eğer sayı % 2 == 0 değilse "tek"
 yaz(f"{sayı} bir {sonuç} sayıdır.")
 
 # İddia (assert)

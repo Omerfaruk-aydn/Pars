@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pars-dil"
-version = "1.0.0"
+version = "1.0.1"
 description = "PARS — Türkçe Programlama Dili. Pars gibi hızlı. Türkçe gibi güzel."
 readme = "README.md"
 license = {text = "MIT"}
@@ -30,6 +30,10 @@ classifiers = [
 
 [project.scripts]
 pars = "pars.cli.komutlar:main"
+parskur = "pars.cli.paket:main"
+parspip = "pars.cli.paket:main"
+parspy = "pars.cli.python_modu:main"
+parskopru = "pars.cli.kopru:main"
 
 [project.optional-dependencies]
 dev = [

@@ -2,7 +2,7 @@
   "name": "pars-dil",
   "displayName": "PARS — Türkçe Programlama Dili",
   "description": "PARS dili sözdizimi renklendirme ve dil desteği",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "pars-lang",
   "engines": {
     "vscode": "^1.70.0"
@@ -19,7 +19,9 @@
           "pars"
         ],
         "extensions": [
-          ".prs"
+          ".pars",
+          ".prs",
+          ".kolay"
         ],
         "configuration": "./language-configuration.json"
       }

@@ -3,7 +3,6 @@ PARS Metin Modülü — str işlemleri Türkçe sarmalayıcısı
 """
 
 import re
-from typing import List, Optional, Union
 
 __all__ = [
     'buyuk_harf', 'kucuk_harf', 'bas_buyuk', 'her_bas_buyuk',
@@ -15,6 +14,10 @@ __all__ = [
     'buyuk_harf_mi', 'kucuk_harf_mi',
     'sifrele', 'coz',
     'regex_bul', 'regex_degistir', 'regex_bol',
+    'kelimeler', 'satir_sayisi', 'kisalt', 'sar', 'girintile',
+    'girinti_kaldir', 'slug', 'yilan_case', 'deve_case', 'yuzde_kodla',
+    'yuzde_coz', 'html_kacis', 'html_coz', 'benzerlik', 'farklar',
+    'bicim', 'tersten', 'sayi_metni', 'kirp', 'son',
 ]
 
 
@@ -187,3 +190,125 @@ def regex_degistir(metin: str, desen: str, yeni: str) -> str:
 def regex_bol(metin: str, desen: str) -> list:
     """Regex ile böl."""
     return re.split(desen, metin)
+
+# ── GENİŞLETİLMİŞ YARDIMCILAR (v1.0.1) ──────────────────────────────────
+
+def kelimeler(s: str) -> list:
+    """Metni kelimelere ayır."""
+    return s.split()
+
+
+def satir_sayisi(s: str) -> int:
+    """Satır sayısı."""
+    return len(s.splitlines()) if s else 0
+
+
+def kisalt(s: str, uzunluk: int = 30, sonek: str = '...') -> str:
+    """Metni belirtilen uzunlukta kısalt."""
+    if len(s) <= uzunluk:
+        return s
+    return s[:max(0, uzunluk - len(sonek))] + sonek
+
+
+def sar(s: str, genislik: int = 70) -> str:
+    """Metni satırlara sar."""
+    import textwrap
+    return textwrap.fill(s, width=genislik)
+
+
+def girintile(s: str, onek: str = '    ') -> str:
+    """Her satırın başına önek ekle."""
+    import textwrap
+    return textwrap.indent(s, onek)
+
+
+def girinti_kaldir(s: str) -> str:
+    """Ortak girintiyi kaldır."""
+    import textwrap
+    return textwrap.dedent(s)
+
+
+def slug(s: str) -> str:
+    """URL dostu metin üret."""
+    tablo = str.maketrans('çğıöşüÇĞİÖŞÜ', 'cgiosuCGIOSU')
+    s = s.translate(tablo).lower()
+    import re as _re
+    s = _re.sub(r'[^a-z0-9]+', '-', s)
+    return s.strip('-')
+
+
+def yilan_case(s: str) -> str:
+    """snake_case biçimine çevir."""
+    import re as _re
+    s = _re.sub(r'(?<!^)(?=[A-Z])', '_', s)
+    return _re.sub(r'[\s\-]+', '_', s).lower()
+
+
+def deve_case(s: str) -> str:
+    """camelCase biçimine çevir."""
+    parcalar = yilan_case(s).split('_')
+    return parcalar[0] + ''.join(p.capitalize() for p in parcalar[1:])
+
+
+def yuzde_kodla(s: str, guvenli: str = '') -> str:
+    """URL yüzde kodlaması."""
+    from urllib.parse import quote
+    return quote(s, safe=guvenli)
+
+
+def yuzde_coz(s: str) -> str:
+    """URL yüzde kodunu çöz."""
+    from urllib.parse import unquote
+    return unquote(s)
+
+
+def html_kacis(s: str) -> str:
+    """HTML özel karakterlerini kaçır."""
+    import html
+    return html.escape(s)
+
+
+def html_coz(s: str) -> str:
+    """HTML kaçışlarını çöz."""
+    import html
+    return html.unescape(s)
+
+
+def benzerlik(a: str, b: str) -> float:
+    """İki metin arasındaki benzerlik oranı (0-1)."""
+    from difflib import SequenceMatcher
+    return SequenceMatcher(None, a, b).ratio()
+
+
+def farklar(a: str, b: str) -> list:
+    """İki metin arasındaki fark satırları."""
+    import difflib
+    return list(difflib.unified_diff(a.splitlines(), b.splitlines(),
+                                     lineterm=''))
+
+
+def bicim(sablon: str, **degerler) -> str:
+    """Metin şablonunu doldur."""
+    return sablon.format(**degerler)
+
+
+def tersten(s: str) -> str:
+    """tersine_cevir takma adı."""
+    return s[::-1]
+
+
+def sayi_metni(n, basamak: int = 2) -> str:
+    """Say?y? T?rk?e binlik/ondal?k ayra?l? metne ?evir (1.234,56)."""
+    metin = f'{n:,.{basamak}f}'
+    metin = metin.replace(',', '\x00').replace('.', ',').replace('\x00', '.')
+    return metin
+
+
+def kirp(s: str, uzunluk: int) -> str:
+    """İlk n karakter."""
+    return s[:uzunluk]
+
+
+def son(s: str, uzunluk: int) -> str:
+    """Son n karakter."""
+    return s[-uzunluk:] if uzunluk else ''

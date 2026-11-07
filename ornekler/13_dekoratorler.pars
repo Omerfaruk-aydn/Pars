@@ -3,15 +3,15 @@
 # 1. Basit dekoratör
 fonksiyon merhaba_dekoratörü(f):
     fonksiyon sarmalayıcı(*args, **kwargs):
-        y(">>> Fonksiyon çağrılıyor...")
+        yaz(">>> Fonksiyon çağrılıyor...")
         sonuç = f(*args, **kwargs)
-        y(">>> Fonksiyon tamamlandı.")
+        yaz(">>> Fonksiyon tamamlandı.")
         döndür sonuç
     döndür sarmalayıcı
 
 @merhaba_dekoratörü
 fonksiyon selamla(isim: str):
-    y(f"Merhaba, {isim}!")
+    yaz(f"Merhaba, {isim}!")
     döndür isim
 
 selamla("Ahmet")
@@ -24,7 +24,7 @@ fonksiyon zamanlayıcı(f):
         başlangıç = zaman.time()
         sonuç = f(*args, **kwargs)
         süre = zaman.time() - başlangıç
-        y(f"⏱  {f.__name__}: {süre:.6f} saniye")
+        yaz(f"⏱  {f.__name__}: {süre:.6f} saniye")
         döndür sonuç
     döndür sarmalayıcı
 
@@ -34,7 +34,7 @@ fonksiyon yavaş_fonksiyon():
     döndür "bitti"
 
 sonuç = yavaş_fonksiyon()
-y(f"Sonuç: {sonuç}")
+yaz(f"Sonuç: {sonuç}")
 
 # 3. Parametreli dekoratör
 fonksiyon tekrarla(kez: int):
@@ -53,7 +53,7 @@ fonksiyon rastgele_sayı():
     içe_aktar random
     döndür random.randint(1, 100)
 
-y(f"\n3 rastgele sayı: {rastgele_sayı()}")
+yaz(f"\n3 rastgele sayı: {rastgele_sayı()}")
 
 # 4. Önbellek dekoratörü
 fonksiyon önbellek(f):
@@ -74,23 +74,23 @@ fonksiyon faktöriyel(n: int) -> int:
         döndür 1
     döndür n * faktöriyel(n - 1)
 
-y(f"\n10! = {faktöriyel(10)}")
-y(f"10! (önbellekten) = {faktöriyel(10)}")
+yaz(f"\n10! = {faktöriyel(10)}")
+yaz(f"10! (önbellekten) = {faktöriyel(10)}")
 
 # 5. Sınıf dekoratörü
-fonksiyon veri_sınıfı(sınıf):
+fonksiyon veri_sınıfı(hedef):
     """Basit veri sınıfı dekoratörü."""
-    sınıf.__repr__ = lambda öz: f"{tip(öz).__name__}({', '.join(f'{k}={v!r}' için k, v içinde öz.__dict__.items())})"
-    döndür sınıf
+    hedef.__repr__ = lambda öz: f"{tip(öz).__name__}({', '.join(f'{k}={v!r}' için k, v içinde öz.__dict__.items())})"
+    döndür hedef
 
 @veri_sınıfı
- sınıf Nokta:
+sınıf Nokta:
     fonksiyon __init__(öz, x: float, y: float):
         öz.x = x
         öz.y = y
 
 nokta = Nokta(3.5, 7.2)
-y(f"\nNokta: {nokta}")
+yaz(f"\nNokta: {nokta}")
 
 # 6. Zincirleme dekoratör
 fonksiyon büyük_harf(f):
@@ -108,6 +108,6 @@ fonksiyon ünlem_ekle(f):
 fonksiyon mesaj(metin: str) -> str:
     döndür metin
 
-y(f"\nZincirlenmiş: {mesaj('merhaba dünya')}")
+yaz(f"\nZincirlenmiş: {mesaj('merhaba dünya')}")
 
-y("\nDekoratör örnekleri tamamlandı!")
+yaz("\nDekoratör örnekleri tamamlandı!")

@@ -14,8 +14,14 @@
 
 ## PARS nedir?
 
-PARS, Python altyapısını kullanan, tamamen Türkçe sözdizimli bir programlama dilidir.
-Python'un tüm gücünü Türkçe ile yazabilirsiniz.
+PARS, Python altyapısını kullanan, tamamen Türkçe sözdizimli bir
+programlama dilidir. Python'un tüm gücünü Türkçe ile yazabilirsiniz.
+
+Sürüm **1.0.1** ile birlikte çekirdek hatalar giderildi, standart
+kütüphane 10 modülden 28 modüle çıkarıldı ve `pip`/`python` yerine
+kendi komutları (`parskur`/`parspip`, `parspy`) eklendi. PARS kaynak
+uzantısı artık **`.pars`** (eski `.prs` uyumlu). Python kütüphanelerini
+Türkçe sözdizimine uyarlayan bir **köprü** sistemi de eklendi.
 
 ## Kurulum
 
@@ -26,7 +32,7 @@ pip install pars-dil
 ## İlk Program
 
 ```pars
-# merhaba.prs
+# merhaba.pars
 yaz("Merhaba, Dünya!")
 
 isim = girdial("Adın ne? ")
@@ -34,7 +40,49 @@ yaz(f"Hoş geldin, {isim}!")
 ```
 
 ```bash
-pars merhaba.prs
+pars merhaba.pars
+```
+
+## Komutlar
+
+PARS artık Python araçlarını kendi adlarıyla sunar:
+
+| PARS komutu | Karşılığı | Açıklama |
+|---|---|---|
+| `pars dosya.pars` | `python dosya.py` | PARS dosyasını çalıştırır |
+| `pars -g` | `python` | Etkileşimli PARS konsolu |
+| `parskur yükle paket` | `pip install paket` | Paket yükler |
+| `parspip yükle paket` | `pip install paket` | `parskur` ile aynı |
+| `parskur kaldır paket` | `pip uninstall paket` | Paket kaldırır |
+| `parskur listele` | `pip list` | Yüklü paketleri listeler |
+| `parskur dışa` | `pip freeze` | Bağımlılıkları dışa aktarır |
+| `pars köprü modül` | — | Python kütüphanesini PARS'a uyarlar |
+| `parspy dosya.py` | `python dosya.py` | Python dosyasını çalıştırır |
+| `parspy -c "kod"` | `python -c "kod"` | Python kodu çalıştırır |
+| `parspy -m modül` | `python -m modül` | Python modülü çalıştırır |
+
+Ek PARS komutları:
+
+```bash
+pars -cevir dosya.pars     # Python karşılığını göster
+pars -kontrol dosya.pars   # Sözdizimi kontrolü
+pars -p dosya.pars         # Çalıştır + üretilen Python'u göster
+pars derle dosya.pars      # .py dosyasına derle
+pars yeni projem          # Yeni proje iskeleti
+pars çalıştır <komut>     # Sistem komutu (kabuk yok)
+pars köprü requests       # Python kütüphanesini PARS'a uyarla
+pars köprü dışa requests -o istek_kopru.pars
+```
+
+## Köprü: Python kütüphanelerini Türkçe kullanma
+
+```pars
+içe_aktar köprü
+
+istek = köprü.bagla("requests")
+yanit = istek.al("https://api.ornek.com")
+yaz(yanit.durum_kodu)          # status_code
+yaz(yanit.icerik)              # content
 ```
 
 ## Sözdizimi Karşılaştırması
@@ -49,10 +97,16 @@ pars merhaba.prs
 | `fonksiyon topla(a, b):` | `def topla(a, b):` |
 | `döndür sonuç` | `return sonuç` |
 | `sınıf Araba:` | `class Araba:` |
+| `süper().__init__()` | `super().__init__()` |
 | `içe_aktar numpy olarak np` | `import numpy as np` |
 | `dene: / hariç Hata:` | `try: / except Exception:` |
 | `doğru / yanlış / yok` | `True / False / None` |
 | `ve / veya / değil` | `and / or / not` |
+| `"çift" eğer x % 2 == 0 değilse "tek"` | `"çift" if x % 2 == 0 else "tek"` |
+
+> **Not:** `sınıf`, `fonksiyon`, `sil`, `döndür` gibi kelimeler ayrılmış
+> sözcüklerdir; değişken/parametre adı olarak kullanılamaz.
+> Noktadan sonra gelen adlar (`dosya.sil`) çevrilmez.
 
 ## Python Kütüphaneleri
 
@@ -67,76 +121,69 @@ a = np.array([1, 2, 3])
 yaz(np.mean(a))
 ```
 
-## Paket Yönetimi
+Kurulum: `parskur yükle numpy pandas flask`
 
-```bash
-pars paket yükle numpy pandas flask
-pars paket listele
-pars paket kaldır eski-paket
-```
-
-## CLI
-
-```bash
-pars dosya.prs          # Çalıştır
-pars -g                  # Etkileşimli mod
-pars -cevir dosya.prs   # Python karşılığını göster
-pars -kontrol dosya.prs # Sözdizimi kontrolü
-pars yeni projem         # Yeni proje oluştur
-```
-
-## Özellikler
-
-- Tamamen Türkçe sözdizimi
-- Python 3.8+ uyumluluğu
-- Tüm Python kütüphanelerini destekler
-- Türkçe hata mesajları
-- Etkileşimli REPL konsolu
-- VS Code sözdizimi renklendirme
-- Standart kütüphane (matematik, metin, dosya, zaman, vb.)
-- 20+ örnek program
-
-## Standart Kütüphane
+## Standart Kütüphane (28 modül)
 
 | Modül | Açıklama |
 |---|---|
-| `matematik` | Matematik fonksiyonları |
-| `metin` | Metin işlemleri |
-| `liste` | Liste/sözlük yardımcıları |
-| `dosya` | Dosya I/O |
-| `zaman` | Tarih ve saat |
-| `sistem` | Sistem işlemleri |
-| `rastgele` | Rastgele sayı üretimi |
-| `veri` | JSON/CSV/pickle |
-| `ag` | HTTP istekleri |
-| `veritabani` | SQLite veritabanı |
+| `matematik` | Matematik, trigonometri, logaritma, asallık |
+| `istatistik` | Ortalama, medyan, varyans, korelasyon, regresyon |
+| `metin` | Metin işlemleri, regex, slug, HTML, benzerlik |
+| `liste` | Liste/sözlük/küme yardımcıları, pencereler |
+| `koleksiyonlar` | Counter, deque, namedtuple, ChainMap |
+| `yinelenebilirler` | itertools: kombinasyon, permütasyon, zincir |
+| `fonksiyonel` | partial, reduce, lru_cache, pipe |
+| `dosya` | Dosya G/Ç, JSON, CSV |
+| `yol` | pathlib: yol nesneleri ve dosya işlemleri |
+| `zaman` | Tarih/saat, biçimlendirme, süre ölçümü |
+| `takvim` | Takvim, artık yıl, ay takvimi, gün adları |
+| `sistem` | OS/sys/platform bilgileri |
+| `isletim` / `işletim` | os: dizin, ortam, dosya gezinme |
+| `surec` / `süreç` | subprocess: güvenli komut çalıştırma |
+| `iplik` | threading, kuyruk, thread/process havuzu |
+| `gunluk` / `günlük` | logging: seviyeli günlük sistemi |
+| `rastgele` | random/secrets: rastgele üretim |
+| `sifreleme` / `şifreleme` | hashlib, hmac, base64, UUID |
+| `sikistirma` / `sıkıştırma` | gzip, zlib, zip, tar arşivleri |
+| `sayi` / `sayı` | Decimal, Fraction, kesin hesaplama |
+| `kopya` | Sığ/derin kopya |
+| `veri` | JSON/CSV/pickle/base64 |
+| `veri_siniflari` / `veri_sınıfları` | dataclasses |
+| `ag` / `ağ` | HTTP GET/POST/PUT/DELETE |
+| `veritabani` / `veritabanı` | SQLite |
+| `arguman` / `argüman` | argparse |
+| `deneme` | unittest |
+| `kopru` / `köprü` | Python kütüphanelerini PARS'a uyarlar |
 
-## Örnekler
+```pars
+içe_aktar matematik
+içe_aktar koleksiyonlar
+
+yaz(matematik.asal_mi(97))              # doğru
+yaz(koleksiyonlar.en_sik("pars gibi pars"))  # pars
+```
+
+## Örnekler (31 program)
 
 ```bash
-# Tüm örnekleri çalıştır
-pars ornekler/01_merhaba_dunya.prs
-pars ornekler/06_siniflar_ve_oop.prs
-pars ornekler/15_async_await.prs
-pars ornekler/20_tam_proje_ornegi.prs
+pars ornekler/01_merhaba_dunya.pars
+pars ornekler/15_async_await.pars
+pars ornekler/21_koleksiyonlar.pars
+pars ornekler/25_iplik_havuz.pars
+pars ornekler/30_arguman_test.pars
 ```
+
+Ek olarak `ornekler/cocuklar/` altında 10 adet `.kolay` örneği vardır.
 
 ## Geliştirme
 
 ```bash
-# Depoyu klonla
 git clone https://github.com/pars-lang/pars.git
 cd pars
-
-# Geliştirme bağımlılıklarını kur
 pip install -e ".[dev]"
-
-# Testleri çalıştır
 pytest testler/
-
-# Linting
-flake8 pars/
-mypy pars/
+flake8 pars/ --max-line-length=100 --ignore=E501,W503
 ```
 
 ## Katkı

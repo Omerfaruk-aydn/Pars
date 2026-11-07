@@ -1,0 +1,44 @@
+# Koleksiyonlar — Sayac, CiftUclu, AdliDemet, ZincirSozluk
+# Yeni standart kütüphane modülü: koleksiyonlar
+
+içe_aktar koleksiyonlar
+
+# ── Sayac (Counter) ──────────────────────────────────────────────────────
+metin = "pars türkçe programlama dili pars gibi hızlı"
+kelimeler = metin.split()
+sayac = koleksiyonlar.Sayac(kelimeler)
+
+yaz("=== Kelime Sayacı ===")
+için kelime, adet içinde sayac.most_common():
+    yaz(f"  {kelime}: {adet}")
+
+yaz(f"En sık kelime: {koleksiyonlar.en_sik(kelimeler)}")
+yaz(f"Sayım: {koleksiyonlar.say([1, 2, 2, 3, 3, 3])}")
+
+# ── CiftUclu (deque) ─────────────────────────────────────────────────────
+kuyruk = koleksiyonlar.CiftUclu([1, 2, 3])
+kuyruk.appendleft(0)
+kuyruk.append(4)
+yaz(f"\nCiftUclu: {list(kuyruk)}")
+yaz(f"Döndürülmüş: {koleksiyonlar.dondur(kuyruk, 2)}")
+
+# ── AdliDemet (namedtuple) ───────────────────────────────────────────────
+Nokta = koleksiyonlar.AdliDemet("Nokta", ["x", "y"])
+p = Nokta(3, 4)
+yaz(f"\nNokta: x={p.x}, y={p.y}")
+
+# ── ZincirSozluk (ChainMap) ──────────────────────────────────────────────
+varsayilan = {"renk": "siyah", "boyut": 10}
+ozel = {"renk": "kırmızı"}
+birlesik = koleksiyonlar.ZincirSozluk(ozel, varsayilan)
+yaz(f"ZincirSozluk: {dict(birlesik)}")
+
+# ── VarsayilanSozluk (defaultdict) ───────────────────────────────────────
+gruplar = koleksiyonlar.VarsayilanSozluk(list)
+için kelime içinde kelimeler:
+    gruplar[kelime[0]].append(kelime)
+yaz("\nİlk harfe göre gruplar:")
+için harf, grup içinde sorted(gruplar.items()):
+    yaz(f"  {harf}: {grup}")
+
+yaz("\nKoleksiyonlar örneği tamamlandı!")

@@ -242,7 +242,7 @@ def _ozel_komut(satir: str, girinti: int) -> str:
     # bekle ... (saniye bekle)
     if satir.startswith('bekle '):
         sure = satir[6:].strip()
-        return f'{on_ek}zaman.sleep({sure})'
+        return f'{on_ek}zaman.bekle({sure})'
 
     # listele ... (liste oluştur)
     if satir.startswith('listele '):

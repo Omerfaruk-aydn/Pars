@@ -1,0 +1,38 @@
+# Takvim ve Zaman — calendar / datetime
+# Yeni standart kütüphane modülü: takvim
+
+içe_aktar takvim
+içe_aktar zaman
+
+simdi = zaman.simdi()
+yaz("=== Şu An ===")
+yaz(f"ISO: {zaman.iso_metin(simdi)}")
+yaz(f"Türkçe: {zaman.turkce_tarih(simdi)}")
+yaz(f"Hafta numarası: {zaman.hafta_numarasi(simdi)}")
+yaz(f"Gün: {takvim.gun_adi(simdi)}")
+yaz(f"Ay: {takvim.ay_adi(simdi)}")
+
+yaz("\n=== Takvim Bilgisi ===")
+yil = simdi.year
+yaz(f"{yil} artık yıl mı: {takvim.artik_yil(yil)}")
+yaz(f"Şubat {yil}: {takvim.ay_gun_sayisi(yil, 2)} gün")
+yaz(f"Nisan {yil}: {takvim.ay_gun_sayisi(yil, 4)} gün")
+
+yaz(f"\n{takvim.ay_takvimi(yil, simdi.month)}")
+
+# ── Tarih aritmetiği ─────────────────────────────────────────────────────
+baslangic = zaman.tarih(2026, 1, 1)
+bitis = zaman.tarih(2026, 12, 31)
+fark = zaman.fark(baslangic, bitis)
+yaz(f"2026 gün sayısı: {fark.days + 1}")
+
+yaz(f"Bugünden 10 gün sonra: {zaman.bicimle(zaman.gun_ekle(simdi, 10), '%d.%m.%Y')}")
+yaz(f"Kalan süre: {zaman.kalan_sure(zaman.gun_ekle(simdi, 10))}")
+
+iş_gunleri = []
+for tarih in takvim.tarih_araligi(baslangic, zaman.tarih(2026, 1, 15)):
+    eğer zaman.is_gunu_mu(tarih):
+        iş_gunleri.append(tarih)
+yaz(f"Ocak ilk 15 gün iş günü sayısı: {uzunluk(iş_gunleri)}")
+
+yaz("\nTakvim ve zaman örneği tamamlandı!")

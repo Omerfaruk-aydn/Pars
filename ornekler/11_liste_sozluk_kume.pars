@@ -59,7 +59,7 @@ yaz(f"Güncel: {kişi}")
 # Döngü
 yaz("\nKişi bilgileri:")
 için anahtar, değer içinde kişi.items():
-    y(f"  {anahtar}: {değer}")
+    yaz(f"  {anahtar}: {değer}")
 
 # Sözlük kavrayışı
 kare_sözlüğü = {x: x**2 için x içinde aralık(1, 6)}
